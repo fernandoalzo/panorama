@@ -12,7 +12,6 @@ function config_endpoint_historical_data(config_app, token, numero_dias) {
 }
 
 async function get_info_tokens(endpoint_info_tokens) {
-    console.log(endpoint_info_tokens)
     try {
         response_from_api = await fetch(endpoint_info_tokens)
         if (response_from_api.status == 200) {
@@ -213,6 +212,14 @@ async function main() {
         endpoint_historical_data = config_endpoint_historical_data(config_app, token, 120)
         historical_data = await get_historical_data(endpoint_historical_data)
         create_chart(historical_data["fechas"], historical_data["precios"], key)
-    }   
+    }
+
+
+    temporalidades = document.querySelectorAll('input[name="temporalidad"]')
+    temporalidades.forEach((temporalidad) => {
+        temporalidad.addEventListener("click", function(evento){
+            console.log(evento.target.value)
+        })
+    })
 }
 main()
