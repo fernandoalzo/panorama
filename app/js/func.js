@@ -113,6 +113,9 @@ function build_cripto_card(info_criptos) {
         contenedor.append(div1)
     }
 }
+
+// build section logos
+
 function create_chart(fechas, precios, criptomoneda, num_dias) {
     let chart = document.querySelector(`#chart_${criptomoneda}`)
     let labels = fechas
@@ -170,12 +173,10 @@ function create_chart(fechas, precios, criptomoneda, num_dias) {
 async function main() {
     let config_app = {
         "tokens": ["BTC", "ETH", "ADA", "MATIC", "VXV", "SHIB", "CAKE"],
-        "api_key": "37c54e7dbca23e8f61dc3cc1b2377b5a5fd6bb79c3d5b42607501d3422891984"
+        "api_key": "99f1147d7e9a0f3b602f89fb553fa5c91885159c3397ab916a0e988777d18fc3"
     }
-
     let endpoint_tokens_info = config_endpoint_tokens_info(config_app)
     let token_data_from_api = await get_info_tokens(endpoint_tokens_info)
-
     let info_criptos = {
         "Bitcoin": {
             "symbol": "BTC",
