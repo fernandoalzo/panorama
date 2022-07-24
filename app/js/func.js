@@ -288,7 +288,7 @@ async function main() {
         let historical_data = await get_historical_data(endpoint_historical_data)
         create_chart(historical_data["fechas"], historical_data["precios"], criptomoneda, num_dias)
     }
-
+    // configuracion de temporalidades a traves de los radio buttons
     let radios_temporalidades = document.querySelectorAll('input[name="temporalidad"]')
     radios_temporalidades.forEach((temporalidad_option) => {
         temporalidad_option.addEventListener("click", async function (evento) {
