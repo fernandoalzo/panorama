@@ -117,14 +117,14 @@ function build_cripto_card(info_criptos) {
         div2.setAttribute("class", "py-5 px-4 px-md-3 px-lg-4 rounded-1 bg-800 plans-cards mt-0")
         div2.setAttribute("id", `info_${criptomoneda}`)
         let p1 = document.createElement("p")
-        p1.setAttribute("class", "fs-2 ls-2")
+        p1.setAttribute("class", "fs-2 ls-2")        
         let criptomoneda_text = document.createTextNode(`${criptomoneda}`)
         let h1 = document.createElement("h1")
         h1.setAttribute("class", "display-7 ls-3")
         let span1 = document.createElement("span")
         span1.setAttribute("class", "text-600")
         signo_dolar = document.createTextNode("$ ")
-        let precio = document.createTextNode(`${info_criptos[criptomoneda]["info_precio"]["precio_actual"]}`)
+        let precio = document.createTextNode(`${info_criptos[criptomoneda]["info_precio"]["precio_actual"]}`)        
         let canvas = document.createElement("canvas")
         canvas.setAttribute("id", `chart_${criptomoneda}`)
         let hr = document.createElement("hr")
@@ -137,7 +137,6 @@ function build_cripto_card(info_criptos) {
         let span2 = document.createElement("span")
         span2.setAttribute("class", "fas fa-arrow-right")
         let texto_boton = document.createTextNode("Mas Informacion ")
-
         // div2 
         p1.append(criptomoneda_text)
         span1.append(signo_dolar)
@@ -225,6 +224,10 @@ async function main() {
             "symbol": "BTC",
             "info_precio": {
                 "precio_actual": token_data_from_api["RAW"]["BTC"]["USD"]["PRICE"],
+                "HIGH24HOUR" : token_data_from_api["RAW"]["BTC"]["USD"]["PRICE"],
+                "LOW24HOUR" : token_data_from_api["RAW"]["BTC"]["USD"]["PRICE"],
+                "TOTALVOLUME24H" : token_data_from_api["RAW"]["BTC"]["USD"]["TOTALVOLUME24H"],
+                "MKTCAP" : token_data_from_api["RAW"]["BTC"]["USD"]["MKTCAP"],
                 "data_source": "https://www.cryptocompare.com/coins/BTC/overview/USDT"
             }
         },
@@ -232,6 +235,10 @@ async function main() {
             "symbol": "ETH",
             "info_precio": {
                 "precio_actual": token_data_from_api["RAW"]["ETH"]["USD"]["PRICE"],
+                "HIGH24HOUR" : token_data_from_api["RAW"]["ETH"]["USD"]["PRICE"],
+                "LOW24HOUR" : token_data_from_api["RAW"]["ETH"]["USD"]["PRICE"],
+                "TOTALVOLUME24H" : token_data_from_api["RAW"]["ETH"]["USD"]["TOTALVOLUME24H"],
+                "MKTCAP" : token_data_from_api["RAW"]["ETH"]["USD"]["MKTCAP"],
                 "data_source": "https://www.cryptocompare.com/coins/ETH/overview/USDT"
             }
         },
@@ -239,6 +246,10 @@ async function main() {
             "symbol": "ADA",
             "info_precio": {
                 "precio_actual": token_data_from_api["RAW"]["ADA"]["USD"]["PRICE"],
+                "HIGH24HOUR" : token_data_from_api["RAW"]["ADA"]["USD"]["PRICE"],
+                "LOW24HOUR" : token_data_from_api["RAW"]["ADA"]["USD"]["PRICE"],
+                "TOTALVOLUME24H" : token_data_from_api["RAW"]["ADA"]["USD"]["TOTALVOLUME24H"],
+                "MKTCAP" : token_data_from_api["RAW"]["ADA"]["USD"]["MKTCAP"],
                 "data_source": "https://www.cryptocompare.com/coins/ADA/overview/USDT"
             }
         },
@@ -246,6 +257,10 @@ async function main() {
             "symbol": "MATIC",
             "info_precio": {
                 "precio_actual": token_data_from_api["RAW"]["MATIC"]["USD"]["PRICE"],
+                "HIGH24HOUR" : token_data_from_api["RAW"]["BTC"]["USD"]["PRICE"],
+                "LOW24HOUR" : token_data_from_api["RAW"]["BTC"]["USD"]["PRICE"],
+                "TOTALVOLUME24H" : token_data_from_api["RAW"]["BTC"]["USD"]["TOTALVOLUME24H"],
+                "MKTCAP" : token_data_from_api["RAW"]["BTC"]["USD"]["MKTCAP"],
                 "data_source": "https://www.cryptocompare.com/coins/MATIC/overview/USDT"
             }
         },
@@ -253,6 +268,10 @@ async function main() {
             "symbol": "VXV",
             "info_precio": {
                 "precio_actual": token_data_from_api["RAW"]["VXV"]["USD"]["PRICE"],
+                "HIGH24HOUR" : token_data_from_api["RAW"]["VXV"]["USD"]["PRICE"],
+                "LOW24HOUR" : token_data_from_api["RAW"]["VXV"]["USD"]["PRICE"],
+                "TOTALVOLUME24H" : token_data_from_api["RAW"]["VXV"]["USD"]["TOTALVOLUME24H"],
+                "MKTCAP" : token_data_from_api["RAW"]["VXV"]["USD"]["MKTCAP"],
                 "data_source": "https://www.cryptocompare.com/coins/VXV/overview/USDT"
             }
         },
@@ -260,6 +279,10 @@ async function main() {
             "symbol": "SHIB",
             "info_precio": {
                 "precio_actual": token_data_from_api["RAW"]["SHIB"]["USD"]["PRICE"],
+                "HIGH24HOUR" : token_data_from_api["RAW"]["SHIB"]["USD"]["PRICE"],
+                "LOW24HOUR" : token_data_from_api["RAW"]["SHIB"]["USD"]["PRICE"],
+                "TOTALVOLUME24H" : token_data_from_api["RAW"]["SHIB"]["USD"]["TOTALVOLUME24H"],
+                "MKTCAP" : token_data_from_api["RAW"]["SHIB"]["USD"]["MKTCAP"],
                 "data_source": "https://www.cryptocompare.com/coins/SHIB/overview/USDT"
             }
         },
@@ -267,6 +290,10 @@ async function main() {
             "symbol": "CAKE",
             "info_precio": {
                 "precio_actual": token_data_from_api["RAW"]["CAKE"]["USD"]["PRICE"],
+                "HIGH24HOUR" : token_data_from_api["RAW"]["CAKE"]["USD"]["PRICE"],
+                "LOW24HOUR" : token_data_from_api["RAW"]["CAKE"]["USD"]["PRICE"],
+                "TOTALVOLUME24H" : token_data_from_api["RAW"]["CAKE"]["USD"]["TOTALVOLUME24H"],
+                "MKTCAP" : token_data_from_api["RAW"]["CAKE"]["USD"]["MKTCAP"],
                 "data_source": "https://www.cryptocompare.com/coins/CAKE/overview/USDT"
             }
         }
@@ -276,11 +303,9 @@ async function main() {
     // create temporalidad options 
     create_temporalidad_options(config_app)
     // construir la seccion de html con la informacion de cada cripto
-    console.log("construyendo cripto cards")
     build_cripto_card(info_criptos)
     // get historical data
     let num_dias = 30
-
     for (criptomoneda in info_criptos) {
         // create endpoint
         let token = info_criptos[criptomoneda]["symbol"]
@@ -288,11 +313,12 @@ async function main() {
         let historical_data = await get_historical_data(endpoint_historical_data)
         create_chart(historical_data["fechas"], historical_data["precios"], criptomoneda, num_dias)
     }
+    
     // configuracion de temporalidades a traves de los radio buttons
     let radios_temporalidades = document.querySelectorAll('input[name="temporalidad"]')
     radios_temporalidades.forEach((temporalidad_option) => {
         temporalidad_option.addEventListener("click", async function (evento) {
-            num_dias = evento["target"]["value"]
+            let num_dias = evento["target"]["value"]
             for (criptomoneda in info_criptos) {
                 // remove the card
                 let contenedor_info = document.querySelector(`#contenedor_info_${criptomoneda}`)
@@ -310,5 +336,10 @@ async function main() {
         })
     })
 
+    console.log(info_criptos)
+
 }
 main()
+
+// informacion adicional para mostrar en las cards
+// campo: SUPPLY, CIRCULATINGSUPPLY, MKTCAP, TOTALVOLUME24H, HIGH24HOUR, LOW24HOUR
