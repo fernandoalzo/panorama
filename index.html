@@ -7,7 +7,8 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title></title>
   <link rel="shortcut icon" type="image/x-icon" href="">
-  <link rel="stylesheet" crossorigin="anonymous" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.2/css/all.min.css"
+  <link rel="stylesheet" crossorigin="anonymous"
+    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.2/css/all.min.css"
     integrity="sha512-HK5fgLBL+xu6dm/Ii3z4xhlSUyZgTT9tuc/hSrtw6uzJOvgRr2a9jyxxT1ely+B+xFAmJKVSTbpM/CuL7qxO8w==">
   <link href="template/css/theme.css" rel="stylesheet" />
 </head>
@@ -23,66 +24,32 @@
           </div>
         </div>
     </section>
+    <!--inicio seccion de logos -->
     <section id="seccion_logos">
-
       <div class="container">
-        <div class="row mx-md-5 px-md-5 d-flex justify-content-evenly">
-          <div class="col-4 col-lg-auto mt-5 mt-lg-0"><img src="template/img/logos/bitcoin.gif" alt="Google"
-              style="height:30px;" /></div>
-          <div class="col-4 col-lg-auto mt-5 mt-lg-0"><img src="template/img/logos/shiba.png" alt="Slack"
-              style="height:30px;" /></div>
-          <div class="col-4 col-lg-auto mt-5 mt-lg-0"><img src="template/img/logos/ethereum.png" alt="Amazon"
-              style="height:30px;" /></div>
-          <div class="col-4 col-lg-auto mt-5 mt-lg-0"><img src="template/img/logos/cardano.png" alt="Zoom"
-              style="height:30px;" /></div>
-          <div class="col-4 col-lg-auto mt-5 mt-lg-0"><img src="template/img/logos/matic.png" alt="Netflix"
-              style="height:30px;" /></div>
-          <div class="col-4 col-lg-auto mt-5 mt-lg-0"><img src="template/img/logos/cake.png" alt="Netflix"
-              style="height:30px;" /></div>
-          <div class="col-4 col-lg-auto mt-5 mt-lg-0"><img src="template/img/logos/xvx.png" alt="Netflix"
-              style="height:30px;" /></div>
+        <div class="row mx-md-5 px-md-5 d-flex justify-content-evenly" id="contenedor_logos">
         </div>
-        
-      </div>
-      <div class="px-xl-8 px-md-7">
-        <hr class="mt-7 text-1000" />
-      </div>
+        <div class="px-xl-8 px-md-7">
+          <hr class="mt-7 text-1000" />
+        </div>
     </section>
     <section>
-
+      <!-- fin seccion de logos -->
       <div class="container-lg">
         <div class="text-center">
           <h1 class="display-6 fw-semi-bold">Informacion</h1>
         </div>
-        <div class="form-check">
-          <input class="form-check-input" type="radio" name="temporalidad" value="10" id="30d">
-          <label class="form-check-label" for="10d">
-            10 dias
-          </label>
+        <!-- inicio de la seccion de opciones de temporalidad con radio button -->
+        <div id="seccion_temporalidades">
         </div>
-        <div class="form-check">
-          <input class="form-check-input" type="radio" name="temporalidad" value="30" id="30d">
-          <label class="form-check-label" for="30d">
-            30 dias
-          </label>
-        </div>
-        <div class="form-check">
-          <input class="form-check-input" type="radio" name="temporalidad" value="60" id="60d">
-          <label class="form-check-label" for="60d">
-            60 dias
-          </label>
-        </div>
-        <div class="form-check">
-          <input class="form-check-input" type="radio" name="temporalidad" value="90" id="90d" checked>
-          <label class="form-check-label" for="90d">
-            90 dias
-          </label>
-        </div>
-
+        <!-- fin  seccion de opciones de temporalidad con radio button -->
+        <!-- seccion donde se muestra la informacion de algun asset -->
         <div class="row flex-center" id="container_info_by_token">
         </div>
+        <!--fin donde se muestra la informacion de algun asset -->
       </div>
     </section>
+    <!-- seccion del footer -->
     <section class="bg-secondary">
       <div class="container">
         <div class="row">
@@ -92,8 +59,9 @@
         </div>
       </div>
     </section>
-    
+    <!-- fin seccion del footer -->
   </main>
+  
   <script src="./app/js/func.js"></script>
   <script src="./app/js/chart.js"></script>
   <link rel="preconnect" href="https://fonts.gstatic.com">

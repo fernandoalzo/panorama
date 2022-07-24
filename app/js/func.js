@@ -64,12 +64,55 @@ async function get_historical_data(endpoint_historical_data) {
     }
 }
 
+function create_section_logos(config_app) {
+    let contenedor = document.querySelector("#contenedor_logos")
+    for (let key in config_app["tokens"]) {
+        let token = config_app["tokens"][key]
+        let path_logo = `${config_app["path_logos"]}/${token}.png`
+        div = document.createElement("div")
+        div.setAttribute("class", "col-4 col-lg-auto mt-5 mt-lg-0")
+        img = document.createElement("img")
+        img.setAttribute("src", path_logo)
+        img.style.height = "30px"
+        div.append(img)
+        contenedor.append(div)
+    }
+}
+
+function create_temporalidad_options(config_app) {
+    let seccion_temporalidades = document.querySelector("#seccion_temporalidades")
+    let temporalidades = config_app["temporalidades"]
+    for (let temporalidad in temporalidades) {
+        let dias = temporalidades[temporalidad]
+        div = document.createElement("div")
+        div.setAttribute("class", "form-check")
+        input = document.createElement("input")
+        input.setAttribute("class", "form-check-input")
+        input.setAttribute("type", "radio")
+        input.setAttribute("name", "temporalidad")
+        input.setAttribute("value", `${dias}`)
+        input.setAttribute("id", `${dias}d`)
+        label = document.createElement("label")
+        label.setAttribute("class", "form-check-label")
+        label.setAttribute("for", `${dias}d`)
+        text = document.createTextNode(`${dias} dias`)
+        // build html
+        div.append(input)
+        label.append(text)
+        div.append(label)
+        seccion_temporalidades.append(div)
+    }
+    radio_default = document.getElementById("30d")
+    radio_default.checked = true
+}
+
 function build_cripto_card(info_criptos) {
     let contenedor = document.querySelector("#container_info_by_token")
     for (criptomoneda in info_criptos) {
 
         let div1 = document.createElement("div")
         div1.setAttribute("class", "col-sm-9 col-md-4 mt-3")
+        div1.setAttribute("id", `contenedor_info_${criptomoneda}`)
         let div2 = document.createElement("div")
         div2.setAttribute("class", "py-5 px-4 px-md-3 px-lg-4 rounded-1 bg-800 plans-cards mt-0")
         div2.setAttribute("id", `info_${criptomoneda}`)
@@ -113,8 +156,6 @@ function build_cripto_card(info_criptos) {
         contenedor.append(div1)
     }
 }
-
-// build section logos
 
 function create_chart(fechas, precios, criptomoneda, num_dias) {
     let chart = document.querySelector(`#chart_${criptomoneda}`)
@@ -173,7 +214,9 @@ function create_chart(fechas, precios, criptomoneda, num_dias) {
 async function main() {
     let config_app = {
         "tokens": ["BTC", "ETH", "ADA", "MATIC", "VXV", "SHIB", "CAKE"],
-        "api_key": "99f1147d7e9a0f3b602f89fb553fa5c91885159c3397ab916a0e988777d18fc3"
+        "api_key": "99f1147d7e9a0f3b602f89fb553fa5c91885159c3397ab916a0e988777d18fc3",
+        "path_logos": "template/img/logos/",
+        "temporalidades": [10, 30, 60, 90]
     }
     let endpoint_tokens_info = config_endpoint_tokens_info(config_app)
     let token_data_from_api = await get_info_tokens(endpoint_tokens_info)
@@ -182,56 +225,62 @@ async function main() {
             "symbol": "BTC",
             "info_precio": {
                 "precio_actual": token_data_from_api["RAW"]["BTC"]["USD"]["PRICE"],
-                "data_source" : "https://www.cryptocompare.com/coins/BTC/overview/USDT"
+                "data_source": "https://www.cryptocompare.com/coins/BTC/overview/USDT"
             }
         },
         "Ethereum": {
             "symbol": "ETH",
             "info_precio": {
                 "precio_actual": token_data_from_api["RAW"]["ETH"]["USD"]["PRICE"],
-                "data_source" : "https://www.cryptocompare.com/coins/ETH/overview/USDT"
+                "data_source": "https://www.cryptocompare.com/coins/ETH/overview/USDT"
             }
         },
         "Cardano": {
             "symbol": "ADA",
             "info_precio": {
                 "precio_actual": token_data_from_api["RAW"]["ADA"]["USD"]["PRICE"],
-                "data_source" : "https://www.cryptocompare.com/coins/ADA/overview/USDT"
+                "data_source": "https://www.cryptocompare.com/coins/ADA/overview/USDT"
             }
         },
         "Polygon": {
             "symbol": "MATIC",
             "info_precio": {
                 "precio_actual": token_data_from_api["RAW"]["MATIC"]["USD"]["PRICE"],
-                "data_source" : "https://www.cryptocompare.com/coins/MATIC/overview/USDT"
+                "data_source": "https://www.cryptocompare.com/coins/MATIC/overview/USDT"
             }
         },
         "VectorSpace_AI": {
             "symbol": "VXV",
             "info_precio": {
                 "precio_actual": token_data_from_api["RAW"]["VXV"]["USD"]["PRICE"],
-                "data_source" : "https://www.cryptocompare.com/coins/VXV/overview/USDT"
+                "data_source": "https://www.cryptocompare.com/coins/VXV/overview/USDT"
             }
         },
         "ShibaInu": {
             "symbol": "SHIB",
             "info_precio": {
                 "precio_actual": token_data_from_api["RAW"]["SHIB"]["USD"]["PRICE"],
-                "data_source" : "https://www.cryptocompare.com/coins/SHIB/overview/USDT"
+                "data_source": "https://www.cryptocompare.com/coins/SHIB/overview/USDT"
             }
         },
         "PancakeSwapp": {
             "symbol": "CAKE",
             "info_precio": {
                 "precio_actual": token_data_from_api["RAW"]["CAKE"]["USD"]["PRICE"],
-                "data_source" : "https://www.cryptocompare.com/coins/CAKE/overview/USDT"
+                "data_source": "https://www.cryptocompare.com/coins/CAKE/overview/USDT"
             }
         }
     }
+    // create section logs
+    create_section_logos(config_app)
+    // create temporalidad options 
+    create_temporalidad_options(config_app)
     // construir la seccion de html con la informacion de cada cripto
+    console.log("construyendo cripto cards")
     build_cripto_card(info_criptos)
     // get historical data
-    let num_dias = 90
+    let num_dias = 30
+
     for (criptomoneda in info_criptos) {
         // create endpoint
         let token = info_criptos[criptomoneda]["symbol"]
@@ -240,31 +289,26 @@ async function main() {
         create_chart(historical_data["fechas"], historical_data["precios"], criptomoneda, num_dias)
     }
 
-
     let radios_temporalidades = document.querySelectorAll('input[name="temporalidad"]')
     radios_temporalidades.forEach((temporalidad_option) => {
         temporalidad_option.addEventListener("click", async function (evento) {
             num_dias = evento["target"]["value"]
-            console.log("Grafico de los ultimos: " + num_dias + " dias")
-            console.log(`aqui se debe arreglar el tema con la eliminacion de los nodos canvas para actualizarlos con la nueva info`)
+            for (criptomoneda in info_criptos) {
+                // remove the card
+                let contenedor_info = document.querySelector(`#contenedor_info_${criptomoneda}`)
+                contenedor_info.remove()
+            }
+            // volver a construir las cards con la informacion
+            build_cripto_card(info_criptos)
+            for (criptomoneda in info_criptos) {
+                // create endpoint
+                let token = info_criptos[criptomoneda]["symbol"]
+                let endpoint_historical_data = config_endpoint_historical_data(config_app, token, num_dias)
+                let historical_data = await get_historical_data(endpoint_historical_data)
+                create_chart(historical_data["fechas"], historical_data["precios"], criptomoneda, num_dias)
+            }
+        })
+    })
 
-
-            //         for (criptomoneda in info_criptos) {
-            //             let token = info_criptos[criptomoneda]["symbol"]
-            //             let endpoint_historical_data = config_endpoint_historical_data(config_app, token, num_dias)
-            //             let historical_data = await get_historical_data(endpoint_historical_data)                
-            //             console.log(historical_data)
-            // remove the chart to update with de new one
-            // chart = document.querySelector(`#chart_${criptomoneda}`)
-            // remove child from padre
-            // padre_chart = document.querySelector(`#info_${criptomoneda}`)
-            // padre_chart.removeChild(chart)
-            // create_chart(historical_data["fechas"], historical_data["precios"], criptomoneda)
-            // console.log(historical_data)
-
-            //         }
-                })
-            })
-
-        }
+}
 main()
