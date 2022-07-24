@@ -160,7 +160,7 @@ function create_chart(fechas, precios, criptomoneda, num_dias) {
     let chart = document.querySelector(`#chart_${criptomoneda}`)
     let labels = fechas
     let datos = {
-        label: `${criptomoneda} Vs USD ultimos ${num_dias} dias`,
+        label: `Grafico de ${criptomoneda} Vs USD ultimos ${num_dias} dias`,
         data: precios,
         borderColor: 'rgba(175, 175, 175, 100)',
         borderWidth: 3,
