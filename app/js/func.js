@@ -117,7 +117,7 @@ function build_cripto_card(info_criptos) {
         div2.setAttribute("class", "py-5 px-4 px-md-3 px-lg-4 rounded-1 bg-800 plans-cards mt-0")
         div2.setAttribute("id", `info_${criptomoneda}`)
         let p1 = document.createElement("p")
-        p1.setAttribute("class", "fs-2 ls-2")        
+        p1.setAttribute("class", "fs-2 ls-2")
         let criptomoneda_text = document.createTextNode(`${criptomoneda}`)
         let h1 = document.createElement("h1")
         h1.setAttribute("class", "display-7 ls-3")
@@ -125,14 +125,14 @@ function build_cripto_card(info_criptos) {
         span1.setAttribute("class", "text-600")
         signo_dolar = document.createTextNode("$ ")
         // precio
-        let precio = document.createTextNode(`${info_criptos[criptomoneda]["info_precio"]["precio_actual"]}`) 
+        let precio = document.createTextNode(`${info_criptos[criptomoneda]["info_precio"]["precio_actual"]}`)
         // canvas      
         let canvas = document.createElement("canvas")
         canvas.setAttribute("id", `chart_${criptomoneda}`)
         // ul
         let ul = document.createElement("ul")
         ul.setAttribute("class", "mt-5 ps-0")
-        let li1 = document.createElement("li")        
+        let li1 = document.createElement("li")
         li1.setAttribute("class", "pricing-lists")
         let high_24h = document.createTextNode(`High 24H: ${info_criptos[criptomoneda]["info_precio"]["high_24h"]}`)
         let li2 = document.createElement("li")
@@ -157,7 +157,7 @@ function build_cripto_card(info_criptos) {
         p1.append(criptomoneda_text)
         span1.append(signo_dolar)
         h1.append(span1)
-        h1.append(precio)        
+        h1.append(precio)
         // ul
         li1.append(high_24h)
         li2.append(low_24h)
@@ -249,11 +249,11 @@ async function main() {
             "symbol": "BTC",
             "info_precio": {
                 "precio_actual": token_data_from_api["RAW"]["BTC"]["USD"]["PRICE"],
-                "high_24h" : token_data_from_api["DISPLAY"]["BTC"]["USD"]["HIGH24HOUR"],
-                "low_24h" : token_data_from_api["DISPLAY"]["BTC"]["USD"]["LOW24HOUR"],
-                "volume_24" : token_data_from_api["DISPLAY"]["BTC"]["USD"]["TOTALVOLUME24H"],
-                "volume_24_usd" : token_data_from_api["DISPLAY"]["BTC"]["USD"]["TOTALVOLUME24HTO"],
-                "MKTCAP" : token_data_from_api["DISPLAY"]["BTC"]["USD"]["MKTCAP"],
+                "high_24h": token_data_from_api["DISPLAY"]["BTC"]["USD"]["HIGH24HOUR"],
+                "low_24h": token_data_from_api["DISPLAY"]["BTC"]["USD"]["LOW24HOUR"],
+                "volume_24": token_data_from_api["DISPLAY"]["BTC"]["USD"]["TOTALVOLUME24H"],
+                "volume_24_usd": token_data_from_api["DISPLAY"]["BTC"]["USD"]["TOTALVOLUME24HTO"],
+                "MKTCAP": token_data_from_api["DISPLAY"]["BTC"]["USD"]["MKTCAP"],
                 "data_source": "https://www.cryptocompare.com/coins/BTC/overview/USDT"
             }
         },
@@ -261,11 +261,11 @@ async function main() {
             "symbol": "ETH",
             "info_precio": {
                 "precio_actual": token_data_from_api["RAW"]["ETH"]["USD"]["PRICE"],
-                "high_24h" : token_data_from_api["RAW"]["ETH"]["USD"]["HIGH24HOUR"],
-                "low_24h" : token_data_from_api["RAW"]["ETH"]["USD"]["LOW24HOUR"],
-                "volume_24" : token_data_from_api["RAW"]["ETH"]["USD"]["TOTALVOLUME24H"],
-                "volume_24_usd" : token_data_from_api["RAW"]["ETH"]["USD"]["TOTALVOLUME24HTO"],
-                "MKTCAP" : token_data_from_api["DISPLAY"]["ETH"]["USD"]["MKTCAP"],
+                "high_24h": token_data_from_api["RAW"]["ETH"]["USD"]["HIGH24HOUR"],
+                "low_24h": token_data_from_api["RAW"]["ETH"]["USD"]["LOW24HOUR"],
+                "volume_24": token_data_from_api["RAW"]["ETH"]["USD"]["TOTALVOLUME24H"],
+                "volume_24_usd": token_data_from_api["RAW"]["ETH"]["USD"]["TOTALVOLUME24HTO"],
+                "MKTCAP": token_data_from_api["DISPLAY"]["ETH"]["USD"]["MKTCAP"],
                 "data_source": "https://www.cryptocompare.com/coins/ETH/overview/USDT"
             }
         },
@@ -273,11 +273,11 @@ async function main() {
             "symbol": "ADA",
             "info_precio": {
                 "precio_actual": token_data_from_api["RAW"]["ADA"]["USD"]["PRICE"],
-                "high_24h" : token_data_from_api["RAW"]["ADA"]["USD"]["HIGH24HOUR"],
-                "low_24h" : token_data_from_api["RAW"]["ADA"]["USD"]["LOW24HOUR"],
-                "volume_24" : token_data_from_api["RAW"]["ADA"]["USD"]["TOTALVOLUME24H"],
-                "volume_24_usd" : token_data_from_api["RAW"]["ADA"]["USD"]["TOTALVOLUME24HTO"],
-                "MKTCAP" : token_data_from_api["DISPLAY"]["ADA"]["USD"]["MKTCAP"],
+                "high_24h": token_data_from_api["RAW"]["ADA"]["USD"]["HIGH24HOUR"],
+                "low_24h": token_data_from_api["RAW"]["ADA"]["USD"]["LOW24HOUR"],
+                "volume_24": token_data_from_api["RAW"]["ADA"]["USD"]["TOTALVOLUME24H"],
+                "volume_24_usd": token_data_from_api["RAW"]["ADA"]["USD"]["TOTALVOLUME24HTO"],
+                "MKTCAP": token_data_from_api["DISPLAY"]["ADA"]["USD"]["MKTCAP"],
                 "data_source": "https://www.cryptocompare.com/coins/ADA/overview/USDT"
             }
         },
@@ -285,11 +285,11 @@ async function main() {
             "symbol": "MATIC",
             "info_precio": {
                 "precio_actual": token_data_from_api["RAW"]["MATIC"]["USD"]["PRICE"],
-                "high_24h" : token_data_from_api["RAW"]["MATIC"]["USD"]["HIGH24HOUR"],
-                "low_24h" : token_data_from_api["RAW"]["MATIC"]["USD"]["LOW24HOUR"],
-                "volume_24" : token_data_from_api["RAW"]["MATIC"]["USD"]["TOTALVOLUME24H"],
-                "volume_24_usd" : token_data_from_api["RAW"]["MATIC"]["USD"]["TOTALVOLUME24HTO"],
-                "MKTCAP" : token_data_from_api["DISPLAY"]["MATIC"]["USD"]["MKTCAP"],
+                "high_24h": token_data_from_api["RAW"]["MATIC"]["USD"]["HIGH24HOUR"],
+                "low_24h": token_data_from_api["RAW"]["MATIC"]["USD"]["LOW24HOUR"],
+                "volume_24": token_data_from_api["RAW"]["MATIC"]["USD"]["TOTALVOLUME24H"],
+                "volume_24_usd": token_data_from_api["RAW"]["MATIC"]["USD"]["TOTALVOLUME24HTO"],
+                "MKTCAP": token_data_from_api["DISPLAY"]["MATIC"]["USD"]["MKTCAP"],
                 "data_source": "https://www.cryptocompare.com/coins/MATIC/overview/USDT"
             }
         },
@@ -297,11 +297,11 @@ async function main() {
             "symbol": "VXV",
             "info_precio": {
                 "precio_actual": token_data_from_api["RAW"]["VXV"]["USD"]["PRICE"],
-                "high_24h" : token_data_from_api["RAW"]["VXV"]["USD"]["HIGH24HOUR"],
-                "low_24h" : token_data_from_api["RAW"]["VXV"]["USD"]["LOW24HOUR"],
-                "volume_24" : token_data_from_api["RAW"]["VXV"]["USD"]["TOTALVOLUME24H"],
-                "volume_24_usd" : token_data_from_api["RAW"]["VXV"]["USD"]["TOTALVOLUME24HTO"],
-                "MKTCAP" : token_data_from_api["DISPLAY"]["VXV"]["USD"]["MKTCAP"],
+                "high_24h": token_data_from_api["RAW"]["VXV"]["USD"]["HIGH24HOUR"],
+                "low_24h": token_data_from_api["RAW"]["VXV"]["USD"]["LOW24HOUR"],
+                "volume_24": token_data_from_api["RAW"]["VXV"]["USD"]["TOTALVOLUME24H"],
+                "volume_24_usd": token_data_from_api["RAW"]["VXV"]["USD"]["TOTALVOLUME24HTO"],
+                "MKTCAP": token_data_from_api["DISPLAY"]["VXV"]["USD"]["MKTCAP"],
                 "data_source": "https://www.cryptocompare.com/coins/VXV/overview/USDT"
             }
         },
@@ -309,11 +309,11 @@ async function main() {
             "symbol": "SHIB",
             "info_precio": {
                 "precio_actual": token_data_from_api["RAW"]["SHIB"]["USD"]["PRICE"],
-                "high_24h" : token_data_from_api["RAW"]["SHIB"]["USD"]["HIGH24HOUR"],
-                "low_24h" : token_data_from_api["RAW"]["SHIB"]["USD"]["LOW24HOUR"],
-                "volume_24" : token_data_from_api["RAW"]["SHIB"]["USD"]["TOTALVOLUME24H"],
-                "volume_24_usd" : token_data_from_api["RAW"]["SHIB"]["USD"]["TOTALVOLUME24HTO"],
-                "MKTCAP" : token_data_from_api["DISPLAY"]["SHIB"]["USD"]["MKTCAP"],
+                "high_24h": token_data_from_api["RAW"]["SHIB"]["USD"]["HIGH24HOUR"],
+                "low_24h": token_data_from_api["RAW"]["SHIB"]["USD"]["LOW24HOUR"],
+                "volume_24": token_data_from_api["RAW"]["SHIB"]["USD"]["TOTALVOLUME24H"],
+                "volume_24_usd": token_data_from_api["RAW"]["SHIB"]["USD"]["TOTALVOLUME24HTO"],
+                "MKTCAP": token_data_from_api["DISPLAY"]["SHIB"]["USD"]["MKTCAP"],
                 "data_source": "https://www.cryptocompare.com/coins/SHIB/overview/USDT"
             }
         },
@@ -321,11 +321,11 @@ async function main() {
             "symbol": "CAKE",
             "info_precio": {
                 "precio_actual": token_data_from_api["RAW"]["CAKE"]["USD"]["PRICE"],
-                "high_24h" : token_data_from_api["RAW"]["CAKE"]["USD"]["HIGH24HOUR"],
-                "low_24h" : token_data_from_api["RAW"]["CAKE"]["USD"]["LOW24HOUR"],
-                "volume_24" : token_data_from_api["RAW"]["CAKE"]["USD"]["TOTALVOLUME24H"],
-                "volume_24_usd" : token_data_from_api["RAW"]["CAKE"]["USD"]["TOTALVOLUME24HTO"],
-                "MKTCAP" : token_data_from_api["DISPLAY"]["CAKE"]["USD"]["MKTCAP"],
+                "high_24h": token_data_from_api["RAW"]["CAKE"]["USD"]["HIGH24HOUR"],
+                "low_24h": token_data_from_api["RAW"]["CAKE"]["USD"]["LOW24HOUR"],
+                "volume_24": token_data_from_api["RAW"]["CAKE"]["USD"]["TOTALVOLUME24H"],
+                "volume_24_usd": token_data_from_api["RAW"]["CAKE"]["USD"]["TOTALVOLUME24HTO"],
+                "MKTCAP": token_data_from_api["DISPLAY"]["CAKE"]["USD"]["MKTCAP"],
                 "data_source": "https://www.cryptocompare.com/coins/CAKE/overview/USDT"
             }
         },
@@ -333,11 +333,11 @@ async function main() {
             "symbol": "VET",
             "info_precio": {
                 "precio_actual": token_data_from_api["RAW"]["VET"]["USD"]["PRICE"],
-                "high_24h" : token_data_from_api["RAW"]["VET"]["USD"]["HIGH24HOUR"],
-                "low_24h" : token_data_from_api["RAW"]["VET"]["USD"]["LOW24HOUR"],
-                "volume_24" : token_data_from_api["RAW"]["VET"]["USD"]["TOTALVOLUME24H"],
-                "volume_24_usd" : token_data_from_api["RAW"]["VET"]["USD"]["TOTALVOLUME24HTO"],
-                "MKTCAP" : token_data_from_api["DISPLAY"]["VET"]["USD"]["MKTCAP"],
+                "high_24h": token_data_from_api["RAW"]["VET"]["USD"]["HIGH24HOUR"],
+                "low_24h": token_data_from_api["RAW"]["VET"]["USD"]["LOW24HOUR"],
+                "volume_24": token_data_from_api["RAW"]["VET"]["USD"]["TOTALVOLUME24H"],
+                "volume_24_usd": token_data_from_api["RAW"]["VET"]["USD"]["TOTALVOLUME24HTO"],
+                "MKTCAP": token_data_from_api["DISPLAY"]["VET"]["USD"]["MKTCAP"],
                 "data_source": "https://www.cryptocompare.com/coins/VET/overview/USDT"
             }
         },
@@ -345,11 +345,11 @@ async function main() {
             "symbol": "TRX",
             "info_precio": {
                 "precio_actual": token_data_from_api["RAW"]["TRX"]["USD"]["PRICE"],
-                "high_24h" : token_data_from_api["RAW"]["TRX"]["USD"]["HIGH24HOUR"],
-                "low_24h" : token_data_from_api["RAW"]["TRX"]["USD"]["LOW24HOUR"],
-                "volume_24" : token_data_from_api["RAW"]["TRX"]["USD"]["TOTALVOLUME24H"],
-                "volume_24_usd" : token_data_from_api["RAW"]["TRX"]["USD"]["TOTALVOLUME24HTO"],
-                "MKTCAP" : token_data_from_api["DISPLAY"]["TRX"]["USD"]["MKTCAP"],
+                "high_24h": token_data_from_api["RAW"]["TRX"]["USD"]["HIGH24HOUR"],
+                "low_24h": token_data_from_api["RAW"]["TRX"]["USD"]["LOW24HOUR"],
+                "volume_24": token_data_from_api["RAW"]["TRX"]["USD"]["TOTALVOLUME24H"],
+                "volume_24_usd": token_data_from_api["RAW"]["TRX"]["USD"]["TOTALVOLUME24HTO"],
+                "MKTCAP": token_data_from_api["DISPLAY"]["TRX"]["USD"]["MKTCAP"],
                 "data_source": "https://www.cryptocompare.com/coins/TRX/overview/USDT"
             }
         }
@@ -369,7 +369,7 @@ async function main() {
         let historical_data = await get_historical_data(endpoint_historical_data)
         create_chart(historical_data["fechas"], historical_data["precios"], criptomoneda, num_dias)
     }
-    
+
     // configuracion de temporalidades a traves de los radio buttons
     let radios_temporalidades = document.querySelectorAll('input[name="temporalidad"]')
     radios_temporalidades.forEach((temporalidad_option) => {
@@ -394,7 +394,7 @@ async function main() {
     // metodo para actualizar la informacion del precio 
     setInterval(async () => {
         let token_data_from_api_update = await get_info_tokens(endpoint_tokens_info)
-        for (let token in config_app["tokens"]){
+        for (let token in config_app["tokens"]) {
             let symbol = config_app["tokens"][token]
             // console.log(token_data_from_api_update["RAW"][symbol]["USD"]["PRICE"])
         }
