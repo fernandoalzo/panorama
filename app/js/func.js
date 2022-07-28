@@ -72,6 +72,7 @@ function create_section_logos(config_app) {
         div.setAttribute("class", "col-4 col-lg-auto mt-5 mt-lg-0")
         img = document.createElement("img")
         img.setAttribute("src", path_logo)
+        img.setAttribute("id", `img_${token}`)
         img.style.height = "30px"
         div.append(img)
         contenedor.append(div)

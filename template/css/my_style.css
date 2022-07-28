@@ -1,0 +1,63 @@
+/* btc */
+#img_BTC{
+    transition: all 150ms;
+}
+#img_BTC:hover{
+    transform: scale(2.0, 2.0);
+}
+/* eth */
+#img_ETH{
+    transition: all 150ms;
+}
+#img_ETH:hover{
+    transform: scale(2.0, 2.0);
+}
+/* eth */
+#img_ADA{
+    transition: all 150ms;
+}
+#img_ADA:hover{
+    transform: scale(2.0, 2.0);
+}
+/* matic */
+#img_MATIC{
+    transition: all 700ms;
+}
+#img_MATIC:hover{
+    transform: rotate(360deg);
+}
+/* vxv */
+#img_VXV{
+    transition: all 150ms;
+}
+#img_VXV:hover{
+    transform: scale(2.0, 2.0);
+}
+/* SHIB */
+#img_SHIB{
+    transition: all 150ms;
+}
+#img_SHIB:hover{
+    transform: scale(2.0, 2.0);
+}
+/* CAKE */
+#img_CAKE{
+    transition: all 150ms;
+}
+#img_CAKE:hover{
+    transform: scale(2.0, 2.0);
+}
+/* VET */
+#img_VET{
+    transition: all 150ms;
+}
+#img_VET:hover{
+    transform: scale(2.0, 2.0);
+}
+/* TRX */
+#img_TRX{
+    transition: all 150ms;
+}
+#img_TRX:hover{
+    transform: scale(2.0, 2.0);
+}
