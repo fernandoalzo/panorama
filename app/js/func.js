@@ -234,6 +234,32 @@ function create_chart(fechas, precios, criptomoneda, num_dias) {
         }
     })
 }
+//---------------------------------------------------------------------------------
+
+function select_criptos_to_show() {
+    let select_criptos_to_show = document.querySelectorAll("input[name=select_criptos_to_show]")
+    select_criptos_to_show.forEach((token) => {
+        token.addEventListener("click", function (token) {
+            let select_criptos_to_show = document.querySelectorAll("input[name=select_criptos_to_show]")
+            for (let i = 0; i <= select_criptos_to_show.length; i++) {
+                if (select_criptos_to_show[i] != undefined) {
+                    if (!select_criptos_to_show[i].checked) {
+                        let card_to_delete = document.querySelector(`#contenedor_info_${select_criptos_to_show[i].value}`)
+                        if (card_to_delete != null) {
+                            console.log(card_to_delete)
+                            card_to_delete.remove()
+                        }
+                    } if (select_criptos_to_show[i].checked) {
+                        console.log(select_criptos_to_show[i].value)
+
+                    }
+                }
+            }
+        })
+    })
+}
+
+//---------------------------------------------------------------------------------
 
 async function main() {
     let config_app = {
@@ -358,6 +384,8 @@ async function main() {
     create_section_logos(config_app)
     // create temporalidad options 
     create_temporalidad_options(config_app)
+    //construir check box para la seleccion de los toens para mostrar en patalla
+    select_criptos_to_show()
     // construir la seccion de html con la informacion de cada cripto
     build_cripto_card(info_criptos)
     // get historical data
