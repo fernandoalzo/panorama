@@ -435,6 +435,7 @@ async function main() {
         let historical_data = await get_historical_data(endpoint_historical_data)
         create_chart(historical_data["fechas"], historical_data["precios"], criptomoneda, config_app.temporalidad_default)
     }
+    // configuracion temporalidades
     // info_app de temporalidades a traves de los radio buttons
     // retorna un lista con los objetos html seleccionados con querySelector
     let inputs_temporalidades = document.querySelectorAll('input[name="temporalidad"]')
@@ -462,6 +463,7 @@ async function main() {
             }
         })
     })
+    // configuraciones checkbox select criptos to show...
 }
 
 main()
