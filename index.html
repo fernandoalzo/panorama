@@ -13,7 +13,6 @@
 
 <body>
   <main class="main" id="top">
-
     <section class="mt-2">
       <div class="container">
         <div class="row align-items-center">
@@ -28,7 +27,6 @@
 
               Si para ud tambien es util esta informacion, sientase en total libertadad de usarla.
             </p>
-
           </div>
         </div>
     </section>
@@ -38,50 +36,36 @@
         <div class="row mx-md-5 px-md-5 d-flex justify-content-evenly" id="contenedor_logos">
         </div>
         <div class="px-xl-8 px-md-7">
-          <hr class="mt-7 text-1000" />
+          <hr class="mt-4 text-1000" />
         </div>
+      </div>
     </section>
-
     <section>
       <!-- fin seccion de logos -->
       <div class="container-lg ">
         <div class="text-center">
-          <h1 class="display-6 fw-semi-bold">Informacion</h1><br><br>
+          <h1 class="display-6 fw-semi-bold">Informacion.</h1>
         </div>
         <!-- inicio de la seccion de opciones de temporalidad con radio button -->
         <center>
           <h3 class="display-9 fst-italic">Seleccione la temporalidad de los graficos:</h3>
           <div class="sticky-top" id="seccion_temporalidades">
           </div>
+          <div class="px-xl-1 px-md-3">
+            <hr class="mt-4 text-1000" />
+          </div>
           <!-- fin  seccion de opciones de temporalidad con radio button -->
           <!-- inicio de la seccion de seleccion de tokens -->
-          <div id="seccion_seleccion_token">
-            <div class="form-check form-check-inline">
-              <input class="form-check-input" type="checkbox" name="select_criptos_to_show" id="check_BTC" value="Bitcoin" checked>
-                <label class="form-check-label" for="check_BTC">BTC</label>
-              </div>
-            <div class="form-check form-check-inline">
-              <input class="form-check-input" type="checkbox" name="select_criptos_to_show" id="check_ETH" value="Ethereum" checked>
-                <label class="form-check-label" for="check_ETH">ETH</label>
-              </div>
-            <div class="form-check form-check-inline">
-              <input class="form-check-input" type="checkbox" name="select_criptos_to_show" id="check_ADA" value="Cardano" checked>
-                <label class="form-check-label" for="check_ADA">ADA</label>
-              </div>
-            <div class="form-check form-check-inline">
-              <input class="form-check-input" type="checkbox" name="select_criptos_to_show" id="check_SHIB" value="ShibaInu" checked>
-                <label class="form-check-label" for="check_SHIB">SHIB</label>
-              </div>
+          <div id="seccion_checkbox_token">
           </div>
+          <!-- fin de la seccion de seleccion de tokens -->
         </center>
-        <!-- fin de la seccion de seleccion de tokens -->
         <!-- seccion donde se muestra la informacion de algun asset -->
-        <div class="row flex-center" id="container_info_by_token">
+        <div class="row flex-center" id="container_cards_by_token">
         </div>
         <!--fin donde se muestra la informacion de algun asset -->
       </div>
     </section>
-
     <!-- seccion del footer -->
     <section class="">
       <div class="container">
@@ -92,7 +76,6 @@
     </section>
     <!-- fin seccion del footer -->
   </main>
-
   <script src="./app/js/func.js"></script>
   <script src="./app/js/chart.js"></script>
   <link rel="preconnect" href="https://fonts.gstatic.com">
