@@ -275,28 +275,6 @@ function create_chart(fechas, precios, criptomoneda, num_dias) {
 }
 //---------------------------------------------------------------------------------
 
-// function select_criptos_to_show() {
-//     let select_criptos_to_show = document.querySelectorAll("input[name=select_criptos_to_show]")
-//     select_criptos_to_show.forEach((token) => {
-//         token.addEventListener("click", function (token) {
-//             let select_criptos_to_show = document.querySelectorAll("input[name=select_criptos_to_show]")
-//             for (let i = 0; i <= select_criptos_to_show.length; i++) {
-//                 if (select_criptos_to_show[i] != undefined) {
-//                     if (!select_criptos_to_show[i].checked) {
-//                         let card_to_delete = document.querySelector(`#card_info_${select_criptos_to_show[i].value}`)
-//                         if (card_to_delete != null) {
-//                             console.log(card_to_delete)
-//                             card_to_delete.remove()
-//                         }
-//                     } if (select_criptos_to_show[i].checked) {
-//                         console.log(select_criptos_to_show[i].value)
-//                     }
-//                 }
-//             }
-//         })
-//     })
-// }
-
 //---------------------------------------------------------------------------------
 
 async function main() {
@@ -463,7 +441,20 @@ async function main() {
             }
         })
     })
-    // configuraciones checkbox select criptos to show...
+    //   configuraciones checkbox select criptos to show...
+    let inputs_checks = document.querySelectorAll('input[name="select_criptos_to_show"]')
+    inputs_checks.forEach((input_check) => {
+        input_check.addEventListener("click", async function (evento){
+            let is_checked = evento.target.checked
+            let criptomoneda = evento.target.value
+            if (is_checked){
+                console.log("Crear card para: " + criptomoneda)
+            }
+            if (!is_checked){
+                console.log("borrar card para: " + criptomoneda)
+            }
+        })
+    })
 }
 
 main()
