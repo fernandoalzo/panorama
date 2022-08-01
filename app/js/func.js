@@ -449,9 +449,13 @@ async function main() {
             let criptomoneda = evento.target.value
             if (is_checked){
                 console.log("Crear card para: " + criptomoneda)
+                
             }
             if (!is_checked){
                 console.log("borrar card para: " + criptomoneda)
+                card_to_delete = document.querySelector(`#card_info_${criptomoneda}`)
+                console.log(card_to_delete)
+                card_to_delete.remove()
             }
         })
     })
