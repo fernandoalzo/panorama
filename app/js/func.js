@@ -1,8 +1,15 @@
-// metodo para la creacion del endpoint para traer la informacion actual de los tokens
+// metodo para la creacion del endpoint para traer la informacion actual de los tokens especificados dentro de una lista
 function config_endpoint_tokens_info(config_app) {
     tokens_as_string = config_app["tokens"].toString()
     api_key = config_app["api_key"]
     endpoint = `https://min-api.cryptocompare.com/data/pricemultifull?fsyms=${tokens_as_string}&tsyms=USD&api_key=${api_key}`
+    return endpoint
+}
+// config endpoint to ask about individuals token
+function config_endpoint_one_token_info(config_app, token_symbol) {
+    tokens_as_string = config_app["tokens"].toString()
+    api_key = config_app["api_key"]
+    endpoint = `https://min-api.cryptocompare.com/data/pricemultifull?fsyms=${token_symbol}&tsyms=USD&api_key=${api_key}`
     return endpoint
 }
 // metodo para la creacion del enpoint con el cual se consulta el historico del precio de un token
@@ -119,13 +126,13 @@ function build_cripto_card(info_app) {
         // div1
         let div1 = document.createElement("div")
         div1.setAttribute("class", "col-sm-9 col-md-4 mt-3")
-        div1.setAttribute("id", `card_info_${criptomoneda}`)
+        div1.setAttribute("id", `card_info_${info_app.criptomonedas[criptomoneda].symbol}`)
         // div2
         let div2 = document.createElement("div")
         div2.setAttribute("class", "py-5 px-4 px-md-3 px-lg-4 rounded-1 bg-800 plans-cards mt-0")
         div2.setAttribute("id", `info_${criptomoneda}`)
         // p1
-        let p1 = document.createElement("p")        
+        let p1 = document.createElement("p")
         p1.setAttribute("class", "fs-2 ls-2")
         // texy
         let criptomoneda_text = document.createTextNode(`${criptomoneda}`)
@@ -197,14 +204,14 @@ function build_cripto_card(info_app) {
         // div
         div_checkbox = document.createElement("div")
         div_checkbox.setAttribute("class", "form-check form-check-inline")
-        div_checkbox.setAttribute("id", `div_check_${criptomoneda}`)
+        div_checkbox.setAttribute("id", `div_check_${info_app.criptomonedas[criptomoneda].symbol}`)
         // input
         input_checkbox = document.createElement("input")
         input_checkbox.setAttribute("class", "form-check-input")
         input_checkbox.setAttribute("type", "checkbox")
         input_checkbox.setAttribute("name", "select_criptos_to_show")
         input_checkbox.setAttribute("id", `check_${criptomoneda}`)
-        input_checkbox.setAttribute("value", criptomoneda)
+        input_checkbox.setAttribute("value", info_app.criptomonedas[criptomoneda].symbol)
         input_checkbox.checked = true
         // label
         label_checkbox = document.createElement("label")
@@ -279,7 +286,7 @@ function create_chart(fechas, precios, criptomoneda, num_dias) {
 
 async function main() {
     let config_app = {
-        "tokens": ["BTC", "ETH", "ADA", "MATIC", "VXV", "SHIB", "CAKE", "VET", "TRX"],
+        "tokens": ["BTC", "ETH", "ADA", "MATIC", "VXV", "SHIB", "CAKE", "VET", "TRX", "DOGE"],
         "api_key": "99f1147d7e9a0f3b602f89fb553fa5c91885159c3397ab916a0e988777d18fc3",
         "temporalidad_default": 30,
         "temporalidades": [10, 30, 60, 90],
@@ -396,8 +403,21 @@ async function main() {
                     "MKTCAP": token_data_from_api["DISPLAY"]["TRX"]["USD"]["MKTCAP"],
                     "data_source": "https://www.cryptocompare.com/coins/TRX/overview/USDT"
                 }
-            }
+            },
+            // "DogeCoin": {
+            //     "symbol": "DOGE",
+            //     "info_precio": {
+            //         "precio_actual": token_data_from_api["RAW"]["DOGE"]["USD"]["PRICE"],
+            //         "high_24h": token_data_from_api["RAW"]["DOGE"]["USD"]["HIGH24HOUR"],
+            //         "low_24h": token_data_from_api["RAW"]["DOGE"]["USD"]["LOW24HOUR"],
+            //         "volume_24": token_data_from_api["RAW"]["DOGE"]["USD"]["TOTALVOLUME24H"],
+            //         "volume_24_usd": token_data_from_api["RAW"]["DOGE"]["USD"]["TOTALVOLUME24HTO"],
+            //         "MKTCAP": token_data_from_api["DISPLAY"]["DOGE"]["USD"]["MKTCAP"],
+            //         "data_source": "https://www.cryptocompare.com/coins/DOGE/overview/USDT"
+            //     }
+            // }
         }
+
     }
     // create section logs
     create_section_logos(info_app, config_app.path_logos)
@@ -423,10 +443,10 @@ async function main() {
             let num_dias = evento.target.value
             for (criptomoneda in info_app.criptomonedas) {
                 // remove the card
-                let contenedor_info = document.querySelector(`#card_info_${criptomoneda}`)
+                let contenedor_info = document.querySelector(`#card_info_${info_app.criptomonedas[criptomoneda]["symbol"]}`)
                 contenedor_info.remove()
                 // remove the checks buttons
-                let check_box_cripto = document.querySelector(`#div_check_${criptomoneda}`)
+                let check_box_cripto = document.querySelector(`#div_check_${info_app.criptomonedas[criptomoneda]["symbol"]}`)
                 check_box_cripto.remove()
             }
             // volver a construir las cards con la informacion
@@ -444,21 +464,27 @@ async function main() {
     //   configuraciones checkbox select criptos to show...
     let inputs_checks = document.querySelectorAll('input[name="select_criptos_to_show"]')
     inputs_checks.forEach((input_check) => {
-        input_check.addEventListener("click", async function (evento){
+        input_check.addEventListener("click", async function (evento) {
             let is_checked = evento.target.checked
-            let criptomoneda = evento.target.value
-            if (is_checked){
-                console.log("Crear card para: " + criptomoneda)
-                
+            let token_symbol = evento.target.value
+            if (is_checked) {
+                console.log("Crear card para: " + token_symbol)
+                let endpoint_info_token = config_endpoint_one_token_info(config_app, token_symbol)
+                console.log(endpoint_info_token)
+                let endpoint_historical_data = config_endpoint_historical_data(config_app, token_symbol, 30)
+                console.log(endpoint_historical_data)
+
             }
-            if (!is_checked){
-                console.log("borrar card para: " + criptomoneda)
-                card_to_delete = document.querySelector(`#card_info_${criptomoneda}`)
+            if (!is_checked) {
+                console.log("borrar card para: " + token_symbol)
+                card_to_delete = document.querySelector(`#card_info_${token_symbol}`)
                 console.log(card_to_delete)
-                card_to_delete.remove()
+                // card_to_delete.remove()
             }
         })
     })
 }
 
 main()
+
+
