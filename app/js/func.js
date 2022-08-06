@@ -145,7 +145,10 @@ function build_cripto_card(info_app) {
         signo_dolar = document.createTextNode("$ ")
         // precio
         let precio = document.createTextNode(`${info_app.criptomonedas[criptomoneda]["info_precio"]["precio_actual"]}`)
-        // canvas      
+        // canvas
+        let a_modal = document.createElement("a")
+        a_modal.setAttribute("href", "#exampleModal")
+        a_modal.setAttribute("data-toggle", "modal")     
         let canvas = document.createElement("canvas")
         canvas.setAttribute("id", `chart_${criptomoneda}`)
         // ul
@@ -190,14 +193,15 @@ function build_cripto_card(info_app) {
         // div2 
         div2.append(p1)
         div2.append(h1)
-        div2.append(canvas)
+        a_modal.append(canvas) 
+        div2.append(a_modal)
         div2.append(hr)
         div2.append(ul)
         link.append(boton)
         div2.append(link)
         // div1
         div1.append(div2)
-        // add to container
+        // add to container       
         contenedor.append(div1)
         // ---------------
         // create check box
