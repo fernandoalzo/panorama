@@ -146,11 +146,14 @@ function build_cripto_card(info_app) {
         // precio
         let precio = document.createTextNode(`${info_app.criptomonedas[criptomoneda]["info_precio"]["precio_actual"]}`)
         // canvas
+        // link when canvas is clicked
         let a_modal = document.createElement("a")
         a_modal.setAttribute("href", "#exampleModal")
         a_modal.setAttribute("data-toggle", "modal")     
         let canvas = document.createElement("canvas")
-        canvas.setAttribute("id", `chart_${criptomoneda}`)
+        canvas.setAttribute("class", `chart_${criptomoneda}`)
+        canvas.setAttribute("id", info_app.criptomonedas[criptomoneda].symbol)
+        canvas.setAttribute("name", "grafico")
         // ul
         let ul = document.createElement("ul")
         ul.setAttribute("class", "mt-5 ps-0")
@@ -232,7 +235,7 @@ function build_cripto_card(info_app) {
 }
 // funcion para crear el grafico
 function create_chart(fechas, precios, criptomoneda, num_dias) {
-    let chart = document.querySelector(`#chart_${criptomoneda}`)
+    let chart = document.querySelector(`.chart_${criptomoneda}`)
     let labels = fechas
     let datos = {
         label: `Grafico de ${criptomoneda} Vs USD ultimos ${num_dias} dias`,
@@ -485,6 +488,14 @@ async function main() {
                 console.log(card_to_delete)
                 // card_to_delete.remove()
             }
+        })
+    })
+
+    let graficos = document.querySelectorAll('canvas[name="grafico"]')
+    graficos.forEach((grafico)=>{
+        grafico.addEventListener("click", (evento)=>{
+            console.log(evento.target.id)
+
         })
     })
 }
