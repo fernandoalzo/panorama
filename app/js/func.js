@@ -149,10 +149,10 @@ function build_cripto_card(info_app) {
         // link when canvas is clicked
         let a_modal = document.createElement("a")
         a_modal.setAttribute("href", "#exampleModal")
-        a_modal.setAttribute("data-toggle", "modal")     
+        a_modal.setAttribute("data-toggle", "modal")
         let canvas = document.createElement("canvas")
-        canvas.setAttribute("class", `chart_${criptomoneda}`)
-        canvas.setAttribute("id", info_app.criptomonedas[criptomoneda].symbol)
+        canvas.setAttribute("id", `chart_${criptomoneda}`)
+        canvas.setAttribute("class", info_app.criptomonedas[criptomoneda].symbol)
         canvas.setAttribute("name", "grafico")
         // ul
         let ul = document.createElement("ul")
@@ -196,7 +196,7 @@ function build_cripto_card(info_app) {
         // div2 
         div2.append(p1)
         div2.append(h1)
-        a_modal.append(canvas) 
+        a_modal.append(canvas)
         div2.append(a_modal)
         div2.append(hr)
         div2.append(ul)
@@ -235,7 +235,7 @@ function build_cripto_card(info_app) {
 }
 // funcion para crear el grafico
 function create_chart(fechas, precios, criptomoneda, num_dias) {
-    let chart = document.querySelector(`.chart_${criptomoneda}`)
+    let chart = document.querySelector(`#chart_${criptomoneda}`)
     let labels = fechas
     let datos = {
         label: `Grafico de ${criptomoneda} Vs USD ultimos ${num_dias} dias`,
@@ -286,6 +286,28 @@ function create_chart(fechas, precios, criptomoneda, num_dias) {
             },
         }
     })
+}
+
+function info_token_modal(info_token){
+    console.table(info_token)
+    let modal_header = document.querySelector(".modal-header")
+    let h5 = document.createElement("h5")
+    h5.setAttribute("class", "moddal-title")
+    let nombre_criptomoneda = document.createTextNode("Aqui Precio")
+    
+    
+
+    let detailed_info = document.querySelector("#seccion_informacion_detallada")
+    let div_chart = document.createElement("div")
+    div_chart.setAttribute("class", "zona_chart")
+    let div_info = document.createElement("div")
+    div_info.setAttribute("class", "zona_de_informacion")
+    let hola_mundo = document.createTextNode("Hola mundo")
+
+    h5.append(nombre_criptomoneda)
+    modal_header.append(h5)
+    div_info.append(hola_mundo)
+    detailed_info.append(modal_header, div_chart, div_info)
 }
 //---------------------------------------------------------------------------------
 
@@ -483,20 +505,30 @@ async function main() {
 
             }
             if (!is_checked) {
-                console.log("borrar card para: " + token_symbol)
+                // console.log("borrar card para: " + token_symbol)
                 card_to_delete = document.querySelector(`#card_info_${token_symbol}`)
-                console.log(card_to_delete)
-                // card_to_delete.remove()
+                // console.log(card_to_delete)
+                card_to_delete.remove()
             }
         })
     })
-
+    // open chart on modal with details about 
     let graficos = document.querySelectorAll('canvas[name="grafico"]')
-    graficos.forEach((grafico)=>{
-        grafico.addEventListener("click", (evento)=>{
-            console.log(evento.target.id)
-
+    graficos.forEach((grafico) => {
+        grafico.addEventListener("click", async (evento) => {
+            let canvas_node_id = evento.target.id
+            let canvas_node = document.querySelector(`#${canvas_node_id}`)
+            let token_symbol = canvas_node.className
+            let endpoint_info_token = config_endpoint_one_token_info(config_app, token_symbol)
+            let info_token_from_api = await get_info_tokens(endpoint_info_token)
+            let info_token = info_token_from_api.DISPLAY.BTC.USD
+            // console.table(info_token)
+            let endpoint_historical_data = config_endpoint_historical_data(config_app, token_symbol, 30)
+            let historical_data = await get_historical_data(endpoint_historical_data)
+            // console.table(historical_data)
+            info_token_modal(info_token)
         })
+
     })
 }
 
