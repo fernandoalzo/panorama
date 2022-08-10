@@ -547,7 +547,7 @@ async function main() {
             }
         })
     })
-    //   configuraciones checkbox select criptos to show...
+    // seccion de checkbox para selecion que Cripto ver en pantalla
     let inputs_checks = document.querySelectorAll('input[name="select_criptos_to_show"]')
     inputs_checks.forEach((input_check) => {
         input_check.addEventListener("click", async function (evento) {
@@ -556,10 +556,7 @@ async function main() {
             if (is_checked) {
                 console.log("Crear card para: " + token_symbol)
                 let endpoint_info_token = config_endpoint_one_token_info(config_app, token_symbol)
-                console.log(endpoint_info_token)
                 let endpoint_historical_data = config_endpoint_historical_data(config_app, token_symbol, 30)
-                console.log(endpoint_historical_data)
-
             }
             if (!is_checked) {
                 card_to_delete = document.querySelector(`#card_info_${token_symbol}`)
@@ -574,24 +571,23 @@ async function main() {
             let canvas_node_id = evento.target.id
             let canvas_node = document.querySelector(`#${canvas_node_id}`)
             let token_symbol = canvas_node.className
+            // info from API by token
             let endpoint_info_token = config_endpoint_one_token_info(config_app, token_symbol)
             let info_token_from_api = await get_info_tokens(endpoint_info_token)
-            console.log(token_symbol)
             let info_token = info_token_from_api.DISPLAY[`${token_symbol}`].USD
-            console.log(info_token)
+            // info historic data
             let endpoint_historical_data = config_endpoint_historical_data(config_app, token_symbol, 30)
             let historical_data = await get_historical_data(endpoint_historical_data)
             info_token_modal(info_token, historical_data)
         })
     })
-    // boton para cerrar 
+    // boton para cerrar el modal y borrar la info de la cripto
     let boton_close_modal_info_cripto = document.querySelector("#cerrar_modal_info_cripto")
     boton_close_modal_info_cripto.addEventListener("click", _ => {
         let informacion_detallada = document.querySelector("#informacion_detallada")
         if (informacion_detallada) {
             informacion_detallada.remove()
         }
-
     })
 }
 main()
