@@ -178,8 +178,8 @@ function build_cripto_card(info_app) {
         let boton = document.createElement("button")
         boton.setAttribute("class", "btn btn-gray mt-4")
         // span2
-        let span2 = document.createElement("span")
-        span2.setAttribute("class", "fas fa-arrow-right")
+        let i_mas_info = document.createElement("i")
+        i_mas_info.setAttribute("class", "fa-solid fa-circle-plus")
         let texto_boton = document.createTextNode("Mas Informacion ")
         // config html
         p1.append(criptomoneda_text)
@@ -193,7 +193,7 @@ function build_cripto_card(info_app) {
         ul.append(li1, li2, li3)
         // boton
         boton.append(texto_boton)
-        boton.append(span2)
+        boton.append(i_mas_info)
         // div2 
         div2.append(p1)
         div2.append(h1)
@@ -314,21 +314,49 @@ function info_token_modal(info_token, historical_data) {
         tabla_info.setAttribute("cellspacing", "0")
         tabla_info.setAttribute("cellpadding", "0")
         let tbody_tabla_info = document.createElement("tbody")
+        // precio
         let tr_PRICE = document.createElement("tr")
         let td_label_PRICE = document.createElement("td")
         let label_PRICE = document.createTextNode("Precio:")
         let td_PRICE = document.createElement("td")
         let PRICE = document.createTextNode(info_token.PRICE)
+        // precio mas alto las ultimas 24 horas HIGH24HOUR
+        let tr_HIGH24HOUR = document.createElement("tr")
+        let td_label_HIGH24HOUR = document.createElement("td")
+        let label_HIGH24HOUR = document.createTextNode("Precio mas alto ultimas 24H:")
+        let td_HIGH24HOUR = document.createElement("td")
+        let HIGH24HOUR = document.createTextNode(info_token.HIGH24HOUR)
+        // precio mas bajo las ultimas 24 horas LOW24HOUR
+        let tr_LOW24HOUR = document.createElement("tr")
+        let td_label_LOW24HOUR = document.createElement("td")
+        let label_LOW24HOUR = document.createTextNode("Precio mas bajo ultimas 24H:")
+        let td_LOW24HOUR = document.createElement("td")
+        let LOW24HOUR = document.createTextNode(info_token.LOW24HOUR)
+        // cambio del precion en 24 horas CHANGE24HOUR
+        let tr_CHANGE24HOUR = document.createElement("tr")
+        let td_label_CHANGE24HOUR = document.createElement("td")
+        let label_CHANGE24HOUR = document.createTextNode("Cambio 24H:")
+        let td_CHANGE24HOUR = document.createElement("td")
+        let CHANGE24HOUR = document.createTextNode(info_token.CHANGE24HOUR)
+        // cambio de precio 24 horas en porcentaje CHANGEPCT24HOUR
+        let tr_CHANGEPCT24HOUR = document.createElement("tr")
+        let td_label_CHANGEPCT24HOUR = document.createElement("td")
+        let label_CHANGEPCT24HOUR = document.createTextNode("Porcentaje cambio 24H:")
+        let td_CHANGEPCT24HOUR = document.createElement("td")
+        let CHANGEPCT24HOUR = document.createTextNode(info_token.CHANGEPCT24HOUR)
+        // capitalizacion de mercado
         let tr_MKTCAP = document.createElement("tr")
         let td_label_MKTCAP = document.createElement("td")
         let label_MKTCAP = document.createTextNode("Capitalizacion del mercado")
         let td_MKTCAP = document.createElement("td")
         let MKTCAP = document.createTextNode(info_token.MKTCAP)
+        // numero de tokens minados
         let tr_SUPPLY = document.createElement("tr")
         let td_label_SUPPLY = document.createElement("td")
         let label_SUPPLY = document.createTextNode("Criptomonedas Minadas")
         let td_SUPPLY = document.createElement("td")
         let SUPPLY = document.createTextNode(info_token.SUPPLY)
+        // volumen en dolares de las ultimas 24 horas
         let tr_VOLUME24HOURTO = document.createElement("tr")
         let td_label_VOLUME24HOURTO = document.createElement("td")
         let labell_VOLUME24HOURTO = document.createTextNode("Volumen 24H")
@@ -343,6 +371,14 @@ function info_token_modal(info_token, historical_data) {
         // td
         td_label_PRICE.append(label_PRICE)
         td_PRICE.append(PRICE)
+        td_label_HIGH24HOUR.append(label_HIGH24HOUR)
+        td_HIGH24HOUR.append(HIGH24HOUR)
+        td_label_LOW24HOUR.append(label_LOW24HOUR)
+        td_LOW24HOUR.append(LOW24HOUR)
+        td_label_CHANGE24HOUR.append(label_CHANGE24HOUR)
+        td_CHANGE24HOUR.append(CHANGE24HOUR)
+        td_label_CHANGEPCT24HOUR.append(label_CHANGEPCT24HOUR)
+        td_CHANGEPCT24HOUR.append(CHANGEPCT24HOUR)
         td_label_MKTCAP.append(label_MKTCAP)
         td_MKTCAP.append(MKTCAP)
         td_label_SUPPLY.append(label_SUPPLY)
@@ -351,11 +387,17 @@ function info_token_modal(info_token, historical_data) {
         td_VOLUME24HOURTO.append(VOLUME24HOURT)
         // tr
         tr_PRICE.append(td_label_PRICE, td_PRICE)
+        tr_HIGH24HOUR.append(td_label_HIGH24HOUR, td_HIGH24HOUR)
+        tr_LOW24HOUR.append(td_label_LOW24HOUR, td_LOW24HOUR)
+        tr_CHANGE24HOUR.append(td_label_CHANGE24HOUR, td_CHANGE24HOUR)
+        tr_CHANGEPCT24HOUR.append(td_label_CHANGEPCT24HOUR, td_CHANGEPCT24HOUR)
         tr_MKTCAP.append(td_label_MKTCAP, td_MKTCAP)
         tr_SUPPLY.append(td_label_SUPPLY, td_SUPPLY)
         tr_VOLUME24HOURTO.append(td_label_VOLUME24HOURTO, td_VOLUME24HOURTO)
-        tbody_tabla_info.append(tr_PRICE, tr_MKTCAP, tr_SUPPLY, tr_VOLUME24HOURTO)
+        // add tr to table
+        tbody_tabla_info.append(tr_PRICE, tr_HIGH24HOUR, tr_LOW24HOUR, tr_CHANGE24HOUR, tr_CHANGEPCT24HOUR,  tr_MKTCAP, tr_SUPPLY, tr_VOLUME24HOURTO)
         tabla_info.append(tbody_tabla_info)
+        // add table to div info
         div_info.append(tabla_info)
         // aad to main container
         informacion_detallada.append(modal_header, div_chart, div_info)
@@ -519,34 +561,6 @@ async function main() {
         let historical_data = await get_historical_data(endpoint_historical_data)
         create_chart(historical_data["fechas"], historical_data["precios"], criptomoneda, config_app.temporalidad_default)
     }
-    // configuracion temporalidades
-    // info_app de temporalidades a traves de los radio buttons
-    // retorna un lista con los objetos html seleccionados con querySelector
-    let inputs_temporalidades = document.querySelectorAll('input[name="temporalidad"]')
-    inputs_temporalidades.forEach((input_temporabilidad) => {
-        input_temporabilidad.addEventListener("click", async function (evento) {
-            // evento es un objeto de tipo PointerEvent con sus respectivas propiedaades
-            let num_dias = evento.target.value
-            for (criptomoneda in info_app.criptomonedas) {
-                // remove the card
-                let contenedor_info = document.querySelector(`#card_info_${info_app.criptomonedas[criptomoneda]["symbol"]}`)
-                contenedor_info.remove()
-                // remove the checks buttons
-                let check_box_cripto = document.querySelector(`#div_check_${info_app.criptomonedas[criptomoneda]["symbol"]}`)
-                check_box_cripto.remove()
-            }
-            // volver a construir las cards con la informacion
-            build_cripto_card(info_app)
-            // volvera consultar la informacion de la criptomoneda para cargar nuvamente los graficos
-            for (criptomoneda in info_app.criptomonedas) {
-                // create endpoint
-                let token = info_app.criptomonedas[criptomoneda]["symbol"]
-                let endpoint_historical_data = config_endpoint_historical_data(config_app, token, num_dias)
-                let historical_data = await get_historical_data(endpoint_historical_data)
-                create_chart(historical_data["fechas"], historical_data["precios"], criptomoneda, num_dias)
-            }
-        })
-    })
     // seccion de checkbox para selecion que Cripto ver en pantalla
     let inputs_checks = document.querySelectorAll('input[name="select_criptos_to_show"]')
     inputs_checks.forEach((input_check) => {
@@ -573,10 +587,12 @@ async function main() {
             let token_symbol = canvas_node.className
             // info from API by token
             let endpoint_info_token = config_endpoint_one_token_info(config_app, token_symbol)
+            // console.log(endpoint_info_token)
             let info_token_from_api = await get_info_tokens(endpoint_info_token)
             let info_token = info_token_from_api.DISPLAY[`${token_symbol}`].USD
             // info historic data
             let endpoint_historical_data = config_endpoint_historical_data(config_app, token_symbol, 30)
+            // console.log(endpoint_historical_data)
             let historical_data = await get_historical_data(endpoint_historical_data)
             info_token_modal(info_token, historical_data)
         })
@@ -589,7 +605,34 @@ async function main() {
             informacion_detallada.remove()
         }
     })
+    // configuracion temporalidades
+    // info_app de temporalidades a traves de los radio buttons
+    // retorna un lista con los objetos html seleccionados con querySelector
+    let inputs_temporalidades = document.querySelectorAll('input[name="temporalidad"]')
+    inputs_temporalidades.forEach((input_temporabilidad) => {
+        input_temporabilidad.addEventListener("click", async function (evento) {
+            // evento es un objeto de tipo PointerEvent con sus respectivas propiedaades
+            let num_dias = evento.target.value
+            for (criptomoneda in info_app.criptomonedas) {
+                // remove the card
+                let contenedor_info = document.querySelector(`#card_info_${info_app.criptomonedas[criptomoneda]["symbol"]}`)
+                contenedor_info.remove()
+                // remove the checks buttons
+                let check_box_cripto = document.querySelector(`#div_check_${info_app.criptomonedas[criptomoneda]["symbol"]}`)
+                check_box_cripto.remove()
+            }
+            // volver a construir las cards con la informacion
+            build_cripto_card(info_app)
+            // volvera consultar la informacion de la criptomoneda para cargar nuvamente los graficos
+            for (criptomoneda in info_app.criptomonedas) {
+                // create endpoint
+                let token = info_app.criptomonedas[criptomoneda]["symbol"]
+                let endpoint_historical_data = config_endpoint_historical_data(config_app, token, num_dias)
+                let historical_data = await get_historical_data(endpoint_historical_data)
+                console.log("aqui crear el grafico detallado ocn la informacion de los dias seleccionados")
+                // create_chart(historical_data["fechas"], historical_data["precios"], criptomoneda, num_dias)
+            }
+        })
+    })
 }
 main()
-
-
