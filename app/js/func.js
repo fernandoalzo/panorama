@@ -150,6 +150,7 @@ function build_cripto_card(info_app) {
         let a_modal = document.createElement("a")
         a_modal.setAttribute("href", "#exampleModal")
         a_modal.setAttribute("data-toggle", "modal")
+        a_modal.setAttribute("data-backdrop", "static")
         let canvas = document.createElement("canvas")
         canvas.setAttribute("id", `chart_${criptomoneda}`)
         canvas.setAttribute("class", info_app.criptomonedas[criptomoneda].symbol)
@@ -288,17 +289,18 @@ function create_chart(fechas, precios, criptomoneda, num_dias) {
     })
 }
 
-function info_token_modal(info_token, historical_data){
-    console.table(info_token)
+function info_token_modal(info_token, historical_data) {
+    let seccion_informacion_detallada = document.querySelector("#seccion_informacion_detallada")
+    let informacion_detallada = document.createElement("div")
+    informacion_detallada.setAttribute("id", "informacion_detallada")
     let modal_header = document.querySelector(".modal-header")
     let h5 = document.createElement("h5")
     h5.setAttribute("class", "moddal-title")
-    let nombre_criptomoneda = document.createTextNode("Nombre de la cripto")    
-    let detailed_info = document.querySelector("#seccion_informacion_detallada")
+    let nombre_criptomoneda = document.createTextNode("Nombre de la cripto")
     // div para el char
-    let div_chart = document.createElement("div")    
-    div_chart.setAttribute("class", "zona_chart")  
-    let chart = document.createElement("canvas")  
+    let div_chart = document.createElement("div")
+    div_chart.setAttribute("class", "zona_chart")
+    let chart = document.createElement("canvas")
     // div para la informacion detallada de la cripto
     let div_info = document.createElement("div")
     div_info.setAttribute("class", "zona_de_informacion")
@@ -311,22 +313,22 @@ function info_token_modal(info_token, historical_data){
     let td_label_PRICE = document.createElement("td")
     let label_PRICE = document.createTextNode("Precio:")
     let td_PRICE = document.createElement("td")
-    let PRICE = document.createTextNode("PRICE")
-    let tr_MKTCAP = document.createElement("tr")    
+    let PRICE = document.createTextNode(info_token.PRICE)
+    let tr_MKTCAP = document.createElement("tr")
     let td_label_MKTCAP = document.createElement("td")
     let label_MKTCAP = document.createTextNode("Capitalizacion del mercado")
     let td_MKTCAP = document.createElement("td")
-    let MKTCAP = document.createTextNode("MKTCAP")
-    let tr_SUPPLY = document.createElement("tr")    
+    let MKTCAP = document.createTextNode(info_token.MKTCAP)
+    let tr_SUPPLY = document.createElement("tr")
     let td_label_SUPPLY = document.createElement("td")
     let label_SUPPLY = document.createTextNode("Criptomonedas Minadas")
     let td_SUPPLY = document.createElement("td")
-    let SUPPLY = document.createTextNode("SUPPLY")
+    let SUPPLY = document.createTextNode(info_token.SUPPLY)
     let tr_VOLUME24HOURTO = document.createElement("tr")
     let td_label_VOLUME24HOURTO = document.createElement("td")
     let labell_VOLUME24HOURTO = document.createTextNode("Volumen 24H")
     let td_VOLUME24HOURTO = document.createElement("td")
-    let VOLUME24HOURT = document.createTextNode("VOLUME24HOURT")
+    let VOLUME24HOURT = document.createTextNode(info_token.VOLUME24HOURTO)
     // header
     h5.append(nombre_criptomoneda)
     modal_header.append(h5)
@@ -334,7 +336,7 @@ function info_token_modal(info_token, historical_data){
     div_chart.append(chart)
     // info table  
     // td
-    td_label_PRICE.append(label_PRICE)  
+    td_label_PRICE.append(label_PRICE)
     td_PRICE.append(PRICE)
     td_label_MKTCAP.append(label_MKTCAP)
     td_MKTCAP.append(MKTCAP)
@@ -351,7 +353,8 @@ function info_token_modal(info_token, historical_data){
     tabla_info.append(tbody_tabla_info)
     div_info.append(tabla_info)
     // aad to main container
-    detailed_info.append(modal_header, div_chart, div_info)
+    informacion_detallada.append(modal_header, div_chart, div_info)
+    seccion_informacion_detallada.append(informacion_detallada)
 }
 //---------------------------------------------------------------------------------
 
@@ -563,11 +566,18 @@ async function main() {
             let token_symbol = canvas_node.className
             let endpoint_info_token = config_endpoint_one_token_info(config_app, token_symbol)
             let info_token_from_api = await get_info_tokens(endpoint_info_token)
-            let info_token = info_token_from_api.DISPLAY.BTC.USD
+            console.log(token_symbol)
+            let info_token = info_token_from_api.DISPLAY[`${token_symbol}`].USD
+            console.log(info_token)
             let endpoint_historical_data = config_endpoint_historical_data(config_app, token_symbol, 30)
             let historical_data = await get_historical_data(endpoint_historical_data)
             info_token_modal(info_token, historical_data)
         })
+    })
+    // boton para cerrar 
+    let boton_close_modal_info_cripto = document.querySelector("#cerrar_modal_info_cripto")
+    boton_close_modal_info_cripto.addEventListener("click", _=>{
+        // aqui codigo para boorrar el divo con la informacion
     })
 }
 main()
