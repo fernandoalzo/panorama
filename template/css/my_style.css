@@ -1,3 +1,8 @@
+/* grafico informacion detallada */
+.zona_chart_details {
+  height: 250px;
+}
+
 /* btc */
 #img_BTC{
     transition: all 150ms;

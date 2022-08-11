@@ -289,7 +289,61 @@ function create_chart(fechas, precios, criptomoneda, num_dias) {
     })
 }
 
-function info_token_modal(info_token, historical_data) {
+function create_chart2(fechas, precios, criptomoneda, num_dias, canvas_id) {
+    let chart = document.querySelector(`#${canvas_id}`)
+    let labels = fechas
+    let datos = {
+        label: `Grafico de ${criptomoneda} Vs USD ultimos ${num_dias} dias`,
+        data: precios,
+        borderColor: 'rgba(175, 175, 175, 100)',
+        borderWidth: 3,
+    }
+    const historic_chart = new Chart(chart, {
+        type: "line",
+        data: {
+            labels: labels,
+            datasets: [datos],
+        },
+        options: {
+            scales: {
+                x: {
+                    ticks: {
+                        display: false,
+                    },
+                    grid: {
+                        display: false
+                    }
+                },
+                y: {
+                    ticks: {
+                        display: true,
+                        color: 'rgba(175, 175, 175, 100)',
+                    },
+                    grid: {
+                        display: false
+                    }
+                },
+            },
+            plugins: {
+                legend: {
+                    labels: {
+                        boxWidth: 0,
+                        color: 'rgba(175, 175, 175, 100)'
+                    },
+                    display: true,
+                    position: "bottom"
+                }
+            },
+            elements: {
+                point: {
+                    radius: 0
+                }
+            },
+        }
+    })
+}
+
+function info_token_modal(info_token, historical_data, token_symbol) {
     try {
         let seccion_informacion_detallada = document.querySelector("#seccion_informacion_detallada")
         // seccion donde ira toda la info, y debe ser eliminada para crear una nueva
@@ -304,8 +358,12 @@ function info_token_modal(info_token, historical_data) {
         let nombre_criptomoneda = document.createTextNode(info_token.FROMSYMBOL)
         // div para el char
         let div_chart = document.createElement("div")
-        div_chart.setAttribute("class", "zona_chart")
+        div_chart.setAttribute("class", "zona_chart_details")
+        div_chart.setAttribute("name", token_symbol)
         let chart = document.createElement("canvas")
+        chart.setAttribute("id", "chart_detailed_info")
+        chart.style.width = '100%';
+        chart.style.height = '100%';
         // div para la informacion detallada de la cripto
         let div_info = document.createElement("div")
         div_info.setAttribute("class", "zona_de_informacion")
@@ -317,33 +375,37 @@ function info_token_modal(info_token, historical_data) {
         // precio
         let tr_PRICE = document.createElement("tr")
         let td_label_PRICE = document.createElement("td")
-        let label_PRICE = document.createTextNode("Precio:")
+        let label_PRICE = document.createTextNode("Precio")
         let td_PRICE = document.createElement("td")
         let PRICE = document.createTextNode(info_token.PRICE)
         // precio mas alto las ultimas 24 horas HIGH24HOUR
         let tr_HIGH24HOUR = document.createElement("tr")
         let td_label_HIGH24HOUR = document.createElement("td")
-        let label_HIGH24HOUR = document.createTextNode("Precio mas alto ultimas 24H:")
+        let label_HIGH24HOUR = document.createTextNode("Precio mas alto ultimas 24H  ")
+        i_HIGH24HOUR = document.createElement("i")
+        i_HIGH24HOUR.setAttribute("class", "fa-solid fa-arrow-up-long")
         let td_HIGH24HOUR = document.createElement("td")
         let HIGH24HOUR = document.createTextNode(info_token.HIGH24HOUR)
         // precio mas bajo las ultimas 24 horas LOW24HOUR
         let tr_LOW24HOUR = document.createElement("tr")
         let td_label_LOW24HOUR = document.createElement("td")
-        let label_LOW24HOUR = document.createTextNode("Precio mas bajo ultimas 24H:")
+        i_LOW24HOUR = document.createElement("i")
+        i_LOW24HOUR.setAttribute("class", "fa-solid fa-arrow-down-long")
+        let label_LOW24HOUR = document.createTextNode("Precio mas bajo ultimas 24H  ")
         let td_LOW24HOUR = document.createElement("td")
         let LOW24HOUR = document.createTextNode(info_token.LOW24HOUR)
         // cambio del precion en 24 horas CHANGE24HOUR
         let tr_CHANGE24HOUR = document.createElement("tr")
         let td_label_CHANGE24HOUR = document.createElement("td")
-        let label_CHANGE24HOUR = document.createTextNode("Cambio 24H:")
+        let label_CHANGE24HOUR = document.createTextNode("Cambio 24H")
         let td_CHANGE24HOUR = document.createElement("td")
         let CHANGE24HOUR = document.createTextNode(info_token.CHANGE24HOUR)
         // cambio de precio 24 horas en porcentaje CHANGEPCT24HOUR
         let tr_CHANGEPCT24HOUR = document.createElement("tr")
         let td_label_CHANGEPCT24HOUR = document.createElement("td")
-        let label_CHANGEPCT24HOUR = document.createTextNode("Porcentaje cambio 24H:")
+        let label_CHANGEPCT24HOUR = document.createTextNode("Porcentaje cambio 24H")
         let td_CHANGEPCT24HOUR = document.createElement("td")
-        let CHANGEPCT24HOUR = document.createTextNode(info_token.CHANGEPCT24HOUR)
+        let CHANGEPCT24HOUR = document.createTextNode(info_token.CHANGEPCT24HOUR + "%")
         // capitalizacion de mercado
         let tr_MKTCAP = document.createElement("tr")
         let td_label_MKTCAP = document.createElement("td")
@@ -371,9 +433,9 @@ function info_token_modal(info_token, historical_data) {
         // td
         td_label_PRICE.append(label_PRICE)
         td_PRICE.append(PRICE)
-        td_label_HIGH24HOUR.append(label_HIGH24HOUR)
+        td_label_HIGH24HOUR.append(label_HIGH24HOUR, i_HIGH24HOUR)
         td_HIGH24HOUR.append(HIGH24HOUR)
-        td_label_LOW24HOUR.append(label_LOW24HOUR)
+        td_label_LOW24HOUR.append(label_LOW24HOUR, i_LOW24HOUR)
         td_LOW24HOUR.append(LOW24HOUR)
         td_label_CHANGE24HOUR.append(label_CHANGE24HOUR)
         td_CHANGE24HOUR.append(CHANGE24HOUR)
@@ -395,7 +457,7 @@ function info_token_modal(info_token, historical_data) {
         tr_SUPPLY.append(td_label_SUPPLY, td_SUPPLY)
         tr_VOLUME24HOURTO.append(td_label_VOLUME24HOURTO, td_VOLUME24HOURTO)
         // add tr to table
-        tbody_tabla_info.append(tr_PRICE, tr_HIGH24HOUR, tr_LOW24HOUR, tr_CHANGE24HOUR, tr_CHANGEPCT24HOUR,  tr_MKTCAP, tr_SUPPLY, tr_VOLUME24HOURTO)
+        tbody_tabla_info.append(tr_PRICE, tr_HIGH24HOUR, tr_LOW24HOUR, tr_CHANGE24HOUR, tr_CHANGEPCT24HOUR, tr_MKTCAP, tr_SUPPLY, tr_VOLUME24HOURTO)
         tabla_info.append(tbody_tabla_info)
         // add table to div info
         div_info.append(tabla_info)
@@ -594,7 +656,8 @@ async function main() {
             let endpoint_historical_data = config_endpoint_historical_data(config_app, token_symbol, 30)
             // console.log(endpoint_historical_data)
             let historical_data = await get_historical_data(endpoint_historical_data)
-            info_token_modal(info_token, historical_data)
+            info_token_modal(info_token, historical_data, token_symbol)
+            create_chart2(historical_data["fechas"], historical_data["precios"], token_symbol, 30, "chart_detailed_info")
         })
     })
     // boton para cerrar el modal y borrar la info de la cripto
@@ -611,27 +674,22 @@ async function main() {
     let inputs_temporalidades = document.querySelectorAll('input[name="temporalidad"]')
     inputs_temporalidades.forEach((input_temporabilidad) => {
         input_temporabilidad.addEventListener("click", async function (evento) {
-            // evento es un objeto de tipo PointerEvent con sus respectivas propiedaades
             let num_dias = evento.target.value
-            for (criptomoneda in info_app.criptomonedas) {
-                // remove the card
-                let contenedor_info = document.querySelector(`#card_info_${info_app.criptomonedas[criptomoneda]["symbol"]}`)
-                contenedor_info.remove()
-                // remove the checks buttons
-                let check_box_cripto = document.querySelector(`#div_check_${info_app.criptomonedas[criptomoneda]["symbol"]}`)
-                check_box_cripto.remove()
+            let zona_chart_details = document.querySelector(".zona_chart_details")
+            let token = zona_chart_details.getAttribute("name")
+            let chart_detailed_info = document.querySelector("#chart_detailed_info")
+            if (chart_detailed_info) {
+                // console.log("Borrando la informacion actual")
+                chart_detailed_info.remove()
             }
-            // volver a construir las cards con la informacion
-            build_cripto_card(info_app)
-            // volvera consultar la informacion de la criptomoneda para cargar nuvamente los graficos
-            for (criptomoneda in info_app.criptomonedas) {
-                // create endpoint
-                let token = info_app.criptomonedas[criptomoneda]["symbol"]
-                let endpoint_historical_data = config_endpoint_historical_data(config_app, token, num_dias)
-                let historical_data = await get_historical_data(endpoint_historical_data)
-                console.log("aqui crear el grafico detallado ocn la informacion de los dias seleccionados")
-                // create_chart(historical_data["fechas"], historical_data["precios"], criptomoneda, num_dias)
-            }
+            let new_chart_detailed_info = document.createElement("canvas")
+            new_chart_detailed_info.setAttribute("id", "chart_detailed_info")
+            new_chart_detailed_info.style.width = '100%';
+            new_chart_detailed_info.style.height = '100%';
+            zona_chart_details.append(new_chart_detailed_info)
+            let endpoint_historical_data = config_endpoint_historical_data(config_app, token, num_dias)
+            let historical_data = await get_historical_data(endpoint_historical_data)
+            create_chart2(historical_data["fechas"], historical_data["precios"], token, num_dias, "chart_detailed_info")
         })
     })
 }
