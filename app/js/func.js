@@ -288,6 +288,14 @@ function create_chart(fechas, precios, criptomoneda, num_dias) {
         }
     })
 }
+// metodo para crear en canvas del modal
+function crear_canvas_detailed_info(chart_id) {
+    let chart_detailed_info = document.createElement("canvas")
+    chart_detailed_info.setAttribute("id", chart_id)
+    chart_detailed_info.style.width = '100%';
+    chart_detailed_info.style.height = '100%';
+    return chart_detailed_info
+}
 
 function create_chart2(fechas, precios, criptomoneda, num_dias, canvas_id) {
     let chart = document.querySelector(`#${canvas_id}`)
@@ -611,8 +619,6 @@ async function main() {
     }
     // create section logs
     create_section_logos(info_app, config_app.path_logos)
-    // crear las opciones de temporalidad en que se ven los graficos
-    create_temporalidad_options(config_app)
     // construir la seccion de html con la informacion de cada cripto
     build_cripto_card(info_app)
     // get historical data
@@ -625,18 +631,26 @@ async function main() {
     }
     // seccion de checkbox para selecion que Cripto ver en pantalla
     let inputs_checks = document.querySelectorAll('input[name="select_criptos_to_show"]')
+    let tokens = []
+    for (let i = 0; i < inputs_checks.length; i++){
+        tokens.push(inputs_checks[i].value)
+    }
     inputs_checks.forEach((input_check) => {
         input_check.addEventListener("click", async function (evento) {
             let is_checked = evento.target.checked
             let token_symbol = evento.target.value
             if (is_checked) {
                 console.log("Crear card para: " + token_symbol)
+                // posicion del token para volver a crear la card en la misma posicion
+                posicion_token = tokens.indexOf(token_symbol)
                 let endpoint_info_token = config_endpoint_one_token_info(config_app, token_symbol)
                 let endpoint_historical_data = config_endpoint_historical_data(config_app, token_symbol, 30)
             }
             if (!is_checked) {
                 card_to_delete = document.querySelector(`#card_info_${token_symbol}`)
-                card_to_delete.remove()
+                if (card_to_delete){
+                    card_to_delete.remove()
+                }                
             }
         })
     })
@@ -670,7 +684,8 @@ async function main() {
     })
     // configuracion temporalidades
     // info_app de temporalidades a traves de los radio buttons
-    // retorna un lista con los objetos html seleccionados con querySelector
+    // crear las opciones de temporalidad en que se ven los graficos
+    create_temporalidad_options(config_app)
     let inputs_temporalidades = document.querySelectorAll('input[name="temporalidad"]')
     inputs_temporalidades.forEach((input_temporabilidad) => {
         input_temporabilidad.addEventListener("click", async function (evento) {
@@ -679,13 +694,9 @@ async function main() {
             let token = zona_chart_details.getAttribute("name")
             let chart_detailed_info = document.querySelector("#chart_detailed_info")
             if (chart_detailed_info) {
-                // console.log("Borrando la informacion actual")
                 chart_detailed_info.remove()
             }
-            let new_chart_detailed_info = document.createElement("canvas")
-            new_chart_detailed_info.setAttribute("id", "chart_detailed_info")
-            new_chart_detailed_info.style.width = '100%';
-            new_chart_detailed_info.style.height = '100%';
+            let new_chart_detailed_info = crear_canvas_detailed_info("chart_detailed_info")
             zona_chart_details.append(new_chart_detailed_info)
             let endpoint_historical_data = config_endpoint_historical_data(config_app, token, num_dias)
             let historical_data = await get_historical_data(endpoint_historical_data)
