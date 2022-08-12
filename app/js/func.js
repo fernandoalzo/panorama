@@ -350,7 +350,7 @@ function create_chart2(fechas, precios, criptomoneda, num_dias, canvas_id) {
         }
     })
 }
-
+// informacion detallada en el modal
 function info_token_modal(info_token, historical_data, token_symbol) {
     try {
         let seccion_informacion_detallada = document.querySelector("#seccion_informacion_detallada")
