@@ -47,7 +47,7 @@ function convert_timestamp_to_date(timestamp) {
         console.log("Ocurrio un error convirtiendo ")
     }
 }
-// funcion para consultar el historico del precion de determinado token
+// funcion para consultar el historico del precion de determinado token, retrna un diccionario con dos listas, los precios de cierre y e las fechas
 async function get_historical_data(endpoint_historical_data) {
     try {
         let response_from_api = await fetch(endpoint_historical_data)
@@ -130,7 +130,7 @@ function build_cripto_card(info_app) {
         // div2
         let div2 = document.createElement("div")
         div2.setAttribute("class", "py-5 px-4 px-md-3 px-lg-4 rounded-1 bg-800 plans-cards mt-0")
-        div2.setAttribute("id", `info_${criptomoneda}`)
+        div2.setAttribute("id", `info_${info_app.criptomonedas[criptomoneda].symbol}`)
         // p1
         let p1 = document.createElement("p")
         p1.setAttribute("class", "fs-2 ls-2")
@@ -152,7 +152,7 @@ function build_cripto_card(info_app) {
         a_modal.setAttribute("data-toggle", "modal")
         a_modal.setAttribute("data-backdrop", "static")
         let canvas = document.createElement("canvas")
-        canvas.setAttribute("id", `chart_${criptomoneda}`)
+        canvas.setAttribute("id", `chart_${info_app.criptomonedas[criptomoneda].symbol}`)
         canvas.setAttribute("class", info_app.criptomonedas[criptomoneda].symbol)
         canvas.setAttribute("name", "grafico")
         // ul
@@ -234,9 +234,157 @@ function build_cripto_card(info_app) {
         seccion_checkbox_token.append(div_checkbox)
     }
 }
+//funcion para contruir la cripto una card independiente
+function creation_card_by_token(info_token_from_api, token_symbol, token_ref) {
+    // div1contenendor principal
+    let contenedor = document.querySelector("#container_cards_by_token")
+    // div principal
+    let div1 = document.createElement("div")
+    div1.setAttribute("class", "col-sm-9 col-md-4 mt-3")
+    div1.setAttribute("id", `card_info_${info_token_from_api.RAW[`${token_symbol}`].USD.FROMSYMBOL}`)
+    // div2
+    let div2 = document.createElement("div")
+    div2.setAttribute("class", "py-5 px-4 px-md-3 px-lg-4 rounded-1 bg-800 plans-cards mt-0")
+    div2.setAttribute("id", `info_${info_token_from_api.RAW[`${token_symbol}`].USD.FROMSYMBOL}`)
+    // p1
+    let p1 = document.createElement("p")
+    p1.setAttribute("class", "fs-2 ls-2")
+    // text
+    let criptomoneda_text = document.createTextNode(`${info_token_from_api.RAW[`${token_symbol}`].USD.FROMSYMBOL}`)
+    let h1 = document.createElement("h1")
+    // h1
+    h1.setAttribute("class", "display-7 ls-3")
+    let span1 = document.createElement("span")
+    // span
+    span1.setAttribute("class", "text-600")
+    signo_dolar = document.createTextNode("$ ")
+    // precio
+    let precio = document.createTextNode(`${info_token_from_api.RAW[`${token_symbol}`].USD.PRICE}`)
+    // canvas
+    // link when canvas is clicked
+    let a_modal = document.createElement("a")
+    a_modal.setAttribute("href", "#exampleModal")
+    a_modal.setAttribute("data-toggle", "modal")
+    a_modal.setAttribute("data-backdrop", "static")
+    let canvas = document.createElement("canvas")
+    canvas.setAttribute("id", `chart_${info_token_from_api.RAW[`${token_symbol}`].USD.FROMSYMBOL}`)
+    canvas.setAttribute("class", info_token_from_api.RAW[`${token_symbol}`].USD.FROMSYMBOL)
+    canvas.setAttribute("name", "grafico")
+    // ul
+    let ul = document.createElement("ul")
+    ul.setAttribute("class", "mt-5 ps-0")
+    // li
+    let li1 = document.createElement("li")
+    li1.setAttribute("class", "pricing-lists")
+    let HIGH24HOUR = document.createTextNode(`High 24H: ${info_token_from_api.DISPLAY[`${token_symbol}`].USD.HIGH24HOUR}`)
+    let li2 = document.createElement("li")
+    li2.setAttribute("class", "pricing-lists")
+    let LOW24HOUR = document.createTextNode(`Low 24H: ${info_token_from_api.DISPLAY[`${token_symbol}`].USD.LOW24HOUR}`)
+    let li3 = document.createElement("li")
+    li3.setAttribute("class", "pricing-lists")
+    let MKTCAP = document.createTextNode(`Market Cap: ${info_token_from_api.DISPLAY[`${token_symbol}`].USD.LOW24HOUR}`)
+    let hr = document.createElement("hr")
+    // link to ingo
+    hr.setAttribute("class", "hr mt-6 text-1000")
+    link = document.createElement("a")
+    link.setAttribute("href", `https://www.cryptocompare.com/coins/${token_symbol}/overview`)
+    link.setAttribute("target", "_blank")
+    // boton
+    let boton = document.createElement("button")
+    boton.setAttribute("class", "btn btn-gray mt-4")
+    // span2
+    let i_mas_info = document.createElement("i")
+    i_mas_info.setAttribute("class", "fa-solid fa-circle-plus")
+    let texto_boton = document.createTextNode("Mas Informacion ")
+    // config html
+    p1.append(criptomoneda_text)
+    span1.append(signo_dolar)
+    h1.append(span1)
+    h1.append(precio)
+    // ul
+    li1.append(HIGH24HOUR)
+    li2.append(LOW24HOUR)
+    li3.append(MKTCAP)
+    ul.append(li1, li2, li3)
+    // boton
+    boton.append(texto_boton)
+    boton.append(i_mas_info)
+    // div2 
+    div2.append(p1)
+    div2.append(h1)
+    a_modal.append(canvas)
+    div2.append(a_modal)
+    div2.append(hr)
+    div2.append(ul)
+    link.append(boton)
+    div2.append(link)
+    // div1
+    div1.append(div2)
+    // check if the card reference is the last
+    card_ref = document.querySelector(`#card_info_${token_ref}`)
+    if (card_ref) {
+        contenedor.insertBefore(div1, card_ref)
+    } else {
+        contenedor.append(div1)
+    }
+}
 // funcion para crear el grafico
-function create_chart(fechas, precios, criptomoneda, num_dias) {
-    let chart = document.querySelector(`#chart_${criptomoneda}`)
+function create_chart(fechas, precios, token, num_dias) {
+    let chart = document.querySelector(`#chart_${token}`)
+    let labels = fechas
+    let datos = {
+        label: `Grafico de ${token} Vs USD ultimos ${num_dias} dias`,
+        data: precios,
+        borderColor: 'rgba(175, 175, 175, 100)',
+        borderWidth: 3,
+    }
+    const historic_chart = new Chart(chart, {
+        type: "line",
+        data: {
+            labels: labels,
+            datasets: [datos],
+        },
+        options: {
+            scales: {
+                x: {
+                    ticks: {
+                        display: false,
+                    },
+                    grid: {
+                        display: false
+                    }
+                },
+                y: {
+                    ticks: {
+                        display: true,
+                        color: 'rgba(175, 175, 175, 100)',
+                    },
+                    grid: {
+                        display: false
+                    }
+                },
+            },
+            plugins: {
+                legend: {
+                    labels: {
+                        boxWidth: 0,
+                        color: 'rgba(175, 175, 175, 100)'
+                    },
+                    display: true,
+                    position: "bottom"
+                }
+            },
+            elements: {
+                point: {
+                    radius: 0
+                }
+            },
+        }
+    })
+}
+//funcion para crear el grafico especificando el ID
+function create_chart2(fechas, precios, criptomoneda, num_dias, canvas_id) {
+    let chart = document.querySelector(`#${canvas_id}`)
     let labels = fechas
     let datos = {
         label: `Grafico de ${criptomoneda} Vs USD ultimos ${num_dias} dias`,
@@ -296,62 +444,8 @@ function crear_canvas_detailed_info(chart_id) {
     chart_detailed_info.style.height = '100%';
     return chart_detailed_info
 }
-
-function create_chart2(fechas, precios, criptomoneda, num_dias, canvas_id) {
-    let chart = document.querySelector(`#${canvas_id}`)
-    let labels = fechas
-    let datos = {
-        label: `Grafico de ${criptomoneda} Vs USD ultimos ${num_dias} dias`,
-        data: precios,
-        borderColor: 'rgba(175, 175, 175, 100)',
-        borderWidth: 3,
-    }
-    const historic_chart = new Chart(chart, {
-        type: "line",
-        data: {
-            labels: labels,
-            datasets: [datos],
-        },
-        options: {
-            scales: {
-                x: {
-                    ticks: {
-                        display: false,
-                    },
-                    grid: {
-                        display: false
-                    }
-                },
-                y: {
-                    ticks: {
-                        display: true,
-                        color: 'rgba(175, 175, 175, 100)',
-                    },
-                    grid: {
-                        display: false
-                    }
-                },
-            },
-            plugins: {
-                legend: {
-                    labels: {
-                        boxWidth: 0,
-                        color: 'rgba(175, 175, 175, 100)'
-                    },
-                    display: true,
-                    position: "bottom"
-                }
-            },
-            elements: {
-                point: {
-                    radius: 0
-                }
-            },
-        }
-    })
-}
 // informacion detallada en el modal
-function info_token_modal(info_token, historical_data, token_symbol) {
+function info_token_modal(info_token, token_symbol) {
     try {
         let seccion_informacion_detallada = document.querySelector("#seccion_informacion_detallada")
         // seccion donde ira toda la info, y debe ser eliminada para crear una nueva
@@ -477,6 +571,29 @@ function info_token_modal(info_token, historical_data, token_symbol) {
         console.log(err)
     }
 
+}
+// funciones para cuando se dan clicks en el dom
+function function_click_chart(config_app, graficos) {
+    console.log(graficos)
+    graficos.forEach((grafico) => {
+        grafico.addEventListener("click", async (evento) => {
+            console.log("entramos aqui")
+            let canvas_node_id = evento.target.id
+            let canvas_node = document.querySelector(`#${canvas_node_id}`)
+            let token_symbol = canvas_node.className
+            // info from API by token
+            let endpoint_info_token = config_endpoint_one_token_info(config_app, token_symbol)
+            // console.log(endpoint_info_token)
+            let info_token_from_api = await get_info_tokens(endpoint_info_token)
+            let info_token = info_token_from_api.DISPLAY[`${token_symbol}`].USD
+            // info historic data
+            let endpoint_historical_data = config_endpoint_historical_data(config_app, token_symbol, 30)
+            // console.log(endpoint_historical_data)
+            let historical_data = await get_historical_data(endpoint_historical_data)
+            info_token_modal(info_token, token_symbol)
+            create_chart2(historical_data["fechas"], historical_data["precios"], token_symbol, 30, "chart_detailed_info")
+        })
+    })
 }
 //---------------------------------------------------------------------------------
 
@@ -617,7 +734,7 @@ async function main() {
         }
 
     }
-    // create section logs
+    // create section logos
     create_section_logos(info_app, config_app.path_logos)
     // construir la seccion de html con la informacion de cada cripto
     build_cripto_card(info_app)
@@ -627,58 +744,51 @@ async function main() {
         let token = info_app.criptomonedas[criptomoneda]["symbol"]
         let endpoint_historical_data = config_endpoint_historical_data(config_app, token, config_app.temporalidad_default)
         let historical_data = await get_historical_data(endpoint_historical_data)
-        create_chart(historical_data["fechas"], historical_data["precios"], criptomoneda, config_app.temporalidad_default)
+        create_chart(historical_data["fechas"], historical_data["precios"], token, config_app.temporalidad_default)
     }
     // seccion de checkbox para selecion que Cripto ver en pantalla
     let inputs_checks = document.querySelectorAll('input[name="select_criptos_to_show"]')
     let tokens = []
-    for (let i = 0; i < inputs_checks.length; i++){
+    for (let i = 0; i < inputs_checks.length; i++) {
         tokens.push(inputs_checks[i].value)
     }
+    // codigo para cuando se haga click sobre los checkbox
     inputs_checks.forEach((input_check) => {
         input_check.addEventListener("click", async function (evento) {
             let is_checked = evento.target.checked
             let token_symbol = evento.target.value
             if (is_checked) {
-                console.log("Crear card para: " + token_symbol)
                 // posicion del token para volver a crear la card en la misma posicion
                 posicion_token = tokens.indexOf(token_symbol)
+                token_ref = tokens[posicion_token + 1]
                 let endpoint_info_token = config_endpoint_one_token_info(config_app, token_symbol)
+                let info_token_from_api = await get_info_tokens(endpoint_info_token)
                 let endpoint_historical_data = config_endpoint_historical_data(config_app, token_symbol, 30)
+                let historical_data = await get_historical_data(endpoint_historical_data)
+                creation_card_by_token(info_token_from_api, token_symbol, token_ref)
+                create_chart2(historical_data["fechas"], historical_data["precios"], token_symbol, 30, `chart_${token_symbol}`)
+                let graficos = document.querySelectorAll('canvas[name="grafico"]')
+                console.log("entrada 1")
+                // function_click_chart(config_app, graficos)
             }
             if (!is_checked) {
                 card_to_delete = document.querySelector(`#card_info_${token_symbol}`)
-                if (card_to_delete){
+                if (card_to_delete) {
                     card_to_delete.remove()
-                }                
+                }
             }
         })
     })
     // open chart on modal with details about 
     let graficos = document.querySelectorAll('canvas[name="grafico"]')
-    graficos.forEach((grafico) => {
-        grafico.addEventListener("click", async (evento) => {
-            let canvas_node_id = evento.target.id
-            let canvas_node = document.querySelector(`#${canvas_node_id}`)
-            let token_symbol = canvas_node.className
-            // info from API by token
-            let endpoint_info_token = config_endpoint_one_token_info(config_app, token_symbol)
-            // console.log(endpoint_info_token)
-            let info_token_from_api = await get_info_tokens(endpoint_info_token)
-            let info_token = info_token_from_api.DISPLAY[`${token_symbol}`].USD
-            // info historic data
-            let endpoint_historical_data = config_endpoint_historical_data(config_app, token_symbol, 30)
-            // console.log(endpoint_historical_data)
-            let historical_data = await get_historical_data(endpoint_historical_data)
-            info_token_modal(info_token, historical_data, token_symbol)
-            create_chart2(historical_data["fechas"], historical_data["precios"], token_symbol, 30, "chart_detailed_info")
-        })
-    })
+    console.log("entrada 2")
+    function_click_chart(config_app, graficos)
     // boton para cerrar el modal y borrar la info de la cripto
     let boton_close_modal_info_cripto = document.querySelector("#cerrar_modal_info_cripto")
     boton_close_modal_info_cripto.addEventListener("click", _ => {
         let informacion_detallada = document.querySelector("#informacion_detallada")
         if (informacion_detallada) {
+            console.log("se uso el boton close")
             informacion_detallada.remove()
         }
     })
