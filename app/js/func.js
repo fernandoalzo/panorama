@@ -574,7 +574,6 @@ function info_token_modal(info_token, token_symbol) {
 }
 // funciones para cuando se dan clicks en el dom
 function function_click_chart(config_app, graficos) {
-    console.log(graficos)
     graficos.forEach((grafico) => {
         grafico.addEventListener("click", async (evento) => {
             console.log("entramos aqui")
@@ -583,12 +582,10 @@ function function_click_chart(config_app, graficos) {
             let token_symbol = canvas_node.className
             // info from API by token
             let endpoint_info_token = config_endpoint_one_token_info(config_app, token_symbol)
-            // console.log(endpoint_info_token)
             let info_token_from_api = await get_info_tokens(endpoint_info_token)
             let info_token = info_token_from_api.DISPLAY[`${token_symbol}`].USD
             // info historic data
             let endpoint_historical_data = config_endpoint_historical_data(config_app, token_symbol, 30)
-            // console.log(endpoint_historical_data)
             let historical_data = await get_historical_data(endpoint_historical_data)
             info_token_modal(info_token, token_symbol)
             create_chart2(historical_data["fechas"], historical_data["precios"], token_symbol, 30, "chart_detailed_info")
@@ -738,7 +735,7 @@ async function main() {
     create_section_logos(info_app, config_app.path_logos)
     // construir la seccion de html con la informacion de cada cripto
     build_cripto_card(info_app)
-    // get historical data
+    // get historical data and create chats
     for (criptomoneda in info_app.criptomonedas) {
         // create endpoint
         let token = info_app.criptomonedas[criptomoneda]["symbol"]
@@ -788,7 +785,6 @@ async function main() {
     boton_close_modal_info_cripto.addEventListener("click", _ => {
         let informacion_detallada = document.querySelector("#informacion_detallada")
         if (informacion_detallada) {
-            console.log("se uso el boton close")
             informacion_detallada.remove()
         }
     })
@@ -815,3 +811,8 @@ async function main() {
     })
 }
 main()
+
+window.onload = _ => {
+    console.log("Hola mundo...")
+    $("#modal_mensaje_de_desarrollador").modal()
+}
