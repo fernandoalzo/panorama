@@ -1,20 +1,18 @@
 // metodo para la creacion del endpoint para traer la informacion actual de los tokens especificados dentro de una lista
-function config_endpoint_tokens_info(config_app) {
-    tokens_as_string = config_app["tokens"].toString()
-    api_key = config_app["api_key"]
+function config_endpoint_tokens_info(tokens, api_key) {
+    tokens_as_string = tokens.toString()
     endpoint = `https://min-api.cryptocompare.com/data/pricemultifull?fsyms=${tokens_as_string}&tsyms=USD&api_key=${api_key}`
     return endpoint
 }
 // config endpoint to ask about individuals token
-function config_endpoint_one_token_info(config_app, token_symbol) {
-    tokens_as_string = config_app["tokens"].toString()
-    api_key = config_app["api_key"]
+function config_endpoint_one_token_info(_config_app, token_symbol) {
+    tokens_as_string = _config_app["tokens"].toString()
+    api_key = _config_app["api_key"]
     endpoint = `https://min-api.cryptocompare.com/data/pricemultifull?fsyms=${token_symbol}&tsyms=USD&api_key=${api_key}`
     return endpoint
 }
 // metodo para la creacion del enpoint con el cual se consulta el historico del precio de un token
-function config_endpoint_historical_data(config_app, token, numero_dias) {
-    api_key = config_app["api_key"]
+function config_endpoint_historical_data(api_key, token, numero_dias) {
     endpoint = `https://min-api.cryptocompare.com/data/v2/histoday?fsym=${token}&tsym=USD&limit=${numero_dias}&api_key=${api_key}`
     return endpoint
 }
@@ -76,168 +74,112 @@ async function get_historical_data(endpoint_historical_data) {
     }
 }
 // funcion par creat la seccion de los logos del archivo HTML
-function create_section_logos(info_app, logos_path) {
-    let contenedor = document.querySelector("#contenedor_logos")
-    for (let criptomoneda in info_app.criptomonedas) {
-        let token = info_app.criptomonedas[criptomoneda].symbol
-        let path_logo = `${logos_path}/${token}.png`
-        div = document.createElement("div")
-        div.setAttribute("class", "col-4 col-lg-auto mt-5 mt-lg-0")
-        img = document.createElement("img")
-        img.setAttribute("src", path_logo)
-        img.setAttribute("id", `img_${token}`)
-        img.style.height = "30px"
-        div.append(img)
-        contenedor.append(div)
-    }
+function create_section_logos(symbol, logos_path, id_seccion_to_put_in) {
+    // get the container en donde se pondran los logos
+    let contenedor = document.querySelector(`#${id_seccion_to_put_in}`)
+    // configuracion del logo dentro de la seccion de logos
+    div = document.createElement("div")
+    div.setAttribute("class", "col-4 col-lg-auto mt-5 mt-lg-0")
+    img = document.createElement("img")
+    img.setAttribute("src", `${logos_path}/${symbol}.png`)
+    img.setAttribute("id", `img_${symbol}`)
+    img.style.height = "30px"
+    div.append(img)
+    contenedor.append(div)
 }
-// funcion para crear las opciones de temporalidad en que se mostraran las graficas.
-function create_temporalidad_options(config_app) {
-    let seccion_temporalidades = document.querySelector("#seccion_temporalidades")
-    let temporalidades = config_app.temporalidades
-    for (let temporalidad in temporalidades) {
-        let dias = temporalidades[temporalidad]
-        div = document.createElement("div")
-        div.setAttribute("class", "form-check form-check-inline")
-        input = document.createElement("input")
-        input.setAttribute("class", "form-check-input")
-        input.setAttribute("type", "radio")
-        input.setAttribute("name", "temporalidad")
-        input.setAttribute("value", `${dias}`)
-        input.setAttribute("id", `${dias}d`)
-        label = document.createElement("label")
-        label.setAttribute("class", "form-check-label")
-        label.setAttribute("for", `${dias}d`)
-        text = document.createTextNode(`${dias} dias`)
-        // build html
-        div.append(input)
-        label.append(text)
-        div.append(label)
-        seccion_temporalidades.append(div)
-    }
-    radio_default = document.getElementById(`${config_app.temporalidad_default}d`)
-    radio_default.checked = true
-}
-// funcion para contruir la tarjeta con laa informacion de la criptomoneda
-function build_cripto_card(info_app) {
-    let seccion_checkbox_token = document.querySelector("#seccion_checkbox_token")
-    let contenedor = document.querySelector("#container_cards_by_token")
-    for (criptomoneda in info_app.criptomonedas) {
-        // div1
-        let div1 = document.createElement("div")
-        div1.setAttribute("class", "col-sm-9 col-md-4 mt-3")
-        div1.setAttribute("id", `card_info_${info_app.criptomonedas[criptomoneda].symbol}`)
-        // div2
-        let div2 = document.createElement("div")
-        div2.setAttribute("class", "py-5 px-4 px-md-3 px-lg-4 rounded-1 bg-800 plans-cards mt-0")
-        div2.setAttribute("id", `info_${info_app.criptomonedas[criptomoneda].symbol}`)
-        // p1
-        let p1 = document.createElement("p")
-        p1.setAttribute("class", "fs-2 ls-2")
-        // texy
-        let criptomoneda_text = document.createTextNode(`${criptomoneda}`)
-        let h1 = document.createElement("h1")
-        // h1
-        h1.setAttribute("class", "display-7 ls-3")
-        let span1 = document.createElement("span")
-        // span
-        span1.setAttribute("class", "text-600")
-        signo_dolar = document.createTextNode("$ ")
-        // precio
-        let precio = document.createTextNode(`${info_app.criptomonedas[criptomoneda]["info_precio"]["precio_actual"]}`)
-        // canvas
-        // link when canvas is clicked
-        let a_modal = document.createElement("a")
-        a_modal.setAttribute("href", "#exampleModal")
-        a_modal.setAttribute("data-toggle", "modal")
-        a_modal.setAttribute("data-backdrop", "static")
-        let canvas = document.createElement("canvas")
-        canvas.setAttribute("id", `chart_${info_app.criptomonedas[criptomoneda].symbol}`)
-        canvas.setAttribute("class", info_app.criptomonedas[criptomoneda].symbol)
-        canvas.setAttribute("name", "grafico")
-        // ul
-        let ul = document.createElement("ul")
-        ul.setAttribute("class", "mt-5 ps-0")
-        // li
-        let li1 = document.createElement("li")
-        li1.setAttribute("class", "pricing-lists")
-        let high_24h = document.createTextNode(`High 24H: ${info_app.criptomonedas[criptomoneda]["info_precio"]["high_24h"]}`)
-        let li2 = document.createElement("li")
-        li2.setAttribute("class", "pricing-lists")
-        let low_24h = document.createTextNode(`Low 24H: ${info_app.criptomonedas[criptomoneda]["info_precio"]["low_24h"]}`)
-        let li3 = document.createElement("li")
-        li3.setAttribute("class", "pricing-lists")
-        let MKTCAP = document.createTextNode(`Market Cap: ${info_app.criptomonedas[criptomoneda]["info_precio"]["MKTCAP"]}`)
-        let hr = document.createElement("hr")
-        // link to ingo
-        hr.setAttribute("class", "hr mt-6 text-1000")
-        link = document.createElement("a")
-        link.setAttribute("href", `${info_app.criptomonedas[criptomoneda]["info_precio"]["data_source"]}`)
-        link.setAttribute("target", "_blank")
-        // boton
-        let boton = document.createElement("button")
-        boton.setAttribute("class", "btn btn-gray mt-4")
-        // span2
-        let i_mas_info = document.createElement("i")
-        i_mas_info.setAttribute("class", "fa-solid fa-circle-plus")
-        let texto_boton = document.createTextNode("Mas Informacion ")
-        // config html
-        p1.append(criptomoneda_text)
-        span1.append(signo_dolar)
-        h1.append(span1)
-        h1.append(precio)
-        // ul
-        li1.append(high_24h)
-        li2.append(low_24h)
-        li3.append(MKTCAP)
-        ul.append(li1, li2, li3)
-        // boton
-        boton.append(texto_boton)
-        boton.append(i_mas_info)
-        // div2 
-        div2.append(p1)
-        div2.append(h1)
-        a_modal.append(canvas)
-        div2.append(a_modal)
-        div2.append(hr)
-        div2.append(ul)
-        link.append(boton)
-        div2.append(link)
-        // div1
-        div1.append(div2)
-        // add to container       
-        contenedor.append(div1)
-        // ---------------
-        // create check box
-        // div
-        div_checkbox = document.createElement("div")
-        div_checkbox.setAttribute("class", "form-check form-check-inline")
-        div_checkbox.setAttribute("id", `div_check_${info_app.criptomonedas[criptomoneda].symbol}`)
-        // input
-        input_checkbox = document.createElement("input")
-        input_checkbox.setAttribute("class", "form-check-input")
-        input_checkbox.setAttribute("type", "checkbox")
-        input_checkbox.setAttribute("name", "select_criptos_to_show")
-        input_checkbox.setAttribute("id", `check_${criptomoneda}`)
-        input_checkbox.setAttribute("value", info_app.criptomonedas[criptomoneda].symbol)
-        input_checkbox.checked = true
-        // label
-        label_checkbox = document.createElement("label")
-        label_checkbox.setAttribute("class", "form-check-label")
-        label_checkbox.setAttribute("for", `check_${criptomoneda}`)
-        // text
-        checkbox_text = document.createTextNode(info_app.criptomonedas[criptomoneda].symbol)
-        // config html
-        div_checkbox.append(input_checkbox)
-        label_checkbox.append(checkbox_text)
-        div_checkbox.append(label_checkbox)
-        seccion_checkbox_token.append(div_checkbox)
-    }
-}
-//funcion para contruir la cripto una card independiente
-function creation_card_by_token(info_token_from_api, token_symbol, token_ref) {
+// funcion para crear el criptocard
+function create_criptocard(token_symbol, PRICE, HIGH24HOUR, LOW24HOUR, MKTCAP, id_cards_container) {
     // div1contenendor principal
-    let contenedor = document.querySelector("#container_cards_by_token")
+    let contenedor = document.querySelector(`#${id_cards_container}`)
+    // div principal
+    let div1 = document.createElement("div")
+    div1.setAttribute("class", "col-sm-9 col-md-4 mt-3")
+    div1.setAttribute("id", `card_info_${token_symbol}`)
+    // div2
+    let div2 = document.createElement("div")
+    div2.setAttribute("class", "py-5 px-4 px-md-3 px-lg-4 rounded-1 bg-800 plans-cards mt-0")
+    div2.setAttribute("id", `info_${token_symbol}`)
+    // p1
+    let p1 = document.createElement("p")
+    p1.setAttribute("class", "fs-2 ls-2")
+    // text
+    let criptomoneda_text = document.createTextNode(`${token_symbol}`)
+    let h1 = document.createElement("h1")
+    // h1
+    h1.setAttribute("class", "display-7 ls-3")
+    let span1 = document.createElement("span")
+    // span
+    span1.setAttribute("class", "text-600")
+    signo_dolar = document.createTextNode("$ ")
+    // precio
+    let precio = document.createTextNode(`${PRICE}`)
+    // canvas
+    // link when canvas is clicked
+    let a_modal = document.createElement("a")
+    a_modal.setAttribute("href", "#exampleModal")
+    a_modal.setAttribute("data-toggle", "modal")
+    a_modal.setAttribute("data-backdrop", "static")
+    let canvas = document.createElement("canvas")
+    canvas.setAttribute("id", `chart_${token_symbol}`)
+    canvas.setAttribute("class", token_symbol)
+    canvas.setAttribute("name", "grafico")
+    // ul
+    let ul = document.createElement("ul")
+    ul.setAttribute("class", "mt-5 ps-0")
+    // li
+    let li1 = document.createElement("li")
+    li1.setAttribute("class", "pricing-lists")
+    let _HIGH24HOUR = document.createTextNode(`High 24H: ${HIGH24HOUR}`)
+    let li2 = document.createElement("li")
+    li2.setAttribute("class", "pricing-lists")
+    let _LOW24HOUR = document.createTextNode(`Low 24H: ${LOW24HOUR}`)
+    let li3 = document.createElement("li")
+    li3.setAttribute("class", "pricing-lists")
+    let _MKTCAP = document.createTextNode(`Market Cap: ${MKTCAP}`)
+    let hr = document.createElement("hr")
+    // link to ingo
+    hr.setAttribute("class", "hr mt-6 text-1000")
+    link = document.createElement("a")
+    link.setAttribute("href", `https://www.cryptocompare.com/coins/${token_symbol}/overview`)
+    link.setAttribute("target", "_blank")
+    // boton
+    let boton = document.createElement("button")
+    boton.setAttribute("class", "btn btn-gray mt-4")
+    // span2
+    let i_mas_info = document.createElement("i")
+    i_mas_info.setAttribute("class", "fa-solid fa-circle-plus")
+    let texto_boton = document.createTextNode("Mas Informacion ")
+    // config html
+    p1.append(criptomoneda_text)
+    span1.append(signo_dolar)
+    h1.append(span1)
+    h1.append(precio)
+    // ul
+    li1.append(_HIGH24HOUR)
+    li2.append(_LOW24HOUR)
+    li3.append(_MKTCAP)
+    ul.append(li1, li2, li3)
+    // boton
+    boton.append(texto_boton)
+    boton.append(i_mas_info)
+    // div2 
+    div2.append(p1)
+    div2.append(h1)
+    a_modal.append(canvas)
+    div2.append(a_modal)
+    div2.append(hr)
+    div2.append(ul)
+    link.append(boton)
+    div2.append(link)
+    // div1
+    div1.append(div2)
+    // addd to main container
+    contenedor.append(div1)
+}
+//funcion para contruir la cripto una card independiente, con esta funcion se crea la criptocard cuando se hae click sobre un checkboox
+function create_new_criptocard(info_token_from_api, token_symbol, token_ref) {
+    // div1contenendor principal
+    let contenedor = document.querySelector("#container_criptocards")
     // div principal
     let div1 = document.createElement("div")
     div1.setAttribute("class", "col-sm-9 col-md-4 mt-3")
@@ -328,6 +270,60 @@ function creation_card_by_token(info_token_from_api, token_symbol, token_ref) {
         contenedor.append(div1)
     }
 }
+// funcion para crear los checkbox
+function create_checkbox_by_token(token_symbol, id_seccion_checkbox_token) {
+    let seccion_checkbox_token = document.querySelector(`#${id_seccion_checkbox_token}`)
+    // div
+    div_checkbox = document.createElement("div")
+    div_checkbox.setAttribute("class", "form-check form-check-inline")
+    div_checkbox.setAttribute("id", `div_check_${token_symbol}`)
+    // input
+    input_checkbox = document.createElement("input")
+    input_checkbox.setAttribute("class", "form-check-input")
+    input_checkbox.setAttribute("type", "checkbox")
+    input_checkbox.setAttribute("name", "select_criptos_to_show")
+    input_checkbox.setAttribute("id", `check_${token_symbol}`)
+    input_checkbox.setAttribute("value", token_symbol)
+    input_checkbox.checked = true
+    // label
+    label_checkbox = document.createElement("label")
+    label_checkbox.setAttribute("class", "form-check-label")
+    label_checkbox.setAttribute("for", `check_${token_symbol}`)
+    // text
+    checkbox_text = document.createTextNode(token_symbol)
+    // config html
+    div_checkbox.append(input_checkbox)
+    label_checkbox.append(checkbox_text)
+    div_checkbox.append(label_checkbox)
+    seccion_checkbox_token.append(div_checkbox)
+}
+// funcion para crear las opciones de temporalidad en que se mostraran las graficas.
+function create_temporalidad_options(_config_app) {
+    let seccion_temporalidades = document.querySelector("#seccion_temporalidades")
+    let temporalidades = _config_app.temporalidades
+    for (let temporalidad in temporalidades) {
+        let dias = temporalidades[temporalidad]
+        div = document.createElement("div")
+        div.setAttribute("class", "form-check form-check-inline")
+        input = document.createElement("input")
+        input.setAttribute("class", "form-check-input")
+        input.setAttribute("type", "radio")
+        input.setAttribute("name", "temporalidad")
+        input.setAttribute("value", `${dias}`)
+        input.setAttribute("id", `${dias}d`)
+        label = document.createElement("label")
+        label.setAttribute("class", "form-check-label")
+        label.setAttribute("for", `${dias}d`)
+        text = document.createTextNode(`${dias} dias`)
+        // build html
+        div.append(input)
+        label.append(text)
+        div.append(label)
+        seccion_temporalidades.append(div)
+    }
+    radio_default = document.getElementById(`${_config_app.temporalidad_default}d`)
+    radio_default.checked = true
+}
 // funcion para crear el grafico
 function create_chart(fechas, precios, token, num_dias) {
     let chart = document.querySelector(`#chart_${token}`)
@@ -335,7 +331,7 @@ function create_chart(fechas, precios, token, num_dias) {
     let datos = {
         label: `Grafico de ${token} Vs USD ultimos ${num_dias} dias`,
         data: precios,
-        borderColor: 'rgba(175, 175, 175, 100)',
+        borderColor: '#f0ad4e',
         borderWidth: 3,
     }
     const historic_chart = new Chart(chart, {
@@ -383,13 +379,19 @@ function create_chart(fechas, precios, token, num_dias) {
     })
 }
 //funcion para crear el grafico especificando el ID
-function create_chart2(fechas, precios, criptomoneda, num_dias, canvas_id) {
+// let historic_chart //esta variable deber global para el metodo
+function create_new_chart(fechas, precios, criptomoneda, num_dias, canvas_id) {
     let chart = document.querySelector(`#${canvas_id}`)
+    //destruir el canvas funciona para que no halla un error de id ya creado, 
+    //pero tego el problema de que cuando cierro el modal, el grafico del criptocard se desaparece
+    // if (historic_chart){
+    //     historic_chart.destroy()
+    // }
     let labels = fechas
     let datos = {
         label: `Grafico de ${criptomoneda} Vs USD ultimos ${num_dias} dias`,
         data: precios,
-        borderColor: 'rgba(175, 175, 175, 100)',
+        borderColor: '#f0ad4e',
         borderWidth: 3,
     }
     const historic_chart = new Chart(chart, {
@@ -446,6 +448,11 @@ function crear_canvas_detailed_info(chart_id) {
 }
 // informacion detallada en el modal
 function info_token_modal(info_token, token_symbol) {
+    // cons estas lineas iniciales se soluciona el problema de la informacion duplicada cuando se lanz el modal despues de haber modificado los checkbox
+    let informacion_detallada = document.querySelector("#informacion_detallada")
+    if (informacion_detallada) {
+        informacion_detallada.remove()
+    }
     try {
         let seccion_informacion_detallada = document.querySelector("#seccion_informacion_detallada")
         // seccion donde ira toda la info, y debe ser eliminada para crear una nueva
@@ -573,200 +580,119 @@ function info_token_modal(info_token, token_symbol) {
 
 }
 // funciones para cuando se dan clicks en el dom
-function function_click_chart(config_app, graficos) {
+function function_click_chart(_config_app, graficos) {
     graficos.forEach((grafico) => {
         grafico.addEventListener("click", async (evento) => {
-            console.log("entramos aqui")
             let canvas_node_id = evento.target.id
             let canvas_node = document.querySelector(`#${canvas_node_id}`)
             let token_symbol = canvas_node.className
             // info from API by token
-            let endpoint_info_token = config_endpoint_one_token_info(config_app, token_symbol)
+            let endpoint_info_token = config_endpoint_one_token_info(_config_app, token_symbol)
             let info_token_from_api = await get_info_tokens(endpoint_info_token)
             let info_token = info_token_from_api.DISPLAY[`${token_symbol}`].USD
-            // info historic data
-            let endpoint_historical_data = config_endpoint_historical_data(config_app, token_symbol, 30)
-            let historical_data = await get_historical_data(endpoint_historical_data)
             info_token_modal(info_token, token_symbol)
-            create_chart2(historical_data["fechas"], historical_data["precios"], token_symbol, 30, "chart_detailed_info")
+            // info historic data
+            let endpoint_historical_data = config_endpoint_historical_data(_config_app, token_symbol, 30)
+            let historical_data = await get_historical_data(endpoint_historical_data)
+            create_new_chart(historical_data["fechas"], historical_data["precios"], token_symbol, 30, "chart_detailed_info")
         })
     })
 }
-//---------------------------------------------------------------------------------
-
-//---------------------------------------------------------------------------------
 
 async function main() {
-    let config_app = {
+    let _config_app = {
         "tokens": ["BTC", "ETH", "ADA", "MATIC", "VXV", "SHIB", "CAKE", "VET", "TRX", "DOGE"],
-        "api_key": "99f1147d7e9a0f3b602f89fb553fa5c91885159c3397ab916a0e988777d18fc3",
         "temporalidad_default": 30,
         "temporalidades": [10, 30, 60, 90],
-        "path_logos": "template/img/logos/"
-    }
-    let endpoint_tokens_info = config_endpoint_tokens_info(config_app)
-    let token_data_from_api = await get_info_tokens(endpoint_tokens_info)
-    let info_app = {
-        "criptomonedas": {
-            "Bitcoin": {
-                "symbol": "BTC",
-                "info_precio": {
-                    "precio_actual": token_data_from_api["RAW"]["BTC"]["USD"]["PRICE"],
-                    "high_24h": token_data_from_api["DISPLAY"]["BTC"]["USD"]["HIGH24HOUR"],
-                    "low_24h": token_data_from_api["DISPLAY"]["BTC"]["USD"]["LOW24HOUR"],
-                    "volume_24": token_data_from_api["DISPLAY"]["BTC"]["USD"]["TOTALVOLUME24H"],
-                    "volume_24_usd": token_data_from_api["DISPLAY"]["BTC"]["USD"]["TOTALVOLUME24HTO"],
-                    "MKTCAP": token_data_from_api["DISPLAY"]["BTC"]["USD"]["MKTCAP"],
-                    "data_source": "https://www.cryptocompare.com/coins/BTC/overview/USDT"
-                }
-            },
-            "Ethereum": {
-                "symbol": "ETH",
-                "info_precio": {
-                    "precio_actual": token_data_from_api["RAW"]["ETH"]["USD"]["PRICE"],
-                    "high_24h": token_data_from_api["RAW"]["ETH"]["USD"]["HIGH24HOUR"],
-                    "low_24h": token_data_from_api["RAW"]["ETH"]["USD"]["LOW24HOUR"],
-                    "volume_24": token_data_from_api["RAW"]["ETH"]["USD"]["TOTALVOLUME24H"],
-                    "volume_24_usd": token_data_from_api["RAW"]["ETH"]["USD"]["TOTALVOLUME24HTO"],
-                    "MKTCAP": token_data_from_api["DISPLAY"]["ETH"]["USD"]["MKTCAP"],
-                    "data_source": "https://www.cryptocompare.com/coins/ETH/overview/USDT"
-                }
-            },
-            "Cardano": {
-                "symbol": "ADA",
-                "info_precio": {
-                    "precio_actual": token_data_from_api["RAW"]["ADA"]["USD"]["PRICE"],
-                    "high_24h": token_data_from_api["RAW"]["ADA"]["USD"]["HIGH24HOUR"],
-                    "low_24h": token_data_from_api["RAW"]["ADA"]["USD"]["LOW24HOUR"],
-                    "volume_24": token_data_from_api["RAW"]["ADA"]["USD"]["TOTALVOLUME24H"],
-                    "volume_24_usd": token_data_from_api["RAW"]["ADA"]["USD"]["TOTALVOLUME24HTO"],
-                    "MKTCAP": token_data_from_api["DISPLAY"]["ADA"]["USD"]["MKTCAP"],
-                    "data_source": "https://www.cryptocompare.com/coins/ADA/overview/USDT"
-                }
-            },
-            "Polygon": {
-                "symbol": "MATIC",
-                "info_precio": {
-                    "precio_actual": token_data_from_api["RAW"]["MATIC"]["USD"]["PRICE"],
-                    "high_24h": token_data_from_api["RAW"]["MATIC"]["USD"]["HIGH24HOUR"],
-                    "low_24h": token_data_from_api["RAW"]["MATIC"]["USD"]["LOW24HOUR"],
-                    "volume_24": token_data_from_api["RAW"]["MATIC"]["USD"]["TOTALVOLUME24H"],
-                    "volume_24_usd": token_data_from_api["RAW"]["MATIC"]["USD"]["TOTALVOLUME24HTO"],
-                    "MKTCAP": token_data_from_api["DISPLAY"]["MATIC"]["USD"]["MKTCAP"],
-                    "data_source": "https://www.cryptocompare.com/coins/MATIC/overview/USDT"
-                }
-            },
-            "VectorSpace_AI": {
-                "symbol": "VXV",
-                "info_precio": {
-                    "precio_actual": token_data_from_api["RAW"]["VXV"]["USD"]["PRICE"],
-                    "high_24h": token_data_from_api["RAW"]["VXV"]["USD"]["HIGH24HOUR"],
-                    "low_24h": token_data_from_api["RAW"]["VXV"]["USD"]["LOW24HOUR"],
-                    "volume_24": token_data_from_api["RAW"]["VXV"]["USD"]["TOTALVOLUME24H"],
-                    "volume_24_usd": token_data_from_api["RAW"]["VXV"]["USD"]["TOTALVOLUME24HTO"],
-                    "MKTCAP": token_data_from_api["DISPLAY"]["VXV"]["USD"]["MKTCAP"],
-                    "data_source": "https://www.cryptocompare.com/coins/VXV/overview/USDT"
-                }
-            },
-            "ShibaInu": {
-                "symbol": "SHIB",
-                "info_precio": {
-                    "precio_actual": token_data_from_api["RAW"]["SHIB"]["USD"]["PRICE"],
-                    "high_24h": token_data_from_api["RAW"]["SHIB"]["USD"]["HIGH24HOUR"],
-                    "low_24h": token_data_from_api["RAW"]["SHIB"]["USD"]["LOW24HOUR"],
-                    "volume_24": token_data_from_api["RAW"]["SHIB"]["USD"]["TOTALVOLUME24H"],
-                    "volume_24_usd": token_data_from_api["RAW"]["SHIB"]["USD"]["TOTALVOLUME24HTO"],
-                    "MKTCAP": token_data_from_api["DISPLAY"]["SHIB"]["USD"]["MKTCAP"],
-                    "data_source": "https://www.cryptocompare.com/coins/SHIB/overview/USDT"
-                }
-            },
-            "PancakeSwapp": {
-                "symbol": "CAKE",
-                "info_precio": {
-                    "precio_actual": token_data_from_api["RAW"]["CAKE"]["USD"]["PRICE"],
-                    "high_24h": token_data_from_api["RAW"]["CAKE"]["USD"]["HIGH24HOUR"],
-                    "low_24h": token_data_from_api["RAW"]["CAKE"]["USD"]["LOW24HOUR"],
-                    "volume_24": token_data_from_api["RAW"]["CAKE"]["USD"]["TOTALVOLUME24H"],
-                    "volume_24_usd": token_data_from_api["RAW"]["CAKE"]["USD"]["TOTALVOLUME24HTO"],
-                    "MKTCAP": token_data_from_api["DISPLAY"]["CAKE"]["USD"]["MKTCAP"],
-                    "data_source": "https://www.cryptocompare.com/coins/CAKE/overview/USDT"
-                }
-            },
-            "Vechain": {
-                "symbol": "VET",
-                "info_precio": {
-                    "precio_actual": token_data_from_api["RAW"]["VET"]["USD"]["PRICE"],
-                    "high_24h": token_data_from_api["RAW"]["VET"]["USD"]["HIGH24HOUR"],
-                    "low_24h": token_data_from_api["RAW"]["VET"]["USD"]["LOW24HOUR"],
-                    "volume_24": token_data_from_api["RAW"]["VET"]["USD"]["TOTALVOLUME24H"],
-                    "volume_24_usd": token_data_from_api["RAW"]["VET"]["USD"]["TOTALVOLUME24HTO"],
-                    "MKTCAP": token_data_from_api["DISPLAY"]["VET"]["USD"]["MKTCAP"],
-                    "data_source": "https://www.cryptocompare.com/coins/VET/overview/USDT"
-                }
-            },
-            "Tron": {
-                "symbol": "TRX",
-                "info_precio": {
-                    "precio_actual": token_data_from_api["RAW"]["TRX"]["USD"]["PRICE"],
-                    "high_24h": token_data_from_api["RAW"]["TRX"]["USD"]["HIGH24HOUR"],
-                    "low_24h": token_data_from_api["RAW"]["TRX"]["USD"]["LOW24HOUR"],
-                    "volume_24": token_data_from_api["RAW"]["TRX"]["USD"]["TOTALVOLUME24H"],
-                    "volume_24_usd": token_data_from_api["RAW"]["TRX"]["USD"]["TOTALVOLUME24HTO"],
-                    "MKTCAP": token_data_from_api["DISPLAY"]["TRX"]["USD"]["MKTCAP"],
-                    "data_source": "https://www.cryptocompare.com/coins/TRX/overview/USDT"
-                }
-            },
-            // "DogeCoin": {
-            //     "symbol": "DOGE",
-            //     "info_precio": {
-            //         "precio_actual": token_data_from_api["RAW"]["DOGE"]["USD"]["PRICE"],
-            //         "high_24h": token_data_from_api["RAW"]["DOGE"]["USD"]["HIGH24HOUR"],
-            //         "low_24h": token_data_from_api["RAW"]["DOGE"]["USD"]["LOW24HOUR"],
-            //         "volume_24": token_data_from_api["RAW"]["DOGE"]["USD"]["TOTALVOLUME24H"],
-            //         "volume_24_usd": token_data_from_api["RAW"]["DOGE"]["USD"]["TOTALVOLUME24HTO"],
-            //         "MKTCAP": token_data_from_api["DISPLAY"]["DOGE"]["USD"]["MKTCAP"],
-            //         "data_source": "https://www.cryptocompare.com/coins/DOGE/overview/USDT"
-            //     }
-            // }
+        "path_logos": "template/img/logos/",
+        "data_source": {
+            "cryptocompare": {
+                "url": "https://www.cryptocompare.com",
+                "api_key": "99f1147d7e9a0f3b602f89fb553fa5c91885159c3397ab916a0e988777d18fc3"
+            }
         }
-
     }
-    // create section logos
-    create_section_logos(info_app, config_app.path_logos)
-    // construir la seccion de html con la informacion de cada cripto
-    build_cripto_card(info_app)
-    // get historical data and create chats
-    for (criptomoneda in info_app.criptomonedas) {
-        // create endpoint
-        let token = info_app.criptomonedas[criptomoneda]["symbol"]
-        let endpoint_historical_data = config_endpoint_historical_data(config_app, token, config_app.temporalidad_default)
+    let endpoint_tokens_info = config_endpoint_tokens_info(_config_app.tokens, _config_app.data_source.cryptocompare.api_key)
+    let token_data_from_api = await get_info_tokens(endpoint_tokens_info)
+    let info_by_token = [
+        {
+            "nombre": "Bitcoin",
+            "symbol": "BTC",
+            "info_precio": {
+                "PRICE": token_data_from_api.RAW.BTC.USD.PRICE,
+                "HIGH24HOUR": token_data_from_api.DISPLAY.BTC.USD.HIGH24HOUR,
+                "LOW24HOUR": token_data_from_api.DISPLAY.BTC.USD.LOW24HOUR,
+                "TOTALVOLUME24H": token_data_from_api.DISPLAY.BTC.USD.TOTALVOLUME24H,
+                "TOTALVOLUME24HTO": token_data_from_api.DISPLAY.BTC.USD.TOTALVOLUME24HTO,
+                "MKTCAP": token_data_from_api.DISPLAY.BTC.USD.MKTCAP,
+                "data_source": "https://www.cryptocompare.com/coins/BTC/overview/USDT"
+            }
+        },
+        {
+            "nombre": "Ethereum",
+            "symbol": "ETH",
+            "info_precio": {
+                "PRICE": token_data_from_api.RAW.ETH.USD.PRICE,
+                "HIGH24HOUR": token_data_from_api.DISPLAY.ETH.USD.HIGH24HOUR,
+                "LOW24HOUR": token_data_from_api.DISPLAY.ETH.USD.LOW24HOUR,
+                "TOTALVOLUME24H": token_data_from_api.DISPLAY.ETH.USD.TOTALVOLUME24H,
+                "TOTALVOLUME24HTO": token_data_from_api.DISPLAY.BTC.USD.TOTALVOLUME24HTO,
+                "MKTCAP": token_data_from_api.DISPLAY.ETH.USD.MKTCAP,
+                "data_source": "https://www.cryptocompare.com/coins/ETH/overview/USDT"
+            }
+        },
+        {
+            "nombre": "Shiba Inu",
+            "symbol": "SHIB",
+            "info_precio": {
+                "PRICE": token_data_from_api.RAW.SHIB.USD.PRICE,
+                "HIGH24HOUR": token_data_from_api.DISPLAY.SHIB.USD.HIGH24HOUR,
+                "LOW24HOUR": token_data_from_api.DISPLAY.SHIB.USD.LOW24HOUR,
+                "TOTALVOLUME24H": token_data_from_api.DISPLAY.SHIB.USD.TOTALVOLUME24H,
+                "TOTALVOLUME24HTO": token_data_from_api.DISPLAY.BTC.USD.TOTALVOLUME24HTO,
+                "MKTCAP": token_data_from_api.DISPLAY.SHIB.USD.MKTCAP,
+                "data_source": "https://www.cryptocompare.com/coins/SHIB/overview/USDT"
+            }
+        }]
+    // inicio del programa, se crean las configuraciones y datos inicales 
+    info_by_token.forEach(async (info_token) => {
+        // create logos
+        create_section_logos(info_token.symbol, _config_app.path_logos, "contenedor_logos")
+        // create the criptocards
+        create_criptocard(info_token.symbol, info_token.info_precio.PRICE, info_token.info_precio.HIGH24HOUR, info_token.info_precio.LOW24HOUR, info_token.info_precio.MKTCAP, "container_criptocards")
+        // create the checbox
+        create_checkbox_by_token(info_token.symbol, "seccion_checkbox_token")
+        // config chart 
+        let endpoint_historical_data = config_endpoint_historical_data(_config_app.data_source.cryptocompare.api_key, info_token.symbol, _config_app.temporalidad_default)
         let historical_data = await get_historical_data(endpoint_historical_data)
-        create_chart(historical_data["fechas"], historical_data["precios"], token, config_app.temporalidad_default)
-    }
-    // seccion de checkbox para selecion que Cripto ver en pantalla
+        create_chart(historical_data["fechas"], historical_data["precios"], info_token.symbol, _config_app.temporalidad_default)
+    })
+    // codigo para cuando se haga click sobre los checkbox
     let inputs_checks = document.querySelectorAll('input[name="select_criptos_to_show"]')
     let tokens = []
     for (let i = 0; i < inputs_checks.length; i++) {
         tokens.push(inputs_checks[i].value)
     }
-    // codigo para cuando se haga click sobre los checkbox
+    // eventos cuando hay cambios en los checkboxes
     inputs_checks.forEach((input_check) => {
-        input_check.addEventListener("click", async function (evento) {
+        input_check.addEventListener("click", async (evento) => {
             let is_checked = evento.target.checked
             let token_symbol = evento.target.value
             if (is_checked) {
                 // posicion del token para volver a crear la card en la misma posicion
                 posicion_token = tokens.indexOf(token_symbol)
+                // get the position of token de referencia, con esta referencia se creara el criptocard antes de esa referencia
                 token_ref = tokens[posicion_token + 1]
-                let endpoint_info_token = config_endpoint_one_token_info(config_app, token_symbol)
+                // get token info to create the criptocard
+                let endpoint_info_token = config_endpoint_one_token_info(_config_app, token_symbol)
                 let info_token_from_api = await get_info_tokens(endpoint_info_token)
-                let endpoint_historical_data = config_endpoint_historical_data(config_app, token_symbol, 30)
+                create_new_criptocard(info_token_from_api, token_symbol, token_ref)
+                // get historical data from chart criptocard
+                let endpoint_historical_data = config_endpoint_historical_data(_config_app, token_symbol, 30)
                 let historical_data = await get_historical_data(endpoint_historical_data)
-                creation_card_by_token(info_token_from_api, token_symbol, token_ref)
-                create_chart2(historical_data["fechas"], historical_data["precios"], token_symbol, 30, `chart_${token_symbol}`)
+                create_new_chart(historical_data["fechas"], historical_data["precios"], token_symbol, 30, `chart_${token_symbol}`)
                 let graficos = document.querySelectorAll('canvas[name="grafico"]')
-                console.log("entrada 1")
-                // function_click_chart(config_app, graficos)
+                function_click_chart(_config_app, graficos)
             }
             if (!is_checked) {
                 card_to_delete = document.querySelector(`#card_info_${token_symbol}`)
@@ -776,22 +702,20 @@ async function main() {
             }
         })
     })
-    // open chart on modal with details about 
-    let graficos = document.querySelectorAll('canvas[name="grafico"]')
-    console.log("entrada 2")
-    function_click_chart(config_app, graficos)
-    // boton para cerrar el modal y borrar la info de la cripto
+    // eventos cuando se haga click dentro del grafico, se abre modal con informacion detallada
+    let charts = document.querySelectorAll('canvas[name="grafico"]')
+    function_click_chart(_config_app, charts)
+
+    // boton para cerrar el modal con la informacion detalla
     let boton_close_modal_info_cripto = document.querySelector("#cerrar_modal_info_cripto")
-    boton_close_modal_info_cripto.addEventListener("click", _ => {
+    boton_close_modal_info_cripto.addEventListener("click", async _ => {
         let informacion_detallada = document.querySelector("#informacion_detallada")
         if (informacion_detallada) {
             informacion_detallada.remove()
         }
     })
-    // configuracion temporalidades
-    // info_app de temporalidades a traves de los radio buttons
-    // crear las opciones de temporalidad en que se ven los graficos
-    create_temporalidad_options(config_app)
+    // eventos para  cuando hay cambios en los radio buttons de las teporabilidades
+    create_temporalidad_options(_config_app)
     let inputs_temporalidades = document.querySelectorAll('input[name="temporalidad"]')
     inputs_temporalidades.forEach((input_temporabilidad) => {
         input_temporabilidad.addEventListener("click", async function (evento) {
@@ -804,15 +728,14 @@ async function main() {
             }
             let new_chart_detailed_info = crear_canvas_detailed_info("chart_detailed_info")
             zona_chart_details.append(new_chart_detailed_info)
-            let endpoint_historical_data = config_endpoint_historical_data(config_app, token, num_dias)
+            let endpoint_historical_data = config_endpoint_historical_data(_config_app, token, num_dias)
             let historical_data = await get_historical_data(endpoint_historical_data)
-            create_chart2(historical_data["fechas"], historical_data["precios"], token, num_dias, "chart_detailed_info")
+            create_new_chart(historical_data["fechas"], historical_data["precios"], token, num_dias, "chart_detailed_info")
         })
     })
 }
 main()
 
 window.onload = _ => {
-    console.log("Hola mundo...")
     $("#modal_mensaje_de_desarrollador").modal()
 }
