@@ -653,6 +653,32 @@ async function main() {
                 "MKTCAP": token_data_from_api.DISPLAY.SHIB.USD.MKTCAP,
                 "data_source": "https://www.cryptocompare.com/coins/SHIB/overview/USDT"
             }
+        },
+        {
+            "nombre": "Polygon",
+            "symbol": "MATIC",
+            "info_precio": {
+                "PRICE": token_data_from_api.RAW.MATIC.USD.PRICE,
+                "HIGH24HOUR": token_data_from_api.DISPLAY.MATIC.USD.HIGH24HOUR,
+                "LOW24HOUR": token_data_from_api.DISPLAY.MATIC.USD.LOW24HOUR,
+                "TOTALVOLUME24H": token_data_from_api.DISPLAY.MATIC.USD.TOTALVOLUME24H,
+                "TOTALVOLUME24HTO": token_data_from_api.DISPLAY.BTC.USD.TOTALVOLUME24HTO,
+                "MKTCAP": token_data_from_api.DISPLAY.MATIC.USD.MKTCAP,
+                "data_source": "https://www.cryptocompare.com/coins/MATIC/overview/USDT"
+            }
+        },
+        {
+            "nombre": "Cardano",
+            "symbol": "ADA",
+            "info_precio": {
+                "PRICE": token_data_from_api.RAW.ADA.USD.PRICE,
+                "HIGH24HOUR": token_data_from_api.DISPLAY.ADA.USD.HIGH24HOUR,
+                "LOW24HOUR": token_data_from_api.DISPLAY.ADA.USD.LOW24HOUR,
+                "TOTALVOLUME24H": token_data_from_api.DISPLAY.ADA.USD.TOTALVOLUME24H,
+                "TOTALVOLUME24HTO": token_data_from_api.DISPLAY.BTC.USD.TOTALVOLUME24HTO,
+                "MKTCAP": token_data_from_api.DISPLAY.ADA.USD.MKTCAP,
+                "data_source": "https://www.cryptocompare.com/coins/ADA/overview/USDT"
+            }
         }]
     // inicio del programa, se crean las configuraciones y datos inicales 
     info_by_token.forEach(async (info_token) => {
