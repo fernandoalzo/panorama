@@ -642,16 +642,16 @@ async function main() {
             }
         },
         {
-            "nombre": "Shiba Inu",
-            "symbol": "SHIB",
+            "nombre": "Cardano",
+            "symbol": "ADA",
             "info_precio": {
-                "PRICE": token_data_from_api.RAW.SHIB.USD.PRICE,
-                "HIGH24HOUR": token_data_from_api.DISPLAY.SHIB.USD.HIGH24HOUR,
-                "LOW24HOUR": token_data_from_api.DISPLAY.SHIB.USD.LOW24HOUR,
-                "TOTALVOLUME24H": token_data_from_api.DISPLAY.SHIB.USD.TOTALVOLUME24H,
+                "PRICE": token_data_from_api.RAW.ADA.USD.PRICE,
+                "HIGH24HOUR": token_data_from_api.DISPLAY.ADA.USD.HIGH24HOUR,
+                "LOW24HOUR": token_data_from_api.DISPLAY.ADA.USD.LOW24HOUR,
+                "TOTALVOLUME24H": token_data_from_api.DISPLAY.ADA.USD.TOTALVOLUME24H,
                 "TOTALVOLUME24HTO": token_data_from_api.DISPLAY.BTC.USD.TOTALVOLUME24HTO,
-                "MKTCAP": token_data_from_api.DISPLAY.SHIB.USD.MKTCAP,
-                "data_source": "https://www.cryptocompare.com/coins/SHIB/overview/USDT"
+                "MKTCAP": token_data_from_api.DISPLAY.ADA.USD.MKTCAP,
+                "data_source": "https://www.cryptocompare.com/coins/ADA/overview/USDT"
             }
         },
         {
@@ -668,16 +668,16 @@ async function main() {
             }
         },
         {
-            "nombre": "Cardano",
-            "symbol": "ADA",
+            "nombre": "Shiba Inu",
+            "symbol": "SHIB",
             "info_precio": {
-                "PRICE": token_data_from_api.RAW.ADA.USD.PRICE,
-                "HIGH24HOUR": token_data_from_api.DISPLAY.ADA.USD.HIGH24HOUR,
-                "LOW24HOUR": token_data_from_api.DISPLAY.ADA.USD.LOW24HOUR,
-                "TOTALVOLUME24H": token_data_from_api.DISPLAY.ADA.USD.TOTALVOLUME24H,
+                "PRICE": token_data_from_api.RAW.SHIB.USD.PRICE,
+                "HIGH24HOUR": token_data_from_api.DISPLAY.SHIB.USD.HIGH24HOUR,
+                "LOW24HOUR": token_data_from_api.DISPLAY.SHIB.USD.LOW24HOUR,
+                "TOTALVOLUME24H": token_data_from_api.DISPLAY.SHIB.USD.TOTALVOLUME24H,
                 "TOTALVOLUME24HTO": token_data_from_api.DISPLAY.BTC.USD.TOTALVOLUME24HTO,
-                "MKTCAP": token_data_from_api.DISPLAY.ADA.USD.MKTCAP,
-                "data_source": "https://www.cryptocompare.com/coins/ADA/overview/USDT"
+                "MKTCAP": token_data_from_api.DISPLAY.SHIB.USD.MKTCAP,
+                "data_source": "https://www.cryptocompare.com/coins/SHIB/overview/USDT"
             }
         },
         {
@@ -691,19 +691,6 @@ async function main() {
                 "TOTALVOLUME24HTO": token_data_from_api.DISPLAY.CAKE.USD.TOTALVOLUME24HTO,
                 "MKTCAP": token_data_from_api.DISPLAY.CAKE.USD.MKTCAP,
                 "data_source": "https://www.cryptocompare.com/coins/CAKE/overview/USDT"
-            }
-        },
-        {
-            "nombre": "Axie Infinity",
-            "symbol": "AXS",
-            "info_precio": {
-                "PRICE": token_data_from_api.RAW.AXS.USD.PRICE,
-                "HIGH24HOUR": token_data_from_api.DISPLAY.AXS.USD.HIGH24HOUR,
-                "LOW24HOUR": token_data_from_api.DISPLAY.AXS.USD.LOW24HOUR,
-                "TOTALVOLUME24H": token_data_from_api.DISPLAY.AXS.USD.TOTALVOLUME24H,
-                "TOTALVOLUME24HTO": token_data_from_api.DISPLAY.AXS.USD.TOTALVOLUME24HTO,
-                "MKTCAP": token_data_from_api.DISPLAY.AXS.USD.MKTCAP,
-                "data_source": "https://www.cryptocompare.com/coins/AXS/overview/USDT"
             }
         },
         {
@@ -730,6 +717,19 @@ async function main() {
                 "TOTALVOLUME24HTO": token_data_from_api.DISPLAY.TRX.USD.TOTALVOLUME24HTO,
                 "MKTCAP": token_data_from_api.DISPLAY.TRX.USD.MKTCAP,
                 "data_source": "https://www.cryptocompare.com/coins/TRX/overview/USDT"
+            }
+        },
+        {
+            "nombre": "Axie Infinity",
+            "symbol": "AXS",
+            "info_precio": {
+                "PRICE": token_data_from_api.RAW.AXS.USD.PRICE,
+                "HIGH24HOUR": token_data_from_api.DISPLAY.AXS.USD.HIGH24HOUR,
+                "LOW24HOUR": token_data_from_api.DISPLAY.AXS.USD.LOW24HOUR,
+                "TOTALVOLUME24H": token_data_from_api.DISPLAY.AXS.USD.TOTALVOLUME24H,
+                "TOTALVOLUME24HTO": token_data_from_api.DISPLAY.AXS.USD.TOTALVOLUME24HTO,
+                "MKTCAP": token_data_from_api.DISPLAY.AXS.USD.MKTCAP,
+                "data_source": "https://www.cryptocompare.com/coins/AXS/overview/USDT"
             }
         },]
     // inicio del programa, se crean las configuraciones y datos inicales 
