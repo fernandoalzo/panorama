@@ -601,7 +601,7 @@ function function_click_chart(_config_app, graficos) {
 
 async function main() {
     let _config_app = {
-        "tokens": ["BTC", "ETH", "ADA", "MATIC", "VXV", "SHIB", "CAKE", "VET", "TRX", "DOGE"],
+        "tokens": ["BTC", "ETH", "ADA", "MATIC", "VXV", "SHIB", "CAKE", "VET", "TRX", "AXS"],
         "temporalidad_default": 30,
         "temporalidades": [10, 30, 60, 90],
         "path_logos": "template/img/logos/",
@@ -691,6 +691,45 @@ async function main() {
                 "TOTALVOLUME24HTO": token_data_from_api.DISPLAY.CAKE.USD.TOTALVOLUME24HTO,
                 "MKTCAP": token_data_from_api.DISPLAY.CAKE.USD.MKTCAP,
                 "data_source": "https://www.cryptocompare.com/coins/CAKE/overview/USDT"
+            }
+        },
+        {
+            "nombre": "Axie Infinity",
+            "symbol": "AXS",
+            "info_precio": {
+                "PRICE": token_data_from_api.RAW.AXS.USD.PRICE,
+                "HIGH24HOUR": token_data_from_api.DISPLAY.AXS.USD.HIGH24HOUR,
+                "LOW24HOUR": token_data_from_api.DISPLAY.AXS.USD.LOW24HOUR,
+                "TOTALVOLUME24H": token_data_from_api.DISPLAY.AXS.USD.TOTALVOLUME24H,
+                "TOTALVOLUME24HTO": token_data_from_api.DISPLAY.AXS.USD.TOTALVOLUME24HTO,
+                "MKTCAP": token_data_from_api.DISPLAY.AXS.USD.MKTCAP,
+                "data_source": "https://www.cryptocompare.com/coins/AXS/overview/USDT"
+            }
+        },
+        {
+            "nombre": "Vechain",
+            "symbol": "VET",
+            "info_precio": {
+                "PRICE": token_data_from_api.RAW.VET.USD.PRICE,
+                "HIGH24HOUR": token_data_from_api.DISPLAY.VET.USD.HIGH24HOUR,
+                "LOW24HOUR": token_data_from_api.DISPLAY.VET.USD.LOW24HOUR,
+                "TOTALVOLUME24H": token_data_from_api.DISPLAY.VET.USD.TOTALVOLUME24H,
+                "TOTALVOLUME24HTO": token_data_from_api.DISPLAY.VET.USD.TOTALVOLUME24HTO,
+                "MKTCAP": token_data_from_api.DISPLAY.VET.USD.MKTCAP,
+                "data_source": "https://www.cryptocompare.com/coins/VET/overview/USDT"
+            }
+        },
+        {
+            "nombre": "Tron",
+            "symbol": "TRX",
+            "info_precio": {
+                "PRICE": token_data_from_api.RAW.TRX.USD.PRICE,
+                "HIGH24HOUR": token_data_from_api.DISPLAY.TRX.USD.HIGH24HOUR,
+                "LOW24HOUR": token_data_from_api.DISPLAY.TRX.USD.LOW24HOUR,
+                "TOTALVOLUME24H": token_data_from_api.DISPLAY.TRX.USD.TOTALVOLUME24H,
+                "TOTALVOLUME24HTO": token_data_from_api.DISPLAY.TRX.USD.TOTALVOLUME24HTO,
+                "MKTCAP": token_data_from_api.DISPLAY.TRX.USD.MKTCAP,
+                "data_source": "https://www.cryptocompare.com/coins/TRX/overview/USDT"
             }
         },]
     // inicio del programa, se crean las configuraciones y datos inicales 

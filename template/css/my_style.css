@@ -66,6 +66,13 @@
 #img_TRX:hover{
     transform: scale(2.0, 2.0);
 }
+/* AXS */
+#img_AXS{
+  transition: all 150ms;
+}
+#img_AXS:hover{
+  transform: scale(2.0, 2.0);
+}
 
 /* heart */
 #heart {
