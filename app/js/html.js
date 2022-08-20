@@ -1,7 +1,3 @@
-export async function hello_world(){
-    console.log("Hola mundo...")
-}
-
 // funcion par creat la seccion de los logos del archivo HTML
 export async function create_section_logos(symbol, logos_path, id_seccion_to_put_in) {
     // get the container en donde se pondran los logos
@@ -16,7 +12,6 @@ export async function create_section_logos(symbol, logos_path, id_seccion_to_put
     div.append(img)
     contenedor.append(div)
 }
-
 // funcion para crear el criptocard
 export async function create_criptocard(token_symbol, PRICE, HIGH24HOUR, LOW24HOUR, MKTCAP, id_cards_container) {
     // div1contenendor principal
@@ -106,7 +101,6 @@ export async function create_criptocard(token_symbol, PRICE, HIGH24HOUR, LOW24HO
     // addd to main container
     contenedor.append(div1)
 }
-
 // funcion para crear los checkbox
 export async function create_checkbox_by_token(token_symbol, id_seccion_checkbox_token) {
     let seccion_checkbox_token = document.querySelector(`#${id_seccion_checkbox_token}`)
@@ -134,7 +128,6 @@ export async function create_checkbox_by_token(token_symbol, id_seccion_checkbox
     div_checkbox.append(label_checkbox)
     seccion_checkbox_token.append(div_checkbox)
 }
-
 //funcion para contruir la cripto una card independiente, con esta funcion se crea la criptocard cuando se hae click sobre un checkboox
 export async function create_new_criptocard(info_token_from_api, token_symbol, token_ref) {
     // div1contenendor principal
@@ -229,7 +222,6 @@ export async function create_new_criptocard(info_token_from_api, token_symbol, t
         contenedor.append(div1)
     }
 }
-
 // funcion para crear las opciones de temporalidad en que se mostraran las graficas.
 export async function create_temporalidad_options(_config_app) {
     let seccion_temporalidades = document.querySelector("#seccion_temporalidades")
@@ -256,4 +248,145 @@ export async function create_temporalidad_options(_config_app) {
     }
     let radio_default = document.getElementById(`${_config_app.temporalidad_default}d`)
     radio_default.checked = true
+}
+// metod para la creacion del modal con los detalles del asset
+export async function info_token_modal(info_token, token_symbol) {
+    // cons estas lineas iniciales se soluciona el problema de la informacion duplicada cuando se lanz el modal despues de haber modificado los checkbox
+    let informacion_detallada = document.querySelector("#informacion_detallada")
+    if (informacion_detallada) {
+        informacion_detallada.remove()
+    }
+    try {
+        let seccion_informacion_detallada = document.querySelector("#seccion_informacion_detallada")
+        // seccion donde ira toda la info, y debe ser eliminada para crear una nueva
+        let informacion_detallada = document.createElement("div")
+        informacion_detallada.setAttribute("id", "informacion_detallada")
+        // modal header
+        // let modal_header = document.querySelector(".modal-header")
+        let modal_header = document.createElement("div")
+        modal_header.setAttribute("class", "modal-header")
+        let h5 = document.createElement("h1")
+        h5.setAttribute("class", "moddal-title")
+        let nombre_criptomoneda = document.createTextNode(info_token.FROMSYMBOL)
+        // div para el char
+        let div_chart = document.createElement("div")
+        div_chart.setAttribute("class", "zona_chart_details")
+        div_chart.setAttribute("name", token_symbol)
+        let chart = document.createElement("canvas")
+        chart.setAttribute("id", "chart_detailed_info")
+        chart.style.width = '100%';
+        chart.style.height = '100%';
+        // div para la informacion detallada de la cripto
+        let div_info = document.createElement("div")
+        div_info.setAttribute("class", "zona_de_informacion")
+        let tabla_info = document.createElement("table")
+        tabla_info.setAttribute("class", "table")
+        tabla_info.setAttribute("cellspacing", "0")
+        tabla_info.setAttribute("cellpadding", "0")
+        let tbody_tabla_info = document.createElement("tbody")
+        // precio
+        let tr_PRICE = document.createElement("tr")
+        let td_label_PRICE = document.createElement("td")
+        let label_PRICE = document.createTextNode("Precio")
+        let td_PRICE = document.createElement("td")
+        let PRICE = document.createTextNode(info_token.PRICE)
+        // precio mas alto las ultimas 24 horas HIGH24HOUR
+        let tr_HIGH24HOUR = document.createElement("tr")
+        let td_label_HIGH24HOUR = document.createElement("td")
+        let label_HIGH24HOUR = document.createTextNode("Precio mas alto ultimas 24H  ")
+        let i_HIGH24HOUR = document.createElement("i")
+        i_HIGH24HOUR.setAttribute("class", "fa-solid fa-arrow-up-long")
+        let td_HIGH24HOUR = document.createElement("td")
+        let HIGH24HOUR = document.createTextNode(info_token.HIGH24HOUR)
+        // precio mas bajo las ultimas 24 horas LOW24HOUR
+        let tr_LOW24HOUR = document.createElement("tr")
+        let td_label_LOW24HOUR = document.createElement("td")
+        let i_LOW24HOUR = document.createElement("i")
+        i_LOW24HOUR.setAttribute("class", "fa-solid fa-arrow-down-long")
+        let label_LOW24HOUR = document.createTextNode("Precio mas bajo ultimas 24H  ")
+        let td_LOW24HOUR = document.createElement("td")
+        let LOW24HOUR = document.createTextNode(info_token.LOW24HOUR)
+        // cambio del precion en 24 horas CHANGE24HOUR
+        let tr_CHANGE24HOUR = document.createElement("tr")
+        let td_label_CHANGE24HOUR = document.createElement("td")
+        let label_CHANGE24HOUR = document.createTextNode("Cambio 24H")
+        let td_CHANGE24HOUR = document.createElement("td")
+        let CHANGE24HOUR = document.createTextNode(info_token.CHANGE24HOUR)
+        // cambio de precio 24 horas en porcentaje CHANGEPCT24HOUR
+        let tr_CHANGEPCT24HOUR = document.createElement("tr")
+        let td_label_CHANGEPCT24HOUR = document.createElement("td")
+        let label_CHANGEPCT24HOUR = document.createTextNode("Porcentaje cambio 24H")
+        let td_CHANGEPCT24HOUR = document.createElement("td")
+        let CHANGEPCT24HOUR = document.createTextNode(info_token.CHANGEPCT24HOUR + "%")
+        // capitalizacion de mercado
+        let tr_MKTCAP = document.createElement("tr")
+        let td_label_MKTCAP = document.createElement("td")
+        let label_MKTCAP = document.createTextNode("Capitalizacion del mercado")
+        let td_MKTCAP = document.createElement("td")
+        let MKTCAP = document.createTextNode(info_token.MKTCAP)
+        // numero de tokens minados
+        let tr_SUPPLY = document.createElement("tr")
+        let td_label_SUPPLY = document.createElement("td")
+        let label_SUPPLY = document.createTextNode("Criptomonedas Minadas")
+        let td_SUPPLY = document.createElement("td")
+        let SUPPLY = document.createTextNode(info_token.SUPPLY)
+        // volumen en dolares de las ultimas 24 horas
+        let tr_VOLUME24HOURTO = document.createElement("tr")
+        let td_label_VOLUME24HOURTO = document.createElement("td")
+        let labell_VOLUME24HOURTO = document.createTextNode("Volumen 24H")
+        let td_VOLUME24HOURTO = document.createElement("td")
+        let VOLUME24HOURT = document.createTextNode(info_token.VOLUME24HOURTO)
+        // header
+        h5.append(nombre_criptomoneda)
+        modal_header.append(h5)
+        // chart
+        div_chart.append(chart)
+        // info table  
+        // td
+        td_label_PRICE.append(label_PRICE)
+        td_PRICE.append(PRICE)
+        td_label_HIGH24HOUR.append(label_HIGH24HOUR, i_HIGH24HOUR)
+        td_HIGH24HOUR.append(HIGH24HOUR)
+        td_label_LOW24HOUR.append(label_LOW24HOUR, i_LOW24HOUR)
+        td_LOW24HOUR.append(LOW24HOUR)
+        td_label_CHANGE24HOUR.append(label_CHANGE24HOUR)
+        td_CHANGE24HOUR.append(CHANGE24HOUR)
+        td_label_CHANGEPCT24HOUR.append(label_CHANGEPCT24HOUR)
+        td_CHANGEPCT24HOUR.append(CHANGEPCT24HOUR)
+        td_label_MKTCAP.append(label_MKTCAP)
+        td_MKTCAP.append(MKTCAP)
+        td_label_SUPPLY.append(label_SUPPLY)
+        td_SUPPLY.append(SUPPLY)
+        td_label_VOLUME24HOURTO.append(labell_VOLUME24HOURTO)
+        td_VOLUME24HOURTO.append(VOLUME24HOURT)
+        // tr
+        tr_PRICE.append(td_label_PRICE, td_PRICE)
+        tr_HIGH24HOUR.append(td_label_HIGH24HOUR, td_HIGH24HOUR)
+        tr_LOW24HOUR.append(td_label_LOW24HOUR, td_LOW24HOUR)
+        tr_CHANGE24HOUR.append(td_label_CHANGE24HOUR, td_CHANGE24HOUR)
+        tr_CHANGEPCT24HOUR.append(td_label_CHANGEPCT24HOUR, td_CHANGEPCT24HOUR)
+        tr_MKTCAP.append(td_label_MKTCAP, td_MKTCAP)
+        tr_SUPPLY.append(td_label_SUPPLY, td_SUPPLY)
+        tr_VOLUME24HOURTO.append(td_label_VOLUME24HOURTO, td_VOLUME24HOURTO)
+        // add tr to table
+        tbody_tabla_info.append(tr_PRICE, tr_HIGH24HOUR, tr_LOW24HOUR, tr_CHANGE24HOUR, tr_CHANGEPCT24HOUR, tr_MKTCAP, tr_SUPPLY, tr_VOLUME24HOURTO)
+        tabla_info.append(tbody_tabla_info)
+        // add table to div info
+        div_info.append(tabla_info)
+        // aad to main container
+        informacion_detallada.append(modal_header, div_chart, div_info)
+        seccion_informacion_detallada.append(informacion_detallada)
+
+    } catch (err) {
+        console.log(err)
+    }
+
+}
+// crear el canvas para la seccion del modal con la informacion detallada
+export async function crear_canvas_detailed_info(chart_id) {
+    let chart_detailed_info = document.createElement("canvas")
+    chart_detailed_info.setAttribute("id", chart_id)
+    chart_detailed_info.style.width = '100%';
+    chart_detailed_info.style.height = '100%';
+    return chart_detailed_info
 }
