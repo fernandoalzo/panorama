@@ -1,5 +1,5 @@
 // configuraciones generales para la aplicacion
-export let _config_app = {
+export let config_app = {
     "tokens": ["BTC", "ETH", "ADA", "MATIC", "VXV", "SHIB", "CAKE", "VET", "TRX", "AXS"],
     "temporalidad_default": 30,
     "temporalidades": [10, 30, 60, 90],

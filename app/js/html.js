@@ -223,9 +223,9 @@ export async function create_new_criptocard(info_token_from_api, token_symbol, t
     }
 }
 // funcion para crear las opciones de temporalidad en que se mostraran las graficas.
-export async function create_temporalidad_options(_config_app, id_contenedor_temporalidades) {
+export async function create_temporalidad_options(config_app, id_contenedor_temporalidades) {
     let contenedor_temporalidades = document.querySelector(`#${id_contenedor_temporalidades}`)
-    let temporalidades = _config_app.temporalidades
+    let temporalidades = config_app.temporalidades
     for (let temporalidad in temporalidades) {
         let dias = temporalidades[temporalidad]
         let div = document.createElement("div")
@@ -246,11 +246,11 @@ export async function create_temporalidad_options(_config_app, id_contenedor_tem
         div.append(label)
         contenedor_temporalidades.append(div)
     }
-    let radio_default = document.getElementById(`${_config_app.temporalidad_default}d`)
+    let radio_default = document.getElementById(`${config_app.temporalidad_default}d`)
     radio_default.checked = true
 }
 // funcion para crear las opciones de temporalidad para el modal con la informacion detallada adicional
-export async function create_temporalidad_options_detailed_chart(_config_app, id_seccion_temporalidades2) {
+export async function create_temporalidad_options_detailed_chart(config_app, id_seccion_temporalidades2) {
     let seccion_temporalidades2 = document.querySelector(`#${id_seccion_temporalidades2}`)
     // check if the container temporalidades exists
     let check_seccion_temporalidades2 = document.querySelector("#create_temporalidad_options_detailed_chart")
@@ -260,7 +260,7 @@ export async function create_temporalidad_options_detailed_chart(_config_app, id
     }
     let create_temporalidad_options_detailed_chart = document.createElement("div")
     create_temporalidad_options_detailed_chart.setAttribute("id", "create_temporalidad_options_detailed_chart")
-    let temporalidades = _config_app.temporalidades
+    let temporalidades = config_app.temporalidades
     for (let temporalidad in temporalidades) {
         let dias = temporalidades[temporalidad]
         let div = document.createElement("div")
@@ -282,7 +282,7 @@ export async function create_temporalidad_options_detailed_chart(_config_app, id
         create_temporalidad_options_detailed_chart.append(div)
     }
     seccion_temporalidades2.append(create_temporalidad_options_detailed_chart)
-    let radio_default = document.getElementById(`_${_config_app.temporalidad_default}d`)
+    let radio_default = document.getElementById(`_${config_app.temporalidad_default}d`)
     radio_default.checked = true
 }
 // metod para la creacion del modal con los detalles del asset

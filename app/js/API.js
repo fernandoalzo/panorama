@@ -5,9 +5,9 @@ export let endpoint_tokens_info = (tokens, api_key) => {
     return endpoint_tokens_info
 }
 // este metodo me crea el endpoint para la consilta de la informacion de un solo token
-export let endpoint_token_info = (_config_app, token_symbol) => {
-    // let tokens_as_string = _config_app["tokens"].toString()
-    let api_key = _config_app["api_key"]
+export let endpoint_token_info = (config_app, token_symbol) => {
+    // let tokens_as_string = config_app["tokens"].toString()
+    let api_key = config_app["api_key"]
     let endpoint = `https://min-api.cryptocompare.com/data/pricemultifull?fsyms=${token_symbol}&tsyms=USD&api_key=${api_key}`
     return endpoint
 }
