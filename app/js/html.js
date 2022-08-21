@@ -233,7 +233,7 @@ export async function create_temporalidad_options(_config_app, id_contenedor_tem
         let input = document.createElement("input")
         input.setAttribute("class", "form-check-input")
         input.setAttribute("type", "radio")
-        input.setAttribute("name", "temporalidad")
+        input.setAttribute("name", "temporalidad_options")
         input.setAttribute("value", `${dias}`)
         input.setAttribute("id", `${dias}d`)
         let label = document.createElement("label")
@@ -250,9 +250,12 @@ export async function create_temporalidad_options(_config_app, id_contenedor_tem
     radio_default.checked = true
 }
 
-export async function create_temporalidad_options2(_config_app, id_contenedor_temporalidades) {
-    let contenedor_temporalidades = document.querySelector(`#${id_contenedor_temporalidades}`)
+export async function create_temporalidad_options2(_config_app, id_seccion_temporalidades2) {
+    let seccion_temporalidades2 = document.querySelector(`#${id_seccion_temporalidades2}`)
+    let container_temporalidad_options2 = document.createElement("div")
+    container_temporalidad_options2.setAttribute("id", "container_temporalidad_options2")
     let temporalidades = _config_app.temporalidades
+
     for (let temporalidad in temporalidades) {
         let dias = temporalidades[temporalidad]
         let div = document.createElement("div")
@@ -260,7 +263,7 @@ export async function create_temporalidad_options2(_config_app, id_contenedor_te
         let input = document.createElement("input")
         input.setAttribute("class", "form-check-input")
         input.setAttribute("type", "radio")
-        input.setAttribute("name", "temporalidad")
+        input.setAttribute("name", "temporalidad_options2")
         input.setAttribute("value", `${dias}`)
         input.setAttribute("id", `_${dias}d`)
         let label = document.createElement("label")
@@ -271,8 +274,9 @@ export async function create_temporalidad_options2(_config_app, id_contenedor_te
         div.append(input)
         label.append(text)
         div.append(label)
-        contenedor_temporalidades.append(div)
+        container_temporalidad_options2.append(div)
     }
+    seccion_temporalidades2.append(container_temporalidad_options2)
     let radio_default = document.getElementById(`_${_config_app.temporalidad_default}d`)
     radio_default.checked = true
 }
