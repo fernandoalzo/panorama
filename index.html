@@ -103,22 +103,22 @@
       </div>
     </section>
     <!-- fin seccion del footer -->
-    <!-- inicio Modal -->
-    <div class="modal fade " id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+    <!-- inicio Modal detailed info -->
+    <div class="modal fade " id="modal_detailed_info" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
       aria-hidden="true">
-      <div class="modal-dialog " role="document">
+      <div class="modal-dialog modal-dialog-scrollable" role="document">
         <div class="modal-content bg-secondary">
           <div class="modal-header border-0">
           </div>
           <div class="modal-body">
-            <div class="sticky-top" id="seccion_temporalidades">
+            <div id="seccion_temporalidades">
             </div>
             <div id="seccion_informacion_detallada">
             </div>
           </div>
           <center>
             <div>
-              <button type="button" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#modal_full_info">
+              <button type="button" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#modal_full_charts" data-backdrop="static" id="btn_mas_info">
                 Mas Informacion
               </button>
             </div>
@@ -130,48 +130,29 @@
         </div>
       </div>
     </div>
-    <!-- fin Modal -->
-    <!--inicio modal full data  -->
-    <div class="modal fade" id="modal_full_info" tabindex="-1" role="dialog" aria-labelledby="modal_full_info_Title"
+    <!-- fin Modal detailed info -->
+    <!--inicio modal chart data  -->
+    <div class="modal fade " id="modal_full_charts" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
       aria-hidden="true">
-      <div class="modal-dialog modal-dialog-scrollable" role="document">
-        <div class="modal-content  bg-secondary">
+      <div class="modal-dialog modal-lg modal-dialog-scrollable" role="document">
+        <div class="modal-content bg-secondary">
+          <div class="modal-header border-0">
+          </div>
           <div class="modal-body">
-            <div class="container-fluid">
-              <div class="row">
-                <div class="col-md-4">.col-md-4</div>
-                <div class="col-md-4 ml-auto">.col-md-4 .ml-auto</div>
-              </div>
-              <div class="row">
-                <div class="col-md-3 ml-auto">.col-md-3 .ml-auto</div>
-                <div class="col-md-2 ml-auto">.col-md-2 .ml-auto</div>
-              </div>
-              <div class="row">
-                <div class="col-md-6 ml-auto">.col-md-6 .ml-auto</div>
-              </div>
-              <div class="row">
-                <div class="col-sm-9">
-                  Level 1: .col-sm-9
-                  <div class="row">
-                    <div class="col-8 col-sm-6">
-                      Level 2: .col-8 .col-sm-6
-                    </div>
-                    <div class="col-4 col-sm-6">
-                      Level 2: .col-4 .col-sm-6
-                    </div>
-                  </div>
-                </div>
-              </div>
+            <div id="seccion_temporalidades2">
+            </div>
+            <div id="seccion_charts_precio_volumen">
             </div>
           </div>
-          <div class="modal-footer">
+          <div class="modal-footer border-0">
             <button type="button" class="btn btn-outline-danger btn-sm" data-dismiss="modal"
-              id="cerrar_modal_info_cripto"><i class="fa-solid fa-xmark"></i> Cerrar</button>
+              id="btn_cerrar_modal_info_cripto"><i class="fa-solid fa-xmark"></i> Cerrar</button>
           </div>
         </div>
       </div>
     </div>
-    <!--fin modal full data  -->
+
+    <!--fin modal chart data  -->
     <!-- modal message inicial -->
     <div class="modal fade" id="modal_mensaje_de_desarrollador" tabindex="-1" role="dialog"
       aria-labelledby="modal_mensaje_de_desarrollador_Title" aria-hidden="true">

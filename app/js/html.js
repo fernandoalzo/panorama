@@ -41,7 +41,7 @@ export async function create_criptocard(token_symbol, PRICE, HIGH24HOUR, LOW24HO
     // canvas
     // link when canvas is clicked
     let a_modal = document.createElement("a")
-    a_modal.setAttribute("href", "#exampleModal")
+    a_modal.setAttribute("href", "#modal_detailed_info")
     a_modal.setAttribute("data-toggle", "modal")
     a_modal.setAttribute("data-backdrop", "static")
     let canvas = document.createElement("canvas")
@@ -157,7 +157,7 @@ export async function create_new_criptocard(info_token_from_api, token_symbol, t
     // canvas
     // link when canvas is clicked
     let a_modal = document.createElement("a")
-    a_modal.setAttribute("href", "#exampleModal")
+    a_modal.setAttribute("href", "#modal_detailed_info")
     a_modal.setAttribute("data-toggle", "modal")
     a_modal.setAttribute("data-backdrop", "static")
     let canvas = document.createElement("canvas")
@@ -223,8 +223,8 @@ export async function create_new_criptocard(info_token_from_api, token_symbol, t
     }
 }
 // funcion para crear las opciones de temporalidad en que se mostraran las graficas.
-export async function create_temporalidad_options(_config_app) {
-    let seccion_temporalidades = document.querySelector("#seccion_temporalidades")
+export async function create_temporalidad_options(_config_app, id_contenedor_temporalidades) {
+    let contenedor_temporalidades = document.querySelector(`#${id_contenedor_temporalidades}`)
     let temporalidades = _config_app.temporalidades
     for (let temporalidad in temporalidades) {
         let dias = temporalidades[temporalidad]
@@ -244,13 +244,41 @@ export async function create_temporalidad_options(_config_app) {
         div.append(input)
         label.append(text)
         div.append(label)
-        seccion_temporalidades.append(div)
+        contenedor_temporalidades.append(div)
     }
     let radio_default = document.getElementById(`${_config_app.temporalidad_default}d`)
     radio_default.checked = true
 }
+
+export async function create_temporalidad_options2(_config_app, id_contenedor_temporalidades) {
+    let contenedor_temporalidades = document.querySelector(`#${id_contenedor_temporalidades}`)
+    let temporalidades = _config_app.temporalidades
+    for (let temporalidad in temporalidades) {
+        let dias = temporalidades[temporalidad]
+        let div = document.createElement("div")
+        div.setAttribute("class", "form-check form-check-inline")
+        let input = document.createElement("input")
+        input.setAttribute("class", "form-check-input")
+        input.setAttribute("type", "radio")
+        input.setAttribute("name", "temporalidad")
+        input.setAttribute("value", `${dias}`)
+        input.setAttribute("id", `_${dias}d`)
+        let label = document.createElement("label")
+        label.setAttribute("class", "form-check-label")
+        label.setAttribute("for", `_${dias}d`)
+        let text = document.createTextNode(`${dias} dias`)
+        // build html
+        div.append(input)
+        label.append(text)
+        div.append(label)
+        contenedor_temporalidades.append(div)
+    }
+    let radio_default = document.getElementById(`_${_config_app.temporalidad_default}d`)
+    radio_default.checked = true
+}
+
 // metod para la creacion del modal con los detalles del asset
-export async function info_token_modal(info_token, token_symbol) {
+export async function modal_detailed_info_by_token(info_token, token_symbol) {
     // cons estas lineas iniciales se soluciona el problema de la informacion duplicada cuando se lanz el modal despues de haber modificado los checkbox
     let informacion_detallada = document.querySelector("#informacion_detallada")
     if (informacion_detallada) {
@@ -272,10 +300,11 @@ export async function info_token_modal(info_token, token_symbol) {
         let div_chart = document.createElement("div")
         div_chart.setAttribute("class", "zona_chart_details")
         div_chart.setAttribute("name", token_symbol)
-        let chart = document.createElement("canvas")
-        chart.setAttribute("id", "chart_detailed_info")
-        chart.style.width = '100%';
-        chart.style.height = '100%';
+        // grafico conla informacion del precio
+        let chart_price = document.createElement("canvas")
+        chart_price.setAttribute("id", "chart_detailed_info")
+        chart_price.style.width = '100%';
+        chart_price.style.height = '100%';
         // div para la informacion detallada de la cripto
         let div_info = document.createElement("div")
         div_info.setAttribute("class", "zona_de_informacion")
@@ -340,7 +369,7 @@ export async function info_token_modal(info_token, token_symbol) {
         h5.append(nombre_criptomoneda)
         modal_header.append(h5)
         // chart
-        div_chart.append(chart)
+        div_chart.append(chart_price)
         // info table  
         // td
         td_label_PRICE.append(label_PRICE)
@@ -389,4 +418,38 @@ export async function crear_canvas_detailed_info(chart_id) {
     chart_detailed_info.style.width = '100%';
     chart_detailed_info.style.height = '100%';
     return chart_detailed_info
+}
+
+export async function create_detailed_charts(){
+    let seccion_charts_precio_volumen = document.querySelector("#seccion_charts_precio_volumen")
+
+    let contenedor_charts_precio_volumen = document.createElement("div")
+    contenedor_charts_precio_volumen.setAttribute("id", "contenedor_charts_precio_volumen")
+    
+    let div_grafico_precio = document.createElement("div")
+    let label_graico_precio = document.createTextNode("Grafico Precio")
+    let canvas_grafico_precio = document.createElement("canvas")
+    canvas_grafico_precio.style.width = '100%';
+    canvas_grafico_precio.style.height = '100%';
+
+    let div_grafico_volumen_fiat = document.createElement("div")
+    let label_grafico_volumen_fiat = document.createTextNode("Grafico Volumen Fiat")
+    let canvas_grafico_volumen_fiat = document.createElement("canvas")
+    canvas_grafico_volumen_fiat.style.width = '100%';
+    canvas_grafico_volumen_fiat.style.height = '100%';
+    
+    let div_grafico_volumnen_cripto = document.createElement("diiv")
+    let label_grafico_volumen_cripto = document.createTextNode("Grafico Volumen cripto")
+    let canvas_grafico_volumen_cripto = document.createElement("canvas")
+    canvas_grafico_volumen_cripto.style.width = '100%';
+    canvas_grafico_volumen_cripto.style.height = '100%';
+
+    div_grafico_precio.append(label_graico_precio, canvas_grafico_precio)
+    div_grafico_volumen_fiat.append(label_grafico_volumen_fiat, canvas_grafico_volumen_fiat)
+    div_grafico_volumnen_cripto.append(label_grafico_volumen_cripto, canvas_grafico_volumen_cripto)
+
+    contenedor_charts_precio_volumen.append(div_grafico_precio, div_grafico_volumen_fiat, div_grafico_volumnen_cripto)
+    seccion_charts_precio_volumen.append(contenedor_charts_precio_volumen)
+
+    
 }

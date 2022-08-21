@@ -42,16 +42,22 @@ export let historical_data = async (endpoint_historical_data) => {
             if (respuesta == "Success") {
                 let precios = []
                 let fechas = []
+                let vol_in_cripto = []
+                let vol_in_fiat = []
                 let datos = data["Data"]["Data"]
                 for (let i = 0; i < datos.length; i++) {
                     precios.push(datos[i]["close"])
                     let timestamp = datos[i]["time"]
                     let fecha = convert_timestamp_to_date(timestamp)
                     fechas.push(fecha)
+                    vol_in_cripto.push(datos[i]["volumefrom"])
+                    vol_in_fiat.push(datos[i]["volumeto"])
                 }
                 return data = {
                     "precios": precios,
-                    "fechas": fechas
+                    "fechas": fechas,
+                    "vol_in_cripto" : vol_in_cripto,
+                    "vol_in_fiat" : vol_in_fiat
                 }
             }
         }

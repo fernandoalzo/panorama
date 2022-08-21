@@ -19,7 +19,7 @@ async function main() {
         // config chart 
         let endpoint_historical_data = API.endpoint_historical_data(_config_app.data_source.cryptocompare.api_key, info_token.symbol, _config_app.temporalidad_default)
         let historical_data = await API.historical_data(endpoint_historical_data)
-        graficos.create_chart(historical_data["fechas"], historical_data["precios"], info_token.symbol, _config_app.temporalidad_default)
+        graficos.create_basic_chart(historical_data["fechas"], historical_data["precios"], info_token.symbol, _config_app.temporalidad_default)
     })
     // codigo para cuando se haga click sobre los checkbox
     let inputs_checks = document.querySelectorAll('input[name="select_criptos_to_show"]')
@@ -27,7 +27,7 @@ async function main() {
     for (let i = 0; i < inputs_checks.length; i++) {
         tokens.push(inputs_checks[i].value)
     }
-    // eventos cuando hay cambios en los checkboxes
+    // events when checks buttons is clicked
     inputs_checks.forEach((input_check) => {
         input_check.addEventListener("click", async (evento) => {
             let is_checked = evento.target.checked
@@ -44,22 +44,25 @@ async function main() {
                 // get historical data for chart criptocard
                 let endpoint_historical_data = API.endpoint_historical_data(_config_app.data_source.cryptocompare.api_key, token_symbol, _config_app.temporalidad_default)
                 let historical_data = await API.historical_data(endpoint_historical_data)
-                graficos.create_new_chart(historical_data["fechas"], historical_data["precios"], token_symbol, 30, `chart_${token_symbol}`)
-                // estas lineas tengo que mirar la forma de hacer que no se vean tan feas aqui, buscar la formar de crear un metodo
+                graficos.create_detailed_chart(historical_data["fechas"], historical_data["precios"], token_symbol, 30, `chart_${token_symbol}`)
+                //---
+                // here was necessary repeat the code tha was used in events when chart is clicked
                 let charts = document.querySelectorAll('canvas[name="grafico"]')
                 charts.forEach((chart) => {
                     chart.addEventListener("click", async (evento) => {
                         let canvas_node_id = evento.target.id
                         let canvas_node = document.querySelector(`#${canvas_node_id}`)
+                        // return the token symbol that was clicked
                         let token_symbol = canvas_node.className
+                        // get info token from API 
                         let endpoint_info_token = API.endpoint_token_info(_config_app, token_symbol)
                         let info_token_from_api = await API.token_data_from_api(endpoint_info_token)
                         let info_token = info_token_from_api.DISPLAY[`${token_symbol}`].USD
-                        html.info_token_modal(info_token, token_symbol)
+                        html.modal_detailed_info_by_token(info_token, token_symbol)
                         // creacion del grafico
                         let endpoint_historical_data = API.endpoint_historical_data(_config_app.data_source.cryptocompare.api_key, token_symbol, _config_app.temporalidad_default)
                         let historical_data = await API.historical_data(endpoint_historical_data)
-                        graficos.create_new_chart(historical_data["fechas"], historical_data["precios"], token_symbol, 30, "chart_detailed_info")
+                        graficos.create_detailed_chart(historical_data["fechas"], historical_data["precios"], token_symbol, 30, "chart_detailed_info")
                     })
                 })
             }
@@ -71,21 +74,38 @@ async function main() {
             }
         })
     })
-    // eventos cuando se haga click dentro de alguno de los graficos, abre un modal con informacion detallada
+    // events when chart is clicked
     let charts = document.querySelectorAll('canvas[name="grafico"]')
     charts.forEach((chart) => {
         chart.addEventListener("click", async (evento) => {
             let canvas_node_id = evento.target.id
             let canvas_node = document.querySelector(`#${canvas_node_id}`)
+            // return the token symbol of chart that was clicked
             let token_symbol = canvas_node.className
+            // get info token from API 
             let endpoint_info_token = API.endpoint_token_info(_config_app, token_symbol)
             let info_token_from_api = await API.token_data_from_api(endpoint_info_token)
             let info_token = info_token_from_api.DISPLAY[`${token_symbol}`].USD
-            html.info_token_modal(info_token, token_symbol)
+            html.modal_detailed_info_by_token(info_token, token_symbol)
             // creacion del grafico
             let endpoint_historical_data = API.endpoint_historical_data(_config_app.data_source.cryptocompare.api_key, token_symbol, _config_app.temporalidad_default)
+            // console.log(endpoint_historical_data)
             let historical_data = await API.historical_data(endpoint_historical_data)
-            graficos.create_new_chart(historical_data["fechas"], historical_data["precios"], token_symbol, 30, "chart_detailed_info")
+            // console.log(historical_data)
+            graficos.create_detailed_chart(historical_data["fechas"], historical_data["precios"], token_symbol, 30, "chart_detailed_info")
+            
+            // evento cuando se presione el boton de mas informacion
+            let btn_mas_info = document.querySelector("#btn_mas_info")
+            btn_mas_info.addEventListener("click", _=>{
+                html.create_detailed_charts()
+                html.create_temporalidad_options2(_config_app, "seccion_temporalidades2")
+            })
+            // cuando se preione el boton cerrar del modal con los charts detallados, borrar el contenedor de esos graficos
+            let btn_cerrar_modal_info_cripto = document.querySelector("#btn_cerrar_modal_info_cripto")
+            btn_cerrar_modal_info_cripto.addEventListener("click", _=>{
+                let contenedor_charts_precio_volumen = document.querySelector("#contenedor_charts_precio_volumen")
+                contenedor_charts_precio_volumen.remove()
+            })
         })
 
     })
@@ -98,7 +118,7 @@ async function main() {
         }
     })
     // eventos para  cuando hay cambios en los radio buttons de las teporabilidades
-    html.create_temporalidad_options(_config_app)
+    html.create_temporalidad_options(_config_app, "seccion_temporalidades")
     let inputs_temporalidades = document.querySelectorAll('input[name="temporalidad"]')
     inputs_temporalidades.forEach((input_temporabilidad) => {
         input_temporabilidad.addEventListener("click", async function (evento) {
@@ -113,7 +133,7 @@ async function main() {
             zona_chart_details.append(new_chart_detailed_info)
             let endpoint_historical_data = API.endpoint_historical_data(_config_app, token, num_dias)
             let historical_data = await API.historical_data(endpoint_historical_data)
-            graficos.create_new_chart(historical_data["fechas"], historical_data["precios"], token, num_dias, "chart_detailed_info")
+            graficos.create_detailed_chart(historical_data["fechas"], historical_data["precios"], token, num_dias, "chart_detailed_info")
         })
     })
 }
