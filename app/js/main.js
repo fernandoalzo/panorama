@@ -98,7 +98,7 @@ async function main() {
             // evento cuando se presione el boton de mas informacion
             let btn_mas_info = document.querySelector("#btn_mas_info")
             btn_mas_info.addEventListener("click", _ => {
-                html.create_detailed_charts()
+                html.create_detailed_charts(token_symbol)
                 // create the container temporabilidades
                 html.create_temporalidad_options_detailed_chart(_config_app, "seccion_temporalidades2")              
                 // events when temporalidad option is clicked
