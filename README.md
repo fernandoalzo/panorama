@@ -3,7 +3,7 @@
 
 <h1 align="center">
   <br>
-  <a href="http://www.amitmerchant.com/electron-markdownify"><img src="https://github.com/fernandoalzo/cripto_vs_usd/blob/main/template/img/logo1.png" alt="Markdownify" width="200"></a>
+  <a href="http://www.amitmerchant.com/electron-markdownify"><img src="https://github.com/fernandoalzo/cripto_vs_usd/blob/main/template/img/logo1.png" alt="Markdownify" width="600"></a>
   <br>
   ERRE
   <br>
