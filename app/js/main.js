@@ -99,14 +99,15 @@ async function main() {
             let btn_mas_info = document.querySelector("#btn_mas_info")
             btn_mas_info.addEventListener("click", _ => {
                 html.create_detailed_charts()
-                html.create_temporalidad_options2(_config_app, "seccion_temporalidades2")
+                // create the container temporabilidades
+                html.create_temporalidad_options2(_config_app, "seccion_temporalidades2")              
                 // events when temporalidad option is clicked
                 let inputs_temporalidades2 = document.querySelectorAll('input[name="temporalidad_options2"]')
                 inputs_temporalidades2.forEach((input_temporabilidad) => {
                     input_temporabilidad.addEventListener("click", async (evento) => {
                         let num_dias = evento.target.value
-                        console.log(num_dias)
-                        console.log(token_symbol)
+                        console.log(num_dias + " " + token_symbol)
+
                     })
                 })
             })
@@ -115,10 +116,14 @@ async function main() {
             btn_cerrar_modal_info_cripto.addEventListener("click", _ => {
                 // remover el contenedr con los grafido del precio y volumen del modal de mas informacion
                 let contenedor_charts_precio_volumen = document.querySelector("#contenedor_charts_precio_volumen")
-                contenedor_charts_precio_volumen.remove()
+                if (contenedor_charts_precio_volumen != null){
+                    contenedor_charts_precio_volumen.remove()
+                }                
                 // remover la seccion de los radio button con la temporabilidad options dentro del modal de mas informacion
                 let container_temporalidad_options2 = document.querySelector("#container_temporalidad_options2")
-                container_temporalidad_options2.remove()
+                if (container_temporalidad_options2 != null){
+                    container_temporalidad_options2.remove()
+                }                
             })
         })
 

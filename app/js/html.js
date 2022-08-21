@@ -252,10 +252,15 @@ export async function create_temporalidad_options(_config_app, id_contenedor_tem
 
 export async function create_temporalidad_options2(_config_app, id_seccion_temporalidades2) {
     let seccion_temporalidades2 = document.querySelector(`#${id_seccion_temporalidades2}`)
+    // check if the container temporalidades exists
+    let check_seccion_temporalidades2 = document.querySelector("#container_temporalidad_options2")
+    if (check_seccion_temporalidades2 != null){
+        // if exists, remove then
+        check_seccion_temporalidades2.remove()                
+    }
     let container_temporalidad_options2 = document.createElement("div")
     container_temporalidad_options2.setAttribute("id", "container_temporalidad_options2")
     let temporalidades = _config_app.temporalidades
-
     for (let temporalidad in temporalidades) {
         let dias = temporalidades[temporalidad]
         let div = document.createElement("div")
@@ -426,7 +431,12 @@ export async function crear_canvas_detailed_info(chart_id) {
 
 export async function create_detailed_charts(){
     let seccion_charts_precio_volumen = document.querySelector("#seccion_charts_precio_volumen")
-
+    // check if contenedor_charts_precio_volumen exists, if exists remove then.
+    let check_contenedor_charts_precio_volumen = document.querySelector("#contenedor_charts_precio_volumen")
+    if (check_contenedor_charts_precio_volumen != null){
+        check_contenedor_charts_precio_volumen.remove()
+    }
+    // create contenedo contenedor_charts_precio_volumen
     let contenedor_charts_precio_volumen = document.createElement("div")
     contenedor_charts_precio_volumen.setAttribute("id", "contenedor_charts_precio_volumen")
     
