@@ -100,7 +100,7 @@ async function main() {
             btn_mas_info.addEventListener("click", _ => {
                 html.create_detailed_charts()
                 // create the container temporabilidades
-                html.create_temporalidad_options2(_config_app, "seccion_temporalidades2")              
+                html.create_temporalidad_options_detailed_chart(_config_app, "seccion_temporalidades2")              
                 // events when temporalidad option is clicked
                 let inputs_temporalidades2 = document.querySelectorAll('input[name="temporalidad_options2"]')
                 inputs_temporalidades2.forEach((input_temporabilidad) => {
@@ -120,9 +120,9 @@ async function main() {
                     contenedor_charts_precio_volumen.remove()
                 }                
                 // remover la seccion de los radio button con la temporabilidad options dentro del modal de mas informacion
-                let container_temporalidad_options2 = document.querySelector("#container_temporalidad_options2")
-                if (container_temporalidad_options2 != null){
-                    container_temporalidad_options2.remove()
+                let create_temporalidad_options_detailed_chart = document.querySelector("#create_temporalidad_options_detailed_chart")
+                if (create_temporalidad_options_detailed_chart != null){
+                    create_temporalidad_options_detailed_chart.remove()
                 }                
             })
         })

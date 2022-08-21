@@ -250,16 +250,16 @@ export async function create_temporalidad_options(_config_app, id_contenedor_tem
     radio_default.checked = true
 }
 
-export async function create_temporalidad_options2(_config_app, id_seccion_temporalidades2) {
+export async function create_temporalidad_options_detailed_chart(_config_app, id_seccion_temporalidades2) {
     let seccion_temporalidades2 = document.querySelector(`#${id_seccion_temporalidades2}`)
     // check if the container temporalidades exists
-    let check_seccion_temporalidades2 = document.querySelector("#container_temporalidad_options2")
+    let check_seccion_temporalidades2 = document.querySelector("#create_temporalidad_options_detailed_chart")
     if (check_seccion_temporalidades2 != null){
         // if exists, remove then
         check_seccion_temporalidades2.remove()                
     }
-    let container_temporalidad_options2 = document.createElement("div")
-    container_temporalidad_options2.setAttribute("id", "container_temporalidad_options2")
+    let create_temporalidad_options_detailed_chart = document.createElement("div")
+    create_temporalidad_options_detailed_chart.setAttribute("id", "create_temporalidad_options_detailed_chart")
     let temporalidades = _config_app.temporalidades
     for (let temporalidad in temporalidades) {
         let dias = temporalidades[temporalidad]
@@ -279,9 +279,9 @@ export async function create_temporalidad_options2(_config_app, id_seccion_tempo
         div.append(input)
         label.append(text)
         div.append(label)
-        container_temporalidad_options2.append(div)
+        create_temporalidad_options_detailed_chart.append(div)
     }
-    seccion_temporalidades2.append(container_temporalidad_options2)
+    seccion_temporalidades2.append(create_temporalidad_options_detailed_chart)
     let radio_default = document.getElementById(`_${_config_app.temporalidad_default}d`)
     radio_default.checked = true
 }
