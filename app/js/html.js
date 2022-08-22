@@ -48,6 +48,8 @@ export async function create_criptocard(token_symbol, PRICE, HIGH24HOUR, LOW24HO
     canvas.setAttribute("id", `chart_${token_symbol}`)
     canvas.setAttribute("class", token_symbol)
     canvas.setAttribute("name", "grafico")
+    canvas.style.width = '100%';
+    canvas.style.height = '100%';    
     // ul
     let ul = document.createElement("ul")
     ul.setAttribute("class", "mt-5 ps-0")
@@ -164,6 +166,8 @@ export async function create_new_criptocard(info_token_from_api, token_symbol, t
     canvas.setAttribute("id", `chart_${info_token_from_api.RAW[`${token_symbol}`].USD.FROMSYMBOL}`)
     canvas.setAttribute("class", info_token_from_api.RAW[`${token_symbol}`].USD.FROMSYMBOL)
     canvas.setAttribute("name", "grafico")
+    canvas.style.width = '100%';
+    canvas.style.height = '100%';
     // ul
     let ul = document.createElement("ul")
     ul.setAttribute("class", "mt-5 ps-0")
@@ -254,9 +258,9 @@ export async function create_temporalidad_options_detailed_chart(config_app, id_
     let seccion_temporalidades2 = document.querySelector(`#${id_seccion_temporalidades2}`)
     // check if the container temporalidades exists
     let check_seccion_temporalidades2 = document.querySelector("#create_temporalidad_options_detailed_chart")
-    if (check_seccion_temporalidades2 != null){
+    if (check_seccion_temporalidades2 != null) {
         // if exists, remove then
-        check_seccion_temporalidades2.remove()                
+        check_seccion_temporalidades2.remove()
     }
     let create_temporalidad_options_detailed_chart = document.createElement("div")
     create_temporalidad_options_detailed_chart.setAttribute("id", "create_temporalidad_options_detailed_chart")
@@ -428,17 +432,17 @@ export async function crear_canvas_detailed_info(chart_id) {
     return chart_detailed_info
 }
 
-export async function create_detailed_charts(token_symbol){
+export async function create_detailed_charts(token_symbol) {
     let seccion_charts_precio_volumen = document.querySelector("#seccion_charts_precio_volumen")
     // check if contenedor_charts_precio_volumen exists, if exists remove then.
     let check_contenedor_charts_precio_volumen = document.querySelector("#contenedor_charts_precio_volumen")
-    if (check_contenedor_charts_precio_volumen != null){
+    if (check_contenedor_charts_precio_volumen != null) {
         check_contenedor_charts_precio_volumen.remove()
     }
     // create contenedo contenedor_charts_precio_volumen
     let contenedor_charts_precio_volumen = document.createElement("div")
     contenedor_charts_precio_volumen.setAttribute("id", "contenedor_charts_precio_volumen")
-    
+
     let div_grafico_precio = document.createElement("div")
     let label_graico_precio = document.createTextNode("Precio: " + token_symbol)
     let canvas_grafico_precio = document.createElement("canvas")
@@ -452,7 +456,7 @@ export async function create_detailed_charts(token_symbol){
     canvas_grafico_volumen_fiat.setAttribute("id", `chart_detailed_info_vol_fiat_${token_symbol}`)
     canvas_grafico_volumen_fiat.style.width = '100%';
     canvas_grafico_volumen_fiat.style.height = '100%';
-    
+
     let div_grafico_volumnen_cripto = document.createElement("div")
     let label_grafico_volumen_cripto = document.createTextNode("Grafico Volumen cripto: " + token_symbol)
     let canvas_grafico_volumen_cripto = document.createElement("canvas")
@@ -467,5 +471,5 @@ export async function create_detailed_charts(token_symbol){
     contenedor_charts_precio_volumen.append(div_grafico_precio, div_grafico_volumen_fiat, div_grafico_volumnen_cripto)
     seccion_charts_precio_volumen.append(contenedor_charts_precio_volumen)
 
-    
+
 }
