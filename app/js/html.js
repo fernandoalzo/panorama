@@ -453,7 +453,7 @@ export async function create_detailed_charts(token_symbol){
     canvas_grafico_volumen_fiat.style.width = '100%';
     canvas_grafico_volumen_fiat.style.height = '100%';
     
-    let div_grafico_volumnen_cripto = document.createElement("diiv")
+    let div_grafico_volumnen_cripto = document.createElement("div")
     let label_grafico_volumen_cripto = document.createTextNode("Grafico Volumen cripto: " + token_symbol)
     let canvas_grafico_volumen_cripto = document.createElement("canvas")
     canvas_grafico_volumen_cripto.setAttribute("id", `chart_detailed_info_vol_cripto_${token_symbol}`)

@@ -11,7 +11,7 @@ export let endpoint_token_info = (config_app, token_symbol) => {
     let endpoint = `https://min-api.cryptocompare.com/data/pricemultifull?fsyms=${token_symbol}&tsyms=USD&api_key=${api_key}`
     return endpoint
 }
-// este metodo me crea el endpoint para la consilta del historico el precio
+// este metodo me crea el endpoint para la consulta del historico el precio
 export let endpoint_historical_data = (api_key, token, numero_dias) => {
     let endpoint_historical_data = `https://min-api.cryptocompare.com/data/v2/histoday?fsym=${token}&tsym=USD&limit=${numero_dias}&api_key=${api_key}`
     return endpoint_historical_data
@@ -41,20 +41,26 @@ export let historical_data = async (endpoint_historical_data) => {
             let respuesta = data["Response"]
             if (respuesta == "Success") {
                 let precios = []
+                let highs = []
+                let lows = []
                 let fechas = []
                 let vol_in_cripto = []
                 let vol_in_fiat = []
                 let datos = data["Data"]["Data"]
                 for (let i = 0; i < datos.length; i++) {
                     precios.push(datos[i]["close"])
+                    highs.push(datos[i]["high"])
+                    lows.push(datos[i]["lows"])
                     let timestamp = datos[i]["time"]
                     let fecha = convert_timestamp_to_date(timestamp)
                     fechas.push(fecha)
                     vol_in_cripto.push(datos[i]["volumefrom"])
-                    vol_in_fiat.push(datos[i]["volumeto"])
+                    vol_in_fiat.push(datos[i]["volumeto"])                    
                 }
                 return data = {
                     "precios": precios,
+                    "highs" : highs,
+                    "lows" : lows,
                     "fechas": fechas,
                     "vol_in_cripto" : vol_in_cripto,
                     "vol_in_fiat" : vol_in_fiat

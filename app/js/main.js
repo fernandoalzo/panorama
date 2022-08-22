@@ -19,7 +19,7 @@ async function main() {
         // config chart 
         let endpoint_historical_data = API.endpoint_historical_data(config_app.data_source.cryptocompare.api_key, info_token.symbol, config_app.temporalidad_default)
         let historical_data = await API.historical_data(endpoint_historical_data)
-        graficos.create_basic_chart(historical_data["fechas"], historical_data["precios"], info_token.symbol, config_app.temporalidad_default)
+        graficos.create_basic_line_chart(historical_data["fechas"], historical_data["precios"], info_token.symbol, config_app.temporalidad_default)
     })
     // codigo para cuando se haga click sobre los checkbox
     let inputs_checks = document.querySelectorAll('input[name="select_criptos_to_show"]')
@@ -44,7 +44,7 @@ async function main() {
                 // get historical data for chart criptocard
                 let endpoint_historical_data = API.endpoint_historical_data(config_app.data_source.cryptocompare.api_key, token_symbol, config_app.temporalidad_default)
                 let historical_data = await API.historical_data(endpoint_historical_data)
-                graficos.create_detailed_chart(historical_data["fechas"], historical_data["precios"], token_symbol, 30, `chart_${token_symbol}`)
+                graficos.create_price_line_chart(historical_data["fechas"], historical_data["precios"], token_symbol, 30, `chart_${token_symbol}`)
                 //---
                 // here was necessary repeat the code tha was used in events when chart is clicked
                 let charts = document.querySelectorAll('canvas[name="grafico"]')
@@ -62,7 +62,7 @@ async function main() {
                         // creacion del grafico
                         let endpoint_historical_data = API.endpoint_historical_data(config_app.data_source.cryptocompare.api_key, token_symbol, config_app.temporalidad_default)
                         let historical_data = await API.historical_data(endpoint_historical_data)
-                        graficos.create_detailed_chart(historical_data["fechas"], historical_data["precios"], token_symbol, 30, "chart_detailed_info")
+                        graficos.create_price_line_chart(historical_data["fechas"], historical_data["precios"], token_symbol, 30, "chart_detailed_info")
                     })
                 })
             }
@@ -93,14 +93,22 @@ async function main() {
             // creacion del grafico
             let endpoint_historical_data = API.endpoint_historical_data(config_app.data_source.cryptocompare.api_key, token_symbol, config_app.temporalidad_default)
             let historical_data = await API.historical_data(endpoint_historical_data)
-            graficos.create_detailed_chart(historical_data["fechas"], historical_data["precios"], token_symbol, 30, "chart_detailed_info")
+            graficos.create_price_line_chart(historical_data["fechas"], historical_data["precios"], token_symbol, 30, "chart_detailed_info")
 
             // evento cuando se presione el boton de mas informacion
             let btn_mas_info = document.querySelector("#btn_mas_info")
-            btn_mas_info.addEventListener("click", _ => {
+            btn_mas_info.addEventListener("click", async _ => {
                 html.create_detailed_charts(token_symbol)
                 // create the container temporabilidades
-                html.create_temporalidad_options_detailed_chart(config_app, "seccion_temporalidades2")              
+                html.create_temporalidad_options_detailed_chart(config_app, "seccion_temporalidades2")
+                // get the historical data
+                let endpoint_historical_data_for_detailed_chart = API.endpoint_historical_data(config_app.data_source.cryptocompare.api_key, token_symbol, config_app.temporalidad_default)
+                let historical_data_for_detailed_chart = await API.historical_data(endpoint_historical_data_for_detailed_chart)
+                // create charts
+                graficos.create_price_detailed_line_chart(historical_data_for_detailed_chart.fechas, historical_data_for_detailed_chart.precios, token_symbol, config_app.temporalidad_default, `chart_detailed_info_price_${token_symbol}`)
+                graficos.create_volume_fiat_detailed_line_chart(historical_data_for_detailed_chart.fechas, historical_data_for_detailed_chart.vol_in_fiat, token_symbol, config_app.temporalidad_default, `chart_detailed_info_vol_fiat_${token_symbol}`)
+                graficos.create_volume_cripto_detailed_line_chart(historical_data_for_detailed_chart.fechas, historical_data_for_detailed_chart.vol_in_cripto, token_symbol, config_app.temporalidad_default, `chart_detailed_info_vol_cripto_${token_symbol}`)
+                
                 // events when temporalidad option is clicked
                 let inputs_temporalidades2 = document.querySelectorAll('input[name="temporalidad_options2"]')
                 inputs_temporalidades2.forEach((input_temporabilidad) => {
@@ -116,14 +124,14 @@ async function main() {
             btn_cerrar_modal_info_cripto.addEventListener("click", _ => {
                 // remover el contenedr con los grafido del precio y volumen del modal de mas informacion
                 let contenedor_charts_precio_volumen = document.querySelector("#contenedor_charts_precio_volumen")
-                if (contenedor_charts_precio_volumen != null){
+                if (contenedor_charts_precio_volumen != null) {
                     contenedor_charts_precio_volumen.remove()
-                }                
+                }
                 // remover la seccion de los radio button con la temporabilidad options dentro del modal de mas informacion
                 let create_temporalidad_options_detailed_chart = document.querySelector("#create_temporalidad_options_detailed_chart")
-                if (create_temporalidad_options_detailed_chart != null){
+                if (create_temporalidad_options_detailed_chart != null) {
                     create_temporalidad_options_detailed_chart.remove()
-                }                
+                }
             })
         })
 
@@ -156,7 +164,7 @@ async function main() {
             zona_chart_details.append(new_chart_detailed_info)
             let endpoint_historical_data = API.endpoint_historical_data(config_app, token, num_dias)
             let historical_data = await API.historical_data(endpoint_historical_data)
-            graficos.create_detailed_chart(historical_data["fechas"], historical_data["precios"], token, num_dias, "chart_detailed_info")
+            graficos.create_price_line_chart(historical_data["fechas"], historical_data["precios"], token, num_dias, "chart_detailed_info")
         })
     })
 }
