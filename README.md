@@ -6,6 +6,8 @@
   <a href="http://www.amitmerchant.com/electron-markdownify"><img src="https://github.com/fernandoalzo/cripto_vs_usd/blob/main/template/img/logo1.png" alt="Markdownify" width="600"></a>
   <br>
   ERRE
+[![forthebadge](https://forthebadge.com/images/badges/made-with-javascript.svg)](http://forthebadge.com)
+[![forthebadge](http://forthebadge.com/images/badges/built-with-love.svg)](http://forthebadge.com)
   <br>
 </h1>
 
