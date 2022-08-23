@@ -24,7 +24,7 @@
 
 ## Ir al Sitio
 
-* Site: [cripto_vs_usd](https://fernandoalzo.github.io/cripto_vs_usd/)
+* Site: [panorama](https://fernandoalzo.github.io/panorama/)
 
 ## License
 
