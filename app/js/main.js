@@ -115,7 +115,6 @@ async function main() {
                     input_temporabilidad.addEventListener("click", async (evento) => {
                         let num_dias = evento.target.value
                         console.log(num_dias + " " + token_symbol)
-
                     })
                 })
             })
@@ -128,7 +127,7 @@ async function main() {
                     contenedor_charts_precio_volumen.remove()
                 }
                 // remover la seccion de los radio button con la temporabilidad options dentro del modal de mas informacion
-                let create_temporalidad_options_detailed_chart = document.querySelector("#create_temporalidad_options_detailed_chart")
+                let create_temporalidad_options_detailed_chart = document.querySelector("#temporalidad_options_detailed_chart")
                 if (create_temporalidad_options_detailed_chart != null) {
                     create_temporalidad_options_detailed_chart.remove()
                 }
@@ -146,6 +145,7 @@ async function main() {
         if (informacion_detallada) {
             informacion_detallada.remove()
         }
+        
     })
     // eventos para  cuando hay cambios en los radio buttons de las teporabilidades en el modal con los detalles del precio
     html.create_temporalidad_options(config_app, "seccion_temporalidades")

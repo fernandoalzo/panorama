@@ -257,13 +257,13 @@ export async function create_temporalidad_options(config_app, id_contenedor_temp
 export async function create_temporalidad_options_detailed_chart(config_app, id_seccion_temporalidades2) {
     let seccion_temporalidades2 = document.querySelector(`#${id_seccion_temporalidades2}`)
     // check if the container temporalidades exists
-    let check_seccion_temporalidades2 = document.querySelector("#create_temporalidad_options_detailed_chart")
+    let check_seccion_temporalidades2 = document.querySelector("#temporalidad_options_detailed_chart")
     if (check_seccion_temporalidades2 != null) {
         // if exists, remove then
         check_seccion_temporalidades2.remove()
     }
     let create_temporalidad_options_detailed_chart = document.createElement("div")
-    create_temporalidad_options_detailed_chart.setAttribute("id", "create_temporalidad_options_detailed_chart")
+    create_temporalidad_options_detailed_chart.setAttribute("id", "temporalidad_options_detailed_chart")
     let temporalidades = config_app.temporalidades
     for (let temporalidad in temporalidades) {
         let dias = temporalidades[temporalidad]
@@ -431,7 +431,7 @@ export async function crear_canvas_detailed_info(chart_id) {
     chart_detailed_info.style.height = '100%';
     return chart_detailed_info
 }
-
+//funcion para crear los detaales graficos del activo
 export async function create_detailed_charts(token_symbol) {
     let seccion_charts_precio_volumen = document.querySelector("#seccion_charts_precio_volumen")
     // check if contenedor_charts_precio_volumen exists, if exists remove then.
