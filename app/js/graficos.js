@@ -5,7 +5,7 @@ export async function create_basic_line_chart(fechas, precios, token, num_dias) 
     let datos = {
         label: `Grafico de ${token} Vs USD ultimos ${num_dias} dias`,
         data: precios,
-        borderColor: '#f0ad4e',
+        borderColor: '#FFA024',
         borderWidth: 3,
     }
     const historic_chart = new Chart(chart, {
@@ -59,7 +59,7 @@ export async function create_price_line_chart(fechas, precios, token_symbol, num
     let datos = {
         label: `Grafico de ${token_symbol} Vs USD ultimos ${num_dias} dias`,
         data: precios,
-        borderColor: '#f0ad4e',
+        borderColor: '#FFA024',
         borderWidth: 3,
     }
     const historic_chart = new Chart(chart, {
@@ -113,7 +113,7 @@ export async function create_price_detailed_line_chart(fechas, precios, token_sy
     let datos = {
         label: `Grafico de ${token_symbol} Vs USD ultimos ${num_dias} dias`,
         data: precios,
-        borderColor: '#f0ad4e',
+        borderColor: '#FFA024',
         borderWidth: 3,
     }
     const historic_chart = new Chart(chart, {

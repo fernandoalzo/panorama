@@ -26,7 +26,7 @@ export async function create_criptocard(token_symbol, PRICE, HIGH24HOUR, LOW24HO
     div2.setAttribute("id", `info_${token_symbol}`)
     // p1
     let p1 = document.createElement("p")
-    p1.setAttribute("class", "fs-2 ls-2")
+    p1.setAttribute("class", "fs-2 ls-2 text-warning")
     // text
     let criptomoneda_text = document.createTextNode(`${token_symbol}`)
     let h1 = document.createElement("h1")
@@ -306,7 +306,7 @@ export async function modal_detailed_info_by_token(info_token, token_symbol) {
         let modal_header = document.createElement("div")
         modal_header.setAttribute("class", "modal-header")
         let h5 = document.createElement("h1")
-        h5.setAttribute("class", "moddal-title")
+        h5.setAttribute("class", "moddal-title text-warning")
         let nombre_criptomoneda = document.createTextNode(info_token.FROMSYMBOL)
         // div para el char
         let div_chart = document.createElement("div")
