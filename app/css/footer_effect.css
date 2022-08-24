@@ -1,39 +1,3 @@
-/* * {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-  }
-   */
-  /* :root {
-    --background: #060608;
-    --color: #FAFAFA;
-  }
-   */
-  /* html, body {
-    width: 100%;
-    height: 100%;
-    font-family: Arial;
-  }
-   */
-  /* body {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    background: var(--background);
-  }
-   */
-  /* .container {
-    color: var(--color);
-    font-size: 1.5rem;
-    display: flex;
-    flex-direction: column;
-  } */
-  
-  /* .right {
-    text-align: right;
-    width: 100%;
-  } */
-  
   .stack {
     display: grid;
     grid-template-columns: 1fr;
