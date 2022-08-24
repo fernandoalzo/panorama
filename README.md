@@ -16,7 +16,7 @@
 ## Caracterisiticas
 
 * Datos extraidos en tiempo Real.
-* Haciendo click sobre los grafico encontrara mas informacion del activo.
+* Haciendo click sobre los grafico encontrara mas informacion.
 
 ## Fuentes de Informacion
 
