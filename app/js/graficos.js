@@ -62,7 +62,7 @@ export async function create_price_line_chart(fechas, precios, token_symbol, num
         borderColor: '#FFA024',
         borderWidth: 3,
     }
-    const historic_chart = new Chart(chart, {
+    const historic_chart_price = new Chart(chart, {
         type: "line",
         data: {
             labels: labels,
@@ -106,7 +106,7 @@ export async function create_price_line_chart(fechas, precios, token_symbol, num
         }
     })
 }
-
+let historic_chart_price
 export async function create_price_detailed_line_chart(fechas, precios, token_symbol, num_dias, canvas_id) {
     let chart = document.querySelector(`#${canvas_id}`)
     let labels = fechas
@@ -116,7 +116,10 @@ export async function create_price_detailed_line_chart(fechas, precios, token_sy
         borderColor: '#FFA024',
         borderWidth: 3,
     }
-    const historic_chart = new Chart(chart, {
+    if (historic_chart_price){
+        historic_chart_price.destroy()        
+    }
+    historic_chart_price = new Chart(chart, {
         type: "line",
         data: {
             labels: labels,
@@ -160,7 +163,7 @@ export async function create_price_detailed_line_chart(fechas, precios, token_sy
         }
     })
 }
-
+let historic_chart_vol_fiat
 export async function create_volume_fiat_detailed_line_chart(fechas, vol_values, token_symbol, num_dias, canvas_id) {
     let chart = document.querySelector(`#${canvas_id}`)
     let labels = fechas
@@ -170,7 +173,10 @@ export async function create_volume_fiat_detailed_line_chart(fechas, vol_values,
         borderColor: '#f0ad4e',
         borderWidth: 10,
     }
-    const historic_chart = new Chart(chart, {
+    if (historic_chart_vol_fiat){
+        historic_chart_vol_fiat.destroy()
+    }
+    historic_chart_vol_fiat = new Chart(chart, {
         type: "bar",
         data: {
             labels: labels,
@@ -214,7 +220,7 @@ export async function create_volume_fiat_detailed_line_chart(fechas, vol_values,
         }
     })
 }
-
+let historic_chart_vol_cripto
 export async function create_volume_cripto_detailed_line_chart(fechas, vol_values, token_symbol, num_dias, canvas_id) {
     let chart = document.querySelector(`#${canvas_id}`)
     let labels = fechas
@@ -224,7 +230,10 @@ export async function create_volume_cripto_detailed_line_chart(fechas, vol_value
         borderColor: '#f0ad4e',
         borderWidth: 10,
     }
-    const historic_chart = new Chart(chart, {
+    if (historic_chart_vol_cripto){
+        historic_chart_vol_cripto.destroy()
+    }
+    historic_chart_vol_cripto = new Chart(chart, {
         type: "bar",
         data: {
             labels: labels,
