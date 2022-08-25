@@ -1,4 +1,5 @@
 // funcion para crear el grafico
+// let historic_chart
 export async function create_basic_line_chart(fechas, precios, token, num_dias) {
     let chart = document.querySelector(`#chart_${token}`)
     let labels = fechas
@@ -8,6 +9,9 @@ export async function create_basic_line_chart(fechas, precios, token, num_dias) 
         borderColor: '#FFA024',
         borderWidth: 3,
     }
+    // if (historic_chart){
+    //     historic_chart.destroy()
+    // }
     const historic_chart = new Chart(chart, {
         type: "line",
         data: {
@@ -53,6 +57,7 @@ export async function create_basic_line_chart(fechas, precios, token, num_dias) 
     })
 }
 //funcion para crear el grafico especificando el ID
+let historic_chart_by_id
 export async function create_price_line_chart(fechas, precios, token_symbol, num_dias, canvas_id) {
     let chart = document.querySelector(`#${canvas_id}`)
     let labels = fechas
@@ -62,7 +67,10 @@ export async function create_price_line_chart(fechas, precios, token_symbol, num
         borderColor: '#FFA024',
         borderWidth: 3,
     }
-    const historic_chart_price = new Chart(chart, {
+    if (historic_chart_by_id){
+        historic_chart_by_id.destroy()
+    }
+    historic_chart_by_id = new Chart(chart, {
         type: "line",
         data: {
             labels: labels,
@@ -106,7 +114,7 @@ export async function create_price_line_chart(fechas, precios, token_symbol, num
         }
     })
 }
-let historic_chart_price
+let historic_detailed_chart_price
 export async function create_price_detailed_line_chart(fechas, precios, token_symbol, num_dias, canvas_id) {
     let chart = document.querySelector(`#${canvas_id}`)
     let labels = fechas
@@ -116,10 +124,10 @@ export async function create_price_detailed_line_chart(fechas, precios, token_sy
         borderColor: '#FFA024',
         borderWidth: 3,
     }
-    if (historic_chart_price){
-        historic_chart_price.destroy()        
+    if (historic_detailed_chart_price){
+        historic_detailed_chart_price.destroy()        
     }
-    historic_chart_price = new Chart(chart, {
+    historic_detailed_chart_price = new Chart(chart, {
         type: "line",
         data: {
             labels: labels,

@@ -73,6 +73,8 @@ export async function create_criptocard(token_symbol, PRICE, HIGH24HOUR, LOW24HO
     let boton = document.createElement("button")
     boton.setAttribute("class", "btn btn-gray mt-4")
     // span2
+    let span_yellow = document.createElement("span")
+    span_yellow.setAttribute("class", "text-warning")
     let i_mas_info = document.createElement("i")
     i_mas_info.setAttribute("class", "fa-solid fa-circle-plus")
     let texto_boton = document.createTextNode("Mas Informacion ")
@@ -88,7 +90,8 @@ export async function create_criptocard(token_symbol, PRICE, HIGH24HOUR, LOW24HO
     ul.append(li1, li2, li3)
     // boton
     boton.append(texto_boton)
-    boton.append(i_mas_info)
+    span_yellow.append(i_mas_info)
+    boton.append(span_yellow)
     // div2 
     div2.append(p1)
     div2.append(h1)
@@ -144,7 +147,7 @@ export async function create_new_criptocard(info_token_from_api, token_symbol, t
     div2.setAttribute("id", `info_${info_token_from_api.RAW[`${token_symbol}`].USD.FROMSYMBOL}`)
     // p1
     let p1 = document.createElement("p")
-    p1.setAttribute("class", "fs-2 ls-2")
+    p1.setAttribute("class", "fs-2 ls-2 text-warning")
     // text
     let criptomoneda_text = document.createTextNode(`${info_token_from_api.RAW[`${token_symbol}`].USD.FROMSYMBOL}`)
     let h1 = document.createElement("h1")
@@ -191,6 +194,8 @@ export async function create_new_criptocard(info_token_from_api, token_symbol, t
     let boton = document.createElement("button")
     boton.setAttribute("class", "btn btn-gray mt-4")
     // span2
+    let span_yellow = document.createElement("span")
+    span_yellow.setAttribute("class", "text-warning")
     let i_mas_info = document.createElement("i")
     i_mas_info.setAttribute("class", "fa-solid fa-circle-plus")
     let texto_boton = document.createTextNode("Mas Informacion ")
@@ -206,7 +211,8 @@ export async function create_new_criptocard(info_token_from_api, token_symbol, t
     ul.append(li1, li2, li3)
     // boton
     boton.append(texto_boton)
-    boton.append(i_mas_info)
+    span_yellow.append(i_mas_info)
+    boton.append(span_yellow)
     // div2 
     div2.append(p1)
     div2.append(h1)
