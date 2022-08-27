@@ -260,41 +260,41 @@ export async function create_temporalidad_options(config_app, id_contenedor_temp
     radio_default.checked = true
 }
 // funcion para crear las opciones de temporalidad para el modal con la informacion detallada adicional
-export async function create_temporalidad_options_detailed_chart(config_app, id_seccion_temporalidades2) {
-    let seccion_temporalidades2 = document.querySelector(`#${id_seccion_temporalidades2}`)
-    // check if the container temporalidades exists
-    let check_seccion_temporalidades2 = document.querySelector("#temporalidad_options_detailed_chart")
-    if (check_seccion_temporalidades2 != null) {
-        // if exists, remove then
-        check_seccion_temporalidades2.remove()
-    }
-    let create_temporalidad_options_detailed_chart = document.createElement("div")
-    create_temporalidad_options_detailed_chart.setAttribute("id", "temporalidad_options_detailed_chart")
-    let temporalidades = config_app.temporalidades
-    for (let temporalidad in temporalidades) {
-        let dias = temporalidades[temporalidad]
-        let div = document.createElement("div")
-        div.setAttribute("class", "form-check form-check-inline")
-        let input = document.createElement("input")
-        input.setAttribute("class", "form-check-input")
-        input.setAttribute("type", "radio")
-        input.setAttribute("name", "temporalidad_options2")
-        input.setAttribute("value", `${dias}`)
-        input.setAttribute("id", `_${dias}d`)
-        let label = document.createElement("label")
-        label.setAttribute("class", "form-check-label")
-        label.setAttribute("for", `_${dias}d`)
-        let text = document.createTextNode(`${dias} dias`)
-        // build html
-        div.append(input)
-        label.append(text)
-        div.append(label)
-        create_temporalidad_options_detailed_chart.append(div)
-    }
-    seccion_temporalidades2.append(create_temporalidad_options_detailed_chart)
-    let radio_default = document.getElementById(`_${config_app.temporalidad_default}d`)
-    radio_default.checked = true
-}
+// export async function create_temporalidad_options_detailed_chart(config_app, id_seccion_temporalidades2) {
+//     let seccion_temporalidades2 = document.querySelector(`#${id_seccion_temporalidades2}`)
+//     // check if the container temporalidades exists
+//     let check_seccion_temporalidades2 = document.querySelector("#temporalidad_options_detailed_chart")
+//     if (check_seccion_temporalidades2 != null) {
+//         // if exists, remove then
+//         check_seccion_temporalidades2.remove()
+//     }
+//     let create_temporalidad_options_detailed_chart = document.createElement("div")
+//     create_temporalidad_options_detailed_chart.setAttribute("id", "temporalidad_options_detailed_chart")
+//     let temporalidades = config_app.temporalidades
+//     for (let temporalidad in temporalidades) {
+//         let dias = temporalidades[temporalidad]
+//         let div = document.createElement("div")
+//         div.setAttribute("class", "form-check form-check-inline")
+//         let input = document.createElement("input")
+//         input.setAttribute("class", "form-check-input")
+//         input.setAttribute("type", "radio")
+//         input.setAttribute("name", "temporalidad_options2")
+//         input.setAttribute("value", `${dias}`)
+//         input.setAttribute("id", `_${dias}d`)
+//         let label = document.createElement("label")
+//         label.setAttribute("class", "form-check-label")
+//         label.setAttribute("for", `_${dias}d`)
+//         let text = document.createTextNode(`${dias} dias`)
+//         // build html
+//         div.append(input)
+//         label.append(text)
+//         div.append(label)
+//         create_temporalidad_options_detailed_chart.append(div)
+//     }
+//     seccion_temporalidades2.append(create_temporalidad_options_detailed_chart)
+//     let radio_default = document.getElementById(`_${config_app.temporalidad_default}d`)
+//     radio_default.checked = true
+// }
 // metod para la creacion del modal con los detalles del asset
 export async function modal_detailed_info_by_token(info_token, token_symbol) {
     // cons estas lineas iniciales se soluciona el problema de la informacion duplicada cuando se lanz el modal despues de haber modificado los checkbox
