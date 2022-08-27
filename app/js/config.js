@@ -2,7 +2,7 @@
 export let config_app = {
     "tokens": ["BTC", "ETH", "ADA", "MATIC", "VXV", "SHIB", "CAKE", "VET", "TRX", "AXS"],
     "temporalidad_default": 30,
-    "temporalidades": [10, 30, 60, 90, 365],
+    "temporalidades": [10, 30, 60, 90],
     "path_logos": "template/img/logos/",
     "data_source": {
         "cryptocompare": {
