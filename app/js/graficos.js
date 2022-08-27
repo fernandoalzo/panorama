@@ -1,5 +1,4 @@
 // funcion para crear el grafico
-// let historic_chart
 export async function create_basic_line_chart(fechas, precios, token, num_dias) {
     let chart = document.querySelector(`#chart_${token}`)
     let labels = fechas
@@ -9,9 +8,6 @@ export async function create_basic_line_chart(fechas, precios, token, num_dias) 
         borderColor: '#FFA024',
         borderWidth: 3,
     }
-    // if (historic_chart){
-    //     historic_chart.destroy()
-    // }
     const historic_chart = new Chart(chart, {
         type: "line",
         data: {
