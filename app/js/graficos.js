@@ -299,3 +299,65 @@ export async function create_volume_cripto_detailed_line_chart(fechas, vol_value
         // codigo de error
     }
 }
+let historic_chart_social_points
+export async function create_social_points_detailed_line_chart(fechas, points_values, token_symbol, num_dias, canvas_id) {
+    let chart = document.querySelector(`#${canvas_id}`)
+    let labels = fechas
+    let datos = {
+        label: `Grafico de puntos de popularidad en redes soaicles de ${token_symbol} los ultimos ${num_dias} dias`,
+        data: points_values,
+        borderColor: '#FFA024',
+        borderWidth: 3,
+    }
+    if (historic_chart_social_points) {
+        historic_chart_social_points.destroy()
+    }
+    try {
+        historic_chart_social_points = new Chart(chart, {
+            type: "line",
+            data: {
+                labels: labels,
+                datasets: [datos],
+            },
+            options: {
+                scales: {
+                    x: {
+                        ticks: {
+                            display: false,
+                            // color: '#FFA024',
+                        },
+                        grid: {
+                            display: false
+                        }
+                    },
+                    y: {
+                        ticks: {
+                            display: true,
+                            color: '#FFA024',
+                        },
+                        grid: {
+                            display: false
+                        }
+                    },
+                },
+                plugins: {
+                    legend: {
+                        labels: {
+                            boxWidth: 0,
+                            color: 'rgba(175, 175, 175, 100)'
+                        },
+                        display: true,
+                        position: "bottom"
+                    }
+                },
+                elements: {
+                    point: {
+                        radius: 0
+                    }
+                },
+            }
+        })
+    } catch (err) {
+        // codigo de error
+    }
+}

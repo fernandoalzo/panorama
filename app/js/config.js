@@ -1,6 +1,7 @@
 // configuraciones generales para la aplicacion
 export let config_app = {
     "tokens": ["BTC", "ETH", "ADA", "MATIC", "VXV", "SHIB", "CAKE", "VET", "TRX", "AXS"],
+    "tokens_id" : [1182, 7605, 321992, 930246, 935961, 940776, 936880, 236131, 310829, 937569],
     "temporalidad_default": 30,
     "temporalidades": [10, 30, 60, 90],
     "path_logos": "template/img/logos/",

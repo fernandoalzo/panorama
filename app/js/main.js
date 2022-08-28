@@ -99,10 +99,19 @@ async function main() {
                 // get the historical data
                 let endpoint_historical_data_for_detailed_chart = API.endpoint_historical_data(config_app.data_source.cryptocompare.api_key, token_symbol, temporabilidad)
                 let historical_data_for_detailed_chart = await API.historical_data(endpoint_historical_data_for_detailed_chart)
-                // create charts
+                // create charts price
                 graficos.create_price_detailed_line_chart(historical_data_for_detailed_chart.fechas, historical_data_for_detailed_chart.precios, token_symbol, temporabilidad, `chart_detailed_info_price_${token_symbol}`)
                 graficos.create_volume_fiat_detailed_line_chart(historical_data_for_detailed_chart.fechas, historical_data_for_detailed_chart.vol_in_fiat, token_symbol, temporabilidad, `chart_detailed_info_vol_fiat_${token_symbol}`)
                 graficos.create_volume_cripto_detailed_line_chart(historical_data_for_detailed_chart.fechas, historical_data_for_detailed_chart.vol_in_cripto, token_symbol, temporabilidad, `chart_detailed_info_vol_cripto_${token_symbol}`)
+                
+                //get the historical data about social points
+                let indice = config_app.tokens.indexOf(token_symbol)
+                let token_id = config_app.tokens_id[indice]
+                let endpoint_historical_social_data = API.endpoint_historical_social_data(config_app.data_source.cryptocompare.api_key, token_id, 500)
+                let historical_soacial_data = await API.historical_soacial_data(endpoint_historical_social_data)
+                // create charts about social
+                graficos.create_social_points_detailed_line_chart(historical_soacial_data.fechas, historical_soacial_data.puntos, token_symbol, 500, `chart_punto_sociales_${token_symbol}`)
+
             })
             // cuando se preione el boton cerrar del modal con los charts detallados, borrar el contenedor de esos graficos
             let btn_cerrar_modal_info_cripto = document.querySelector("#btn_cerrar_modal_info_cripto")

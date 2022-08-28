@@ -412,33 +412,41 @@ export async function create_detailed_charts(token_symbol) {
     // create contenedo contenedor_charts_precio_volumen
     let contenedor_charts_precio_volumen = document.createElement("div")
     contenedor_charts_precio_volumen.setAttribute("id", "contenedor_charts_precio_volumen")
-
+    // grafico del precio
     let div_grafico_precio = document.createElement("div")
     let label_graico_precio = document.createTextNode("Precio: " + token_symbol)
     let canvas_grafico_precio = document.createElement("canvas")
     canvas_grafico_precio.setAttribute("id", `chart_detailed_info_price_${token_symbol}`)
     canvas_grafico_precio.style.width = '100%';
     canvas_grafico_precio.style.height = '100%';
-
+    // grafico del volumen en fiat
     let div_grafico_volumen_fiat = document.createElement("div")
     let label_grafico_volumen_fiat = document.createTextNode("Grafico Volumen Fiat: " + token_symbol)
     let canvas_grafico_volumen_fiat = document.createElement("canvas")
     canvas_grafico_volumen_fiat.setAttribute("id", `chart_detailed_info_vol_fiat_${token_symbol}`)
     canvas_grafico_volumen_fiat.style.width = '100%';
     canvas_grafico_volumen_fiat.style.height = '100%';
-
+    // grafico del volmen encripto
     let div_grafico_volumnen_cripto = document.createElement("div")
     let label_grafico_volumen_cripto = document.createTextNode("Grafico Volumen cripto: " + token_symbol)
     let canvas_grafico_volumen_cripto = document.createElement("canvas")
     canvas_grafico_volumen_cripto.setAttribute("id", `chart_detailed_info_vol_cripto_${token_symbol}`)
     canvas_grafico_volumen_cripto.style.width = '100%';
     canvas_grafico_volumen_cripto.style.height = '100%';
+    // grafico del puntos sociales
+    let div_grafico_puntos_social = document.createElement("div")
+    let label_grafico_puntos_social = document.createTextNode("Popularidad en Redes Sociales")
+    let canvas_grafico_puntos_social = document.createElement("canvas")
+    canvas_grafico_puntos_social.setAttribute("id", `chart_punto_sociales_${token_symbol}`)
+    canvas_grafico_puntos_social.style.width = '100%';
+    canvas_grafico_puntos_social.style.height = '100%';
 
     div_grafico_precio.append(label_graico_precio, canvas_grafico_precio)
     div_grafico_volumen_fiat.append(label_grafico_volumen_fiat, canvas_grafico_volumen_fiat)
     div_grafico_volumnen_cripto.append(label_grafico_volumen_cripto, canvas_grafico_volumen_cripto)
+    div_grafico_puntos_social.append(label_grafico_puntos_social, canvas_grafico_puntos_social)
 
-    contenedor_charts_precio_volumen.append(div_grafico_precio, div_grafico_volumen_fiat, div_grafico_volumnen_cripto)
+    contenedor_charts_precio_volumen.append(div_grafico_precio, div_grafico_volumen_fiat, div_grafico_volumnen_cripto, div_grafico_puntos_social)
     seccion_charts_precio_volumen.append(contenedor_charts_precio_volumen)
 
 
