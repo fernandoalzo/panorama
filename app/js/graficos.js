@@ -118,7 +118,7 @@ export async function create_price_detailed_line_chart(fechas, precios, token_sy
         label: `Grafico de ${token_symbol} Vs USD ultimos ${num_dias} dias`,
         data: precios,
         borderColor: '#FFA024',
-        borderWidth: 3,
+        borderWidth: 5,
     }
     if (historic_detailed_chart_price) {
         historic_detailed_chart_price.destroy()
@@ -131,22 +131,24 @@ export async function create_price_detailed_line_chart(fechas, precios, token_sy
                 datasets: [datos],
             },
             options: {
+                
                 scales: {
                     x: {
                         ticks: {
-                            display: false,
+                            display: true,
+                            color: '#FFA024',
                         },
                         grid: {
-                            display: false
+                            display: true
                         }
                     },
                     y: {
                         ticks: {
                             display: true,
-                            color: 'rgba(175, 175, 175, 100)',
+                            color: '#FFA024',
                         },
                         grid: {
-                            display: false
+                            display: true
                         }
                     },
                 },
@@ -180,8 +182,8 @@ export async function create_volume_fiat_detailed_line_chart(fechas, vol_values,
     let datos = {
         label: `Grafico de ${token_symbol} Vs USD ultimos ${num_dias} dias`,
         data: vol_values,
-        borderColor: '#f0ad4e',
-        borderWidth: 15,
+        borderColor: '#FFA024',
+        borderWidth: 25,
     }
     if (historic_chart_vol_fiat) {
         historic_chart_vol_fiat.destroy()
@@ -197,7 +199,8 @@ export async function create_volume_fiat_detailed_line_chart(fechas, vol_values,
                 scales: {
                     x: {
                         ticks: {
-                            display: false,
+                            display: true,
+                            color: '#FFA024',
                         },
                         grid: {
                             display: false
@@ -206,7 +209,7 @@ export async function create_volume_fiat_detailed_line_chart(fechas, vol_values,
                     y: {
                         ticks: {
                             display: true,
-                            color: 'rgba(175, 175, 175, 100)',
+                            color: '#FFA024',
                         },
                         grid: {
                             display: false
@@ -241,8 +244,8 @@ export async function create_volume_cripto_detailed_line_chart(fechas, vol_value
     let datos = {
         label: `Grafico de ${token_symbol} Vs USD ultimos ${num_dias} dias`,
         data: vol_values,
-        borderColor: '#f0ad4e',
-        borderWidth: 15,
+        borderColor: '#FFA024',
+        borderWidth: 25,
     }
     if (historic_chart_vol_cripto) {
         historic_chart_vol_cripto.destroy()
@@ -258,7 +261,8 @@ export async function create_volume_cripto_detailed_line_chart(fechas, vol_value
                 scales: {
                     x: {
                         ticks: {
-                            display: false,
+                            display: true,
+                            color: '#FFA024',
                         },
                         grid: {
                             display: false
@@ -267,7 +271,7 @@ export async function create_volume_cripto_detailed_line_chart(fechas, vol_value
                     y: {
                         ticks: {
                             display: true,
-                            color: 'rgba(175, 175, 175, 100)',
+                            color: '#FFA024',
                         },
                         grid: {
                             display: false
