@@ -435,11 +435,12 @@ export async function create_detailed_charts(token_symbol) {
     canvas_grafico_volumen_cripto.style.height = '100%';
     // grafico del puntos sociales
     let div_grafico_puntos_social = document.createElement("div")
-    let label_grafico_puntos_social = document.createTextNode("Popularidad en Redes Sociales")
+    let label_grafico_puntos_social = document.createTextNode("Estadisticas Sociales")
     let canvas_grafico_puntos_social = document.createElement("canvas")
     canvas_grafico_puntos_social.setAttribute("id", `chart_punto_sociales_${token_symbol}`)
     canvas_grafico_puntos_social.style.width = '100%';
     canvas_grafico_puntos_social.style.height = '100%';
+    // configurar la seccon para mostrar la informacion referente al los sentimientos del mercado
 
     div_grafico_precio.append(label_graico_precio, canvas_grafico_precio)
     div_grafico_volumen_fiat.append(label_grafico_volumen_fiat, canvas_grafico_volumen_fiat)
