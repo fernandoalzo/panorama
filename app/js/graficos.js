@@ -118,7 +118,7 @@ export async function create_price_detailed_line_chart(fechas, precios, token_sy
         label: `Grafico de ${token_symbol} Vs USD ultimos ${num_dias} dias`,
         data: precios,
         borderColor: '#FFA024',
-        borderWidth: 5,
+        borderWidth: 3,
     }
     if (historic_detailed_chart_price) {
         historic_detailed_chart_price.destroy()
