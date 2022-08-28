@@ -21,7 +21,7 @@ async function main() {
         let historical_data = await API.historical_data(endpoint_historical_data)
         graficos.create_basic_line_chart(historical_data["fechas"], historical_data["precios"], info_token.symbol, config_app.temporalidad_default)
     })
-    // codigo para cuando se haga click sobre los checkbox
+    // get elablelement for each token available
     let inputs_checks = document.querySelectorAll('input[name="select_criptos_to_show"]')
     let tokens = []
     for (let i = 0; i < inputs_checks.length; i++) {
@@ -78,8 +78,7 @@ async function main() {
     let charts = document.querySelectorAll('canvas[name="grafico"]')
     charts.forEach((chart) => {
         chart.addEventListener("click", async (evento) => {
-            let canvas_node_id = evento.target.id
-            let canvas_node = document.querySelector(`#${canvas_node_id}`)
+            let canvas_node = document.querySelector(`#${evento.target.id}`)
             // return the token symbol of chart that was clicked
             let token_symbol = canvas_node.className
             // get info token from API 
@@ -123,7 +122,7 @@ async function main() {
         let informacion_detallada = document.querySelector("#informacion_detallada")
         if (informacion_detallada) {
             informacion_detallada.remove()
-        }        
+        }     
     })
     // eventos para  cuando hay cambios en los radio buttons de las teporabilidades en el modal con los detalles del precio
     html.create_temporalidad_options(config_app, "seccion_temporalidades")
