@@ -49,7 +49,7 @@ export async function create_criptocard(token_symbol, PRICE, HIGH24HOUR, LOW24HO
     canvas.setAttribute("class", token_symbol)
     canvas.setAttribute("name", "grafico")
     canvas.style.width = '100%';
-    canvas.style.height = '100%';    
+    canvas.style.height = '100%';
     // ul
     let ul = document.createElement("ul")
     ul.setAttribute("class", "mt-5 ps-0")
@@ -441,13 +441,58 @@ export async function create_detailed_charts(token_symbol) {
     canvas_grafico_puntos_social.style.width = '100%';
     canvas_grafico_puntos_social.style.height = '100%';
     // configurar la seccon para mostrar la informacion referente al los sentimientos del mercado
-
+    let div_sentiment_section = document.createElement("div")
+    let label_sentiment_section = document.createTextNode("Area de sentimientos acerca del activo")
+    // create table
+    let tabla_sentiment_info = document.createElement("table")
+    tabla_sentiment_info.setAttribute("class", "table")
+    tabla_sentiment_info.setAttribute("cellspacing", "0")
+    tabla_sentiment_info.setAttribute("cellpadding", "0")
+    let tbody_tabla_sentiment = document.createElement("tbody")
+    // valores para la tabla
+    // sentiment
+    let tr_sentiment = document.createElement("tr")
+    let td_sentiment = document.createElement("td")
+    let label_sentiment = document.createTextNode("Sentimiento")
+    let td_sentiment_value = document.createElement("td")
+    let sentiment = document.createTextNode("sentiment")
+    // value
+    let tr_value = document.createElement("tr")
+    let td_value = document.createElement("td")
+    let label_value = document.createTextNode("Valor")
+    let td_value_ = document.createElement("td")
+    let value = document.createTextNode("value")
+    // score
+    let tr_score = document.createElement("tr")
+    let td_score = document.createElement("td")
+    let label_score = document.createTextNode("Puntaje")
+    let td_sentiment_score= document.createElement("td")
+    let score = document.createTextNode("score")
+    // td settings
+    td_sentiment.append(label_sentiment)
+    td_sentiment_value.append(sentiment)
+    // td value
+    td_value.append(label_value)
+    td_value_.append(value)
+    // td score
+    td_score.append(label_score)
+    td_sentiment_score.append(score)
+    // tr settings
+    tr_sentiment.append(td_sentiment, td_sentiment_value)
+    tr_value.append(td_value, td_value_)
+    tr_score.append(td_score, td_sentiment_score)
+    // body table setting
+    tbody_tabla_sentiment.append(tr_sentiment, tr_value, tr_score)
+    tabla_sentiment_info.append(tbody_tabla_sentiment)
+    // set dic section sentiment
+    div_sentiment_section.append(label_sentiment_section, tabla_sentiment_info)
+    // charts divs settings
     div_grafico_precio.append(label_graico_precio, canvas_grafico_precio)
     div_grafico_volumen_fiat.append(label_grafico_volumen_fiat, canvas_grafico_volumen_fiat)
     div_grafico_volumnen_cripto.append(label_grafico_volumen_cripto, canvas_grafico_volumen_cripto)
     div_grafico_puntos_social.append(label_grafico_puntos_social, canvas_grafico_puntos_social)
 
-    contenedor_charts_precio_volumen.append(div_grafico_precio, div_grafico_volumen_fiat, div_grafico_volumnen_cripto, div_grafico_puntos_social)
+    contenedor_charts_precio_volumen.append(div_grafico_precio, div_grafico_volumen_fiat, div_grafico_volumnen_cripto, div_grafico_puntos_social, div_sentiment_section)
     seccion_charts_precio_volumen.append(contenedor_charts_precio_volumen)
 
 
