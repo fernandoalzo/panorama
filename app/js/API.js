@@ -22,6 +22,12 @@ export let endpoint_historical_social_data = (api_key, coin_id, num_dias) => {
     let endpoint_historical_social_data = `https://min-api.cryptocompare.com/data/social/coin/histo/day?coinId=${coin_id}&aggregate=2&limit=${num_dias}&api_key=${api_key}`
     return endpoint_historical_social_data
 }
+// method to get sentiment info
+export let endpoint_sentiment_info = (api_key, token_symbol)=>{
+    let endpoint_sentiment_info = `https://min-api.cryptocompare.com/data/tradingsignals/intotheblock/latest?fsym=${token_symbol}&api_key=${api_key}`
+    return endpoint_sentiment_info
+}
+//metodo para crear el endpoint para trer la informacion 
 //----------endpoints----------//
 
 //----------get data from API----------//
@@ -108,6 +114,47 @@ export let historical_soacial_data = async (endpoint_historical_social_data) => 
     } catch (err) {
         console.log(err)
     }
+}
+export let sentiment_info = async (endpoint_sentiment_info)=>{
+    try{
+        let response_from_api = await fetch(endpoint_sentiment_info)
+        if (response_from_api.status == 200){
+            let data = await response_from_api.json()
+            data = {
+                "addressesNetGrowth" : {
+                    "sentiment" : data.Data.addressesNetGrowth.sentiment,
+                    "score" : data.Data.addressesNetGrowth.score,
+                    "score_threshold_bearish" : data.Data.addressesNetGrowth.score_threshold_bearish,
+                    "score_threshold_bullish" : data.Data.addressesNetGrowth.score_threshold_bullish
+                },
+                "concentrationVar" : {
+                    "sentiment" : data.Data.addressesNetGrowth.sentiment,
+                    "score" : data.Data.addressesNetGrowth.score,
+                    "score_threshold_bearish" : data.Data.addressesNetGrowth.score_threshold_bearish,
+                    "score_threshold_bullish" : data.Data.addressesNetGrowth.score_threshold_bullish
+                },
+                "inOutVar" : {
+                    "sentiment" : data.Data.addressesNetGrowth.sentiment,
+                    "score" : data.Data.addressesNetGrowth.score,
+                    "score_threshold_bearish" : data.Data.addressesNetGrowth.score_threshold_bearish,
+                    "score_threshold_bullish" : data.Data.addressesNetGrowth.score_threshold_bullish
+                },
+                "largetxsVar" : {
+                    "sentiment" : data.Data.addressesNetGrowth.sentiment,
+                    "score" : data.Data.addressesNetGrowth.score,
+                    "score_threshold_bearish" : data.Data.addressesNetGrowth.score_threshold_bearish,
+                    "score_threshold_bullish" : data.Data.addressesNetGrowth.score_threshold_bullish
+                }
+            }
+            return data
+        }else {
+            console.log("Error consultando la API estatus code: " + response_from_api.status)            
+        }
+    }catch (err){
+        console.log("Ocurrio un error consultnado la API")
+        console.log(err)
+    }
+
 }
 //----------get data from API----------//
 
