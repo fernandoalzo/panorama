@@ -450,39 +450,49 @@ export async function create_detailed_charts(token_symbol) {
     tabla_sentiment_info.setAttribute("cellpadding", "0")
     let tbody_tabla_sentiment = document.createElement("tbody")
     // valores para la tabla
-    // sentiment
-    let tr_sentiment = document.createElement("tr")
-    let td_sentiment = document.createElement("td")
-    let label_sentiment = document.createTextNode("Sentimiento")
-    let td_sentiment_value = document.createElement("td")
-    let sentiment = document.createTextNode("sentiment")
-    // value
-    let tr_value = document.createElement("tr")
-    let td_value = document.createElement("td")
-    let label_value = document.createTextNode("Valor")
-    let td_value_ = document.createElement("td")
-    let value = document.createTextNode("value")
-    // score
-    let tr_score = document.createElement("tr")
-    let td_score = document.createElement("td")
-    let label_score = document.createTextNode("Puntaje")
-    let td_sentiment_score= document.createElement("td")
-    let score = document.createTextNode("score")
-    // td settings
-    td_sentiment.append(label_sentiment)
-    td_sentiment_value.append(sentiment)
-    // td value
-    td_value.append(label_value)
-    td_value_.append(value)
-    // td score
-    td_score.append(label_score)
-    td_sentiment_score.append(score)
+    // addressesNetGrowth
+    let tr_addressesNetGrowth = document.createElement("tr")
+    let td_addressesNetGrowth = document.createElement("td")
+    let label_addressesNetGrowth = document.createTextNode("addressesNetGrowth")
+    let td_addressesNetGrowth_value = document.createElement("td")
+    let addressesNetGrowth = document.createTextNode("addressesNetGrowth")
+    // largetxsVar
+    let tr_largetxsVar = document.createElement("tr")
+    let td_largetxsVar = document.createElement("td")
+    let label_largetxsVar = document.createTextNode("largetxsVar")
+    let td_largetxsVar_ = document.createElement("td")
+    let largetxsVar = document.createTextNode("largetxsVar")
+    // concentrationVar
+    let tr_concentrationVar = document.createElement("tr")
+    let td_concentrationVar = document.createElement("td")
+    let label_concentrationVar = document.createTextNode("concentrationVar")
+    let td_sentiment_concentrationVar= document.createElement("td")
+    let concentrationVar = document.createTextNode("concentrationVar")
+    // inOutVar
+    let tr_inOutVar = document.createElement("tr")
+    let td_inOutVar = document.createElement("td")
+    let label_inOutVar = document.createTextNode("inOutVar")
+    let td_sentiment_inOutVar = document.createElement("td")
+    let inOutVar = document.createTextNode("inOutVar")
+    // td addressesNetGrowth
+    td_addressesNetGrowth.append(label_addressesNetGrowth)
+    td_addressesNetGrowth_value.append(addressesNetGrowth)
+    // td largetxsVar
+    td_largetxsVar.append(label_largetxsVar)
+    td_largetxsVar_.append(largetxsVar)
+    // td concentrationVar
+    td_concentrationVar.append(label_concentrationVar)
+    td_sentiment_concentrationVar.append(concentrationVar)
+    // td inOutVar
+    td_inOutVar.append(label_inOutVar)
+    td_sentiment_inOutVar.append(inOutVar)
     // tr settings
-    tr_sentiment.append(td_sentiment, td_sentiment_value)
-    tr_value.append(td_value, td_value_)
-    tr_score.append(td_score, td_sentiment_score)
+    tr_addressesNetGrowth.append(td_addressesNetGrowth, td_addressesNetGrowth_value)
+    tr_largetxsVar.append(td_largetxsVar, td_largetxsVar_)
+    tr_concentrationVar.append(td_concentrationVar, td_sentiment_concentrationVar)
+    tr_inOutVar.append(td_inOutVar, td_sentiment_inOutVar)
     // body table setting
-    tbody_tabla_sentiment.append(tr_sentiment, tr_value, tr_score)
+    tbody_tabla_sentiment.append(tr_addressesNetGrowth, tr_largetxsVar, tr_concentrationVar, tr_inOutVar)
     tabla_sentiment_info.append(tbody_tabla_sentiment)
     // set dic section sentiment
     div_sentiment_section.append(label_sentiment_section, tabla_sentiment_info)
