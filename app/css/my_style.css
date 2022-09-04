@@ -94,7 +94,7 @@
 }
 
 .faucet_button_effect:hover {
-    background-image: linear-gradient(90deg, #00C0FF 0%, #383734 49%, #FC4F4F 80%, #00C0FF 100%);
+    background-image: linear-gradient(90deg, #00C0FF 0%, #383734 49%, #383734 80%, #00C0FF 100%);
     animation: slidebg 3s linear infinite;
 }
 @keyframes slidebg {
