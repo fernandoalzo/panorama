@@ -1,74 +1,104 @@
 /* grafico informacion detallada */
 .zona_chart_details {
-  height: 250px;
+    height: 250px;
 }
+
 /* btc */
-#img_BTC{
+#img_BTC {
     transition: all 150ms;
 }
-#img_BTC:hover{
+
+#img_BTC:hover {
     transform: scale(2.0, 2.0);
 }
+
 /* eth */
-#img_ETH{
+#img_ETH {
     transition: all 150ms;
 }
-#img_ETH:hover{
+
+#img_ETH:hover {
     transform: scale(2.0, 2.0);
 }
+
 /* eth */
-#img_ADA{
+#img_ADA {
     transition: all 150ms;
 }
-#img_ADA:hover{
+
+#img_ADA:hover {
     transform: scale(2.0, 2.0);
 }
+
 /* matic */
-#img_MATIC{
+#img_MATIC {
     transition: all 700ms;
 }
-#img_MATIC:hover{
+
+#img_MATIC:hover {
     transform: rotate(360deg);
 }
+
 /* vxv */
-#img_VXV{
+#img_VXV {
     transition: all 150ms;
 }
-#img_VXV:hover{
+
+#img_VXV:hover {
     transform: scale(2.0, 2.0);
 }
+
 /* SHIB */
-#img_SHIB{
+#img_SHIB {
     transition: all 150ms;
 }
-#img_SHIB:hover{
+
+#img_SHIB:hover {
     transform: scale(2.0, 2.0);
 }
+
 /* CAKE */
-#img_CAKE{
+#img_CAKE {
     transition: all 150ms;
 }
-#img_CAKE:hover{
+
+#img_CAKE:hover {
     transform: scale(2.0, 2.0);
 }
+
 /* VET */
-#img_VET{
+#img_VET {
     transition: all 150ms;
 }
-#img_VET:hover{
+
+#img_VET:hover {
     transform: scale(2.0, 2.0);
 }
+
 /* TRX */
-#img_TRX{
+#img_TRX {
     transition: all 150ms;
 }
-#img_TRX:hover{
+
+#img_TRX:hover {
     transform: scale(2.0, 2.0);
 }
+
 /* AXS */
-#img_AXS{
-  transition: all 150ms;
+#img_AXS {
+    transition: all 150ms;
 }
-#img_AXS:hover{
-  transform: scale(2.0, 2.0);
+
+#img_AXS:hover {
+    transform: scale(2.0, 2.0);
+}
+
+.faucet_button_effect:hover {
+    background-image: linear-gradient(90deg, #00C0FF 0%, #383734 49%, #FC4F4F 80%, #00C0FF 100%);
+    animation: slidebg 3s linear infinite;
+}
+@keyframes slidebg {
+    to {
+        background-position: 100vw;
+    }
 }
