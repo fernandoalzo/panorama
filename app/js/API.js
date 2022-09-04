@@ -120,6 +120,7 @@ export let sentiment_info = async (endpoint_sentiment_info)=>{
         let response_from_api = await fetch(endpoint_sentiment_info)
         if (response_from_api.status == 200){
             let data = await response_from_api.json()
+            console.log(data)
             data = {
                 "addressesNetGrowth" : {
                     "sentiment" : data.Data.addressesNetGrowth.sentiment,
@@ -128,24 +129,25 @@ export let sentiment_info = async (endpoint_sentiment_info)=>{
                     "score_threshold_bullish" : data.Data.addressesNetGrowth.score_threshold_bullish
                 },
                 "concentrationVar" : {
-                    "sentiment" : data.Data.addressesNetGrowth.sentiment,
-                    "score" : data.Data.addressesNetGrowth.score,
-                    "score_threshold_bearish" : data.Data.addressesNetGrowth.score_threshold_bearish,
-                    "score_threshold_bullish" : data.Data.addressesNetGrowth.score_threshold_bullish
+                    "sentiment" : data.Data.concentrationVar.sentiment,
+                    "score" : data.Data.concentrationVar.score,
+                    "score_threshold_bearish" : data.Data.concentrationVar.score_threshold_bearish,
+                    "score_threshold_bullish" : data.Data.concentrationVar.score_threshold_bullish
                 },
                 "inOutVar" : {
-                    "sentiment" : data.Data.addressesNetGrowth.sentiment,
-                    "score" : data.Data.addressesNetGrowth.score,
-                    "score_threshold_bearish" : data.Data.addressesNetGrowth.score_threshold_bearish,
-                    "score_threshold_bullish" : data.Data.addressesNetGrowth.score_threshold_bullish
+                    "sentiment" : data.Data.inOutVar.sentiment,
+                    "score" : data.Data.inOutVar.score,
+                    "score_threshold_bearish" : data.Data.inOutVar.score_threshold_bearish,
+                    "score_threshold_bullish" : data.Data.inOutVar.score_threshold_bullish
                 },
                 "largetxsVar" : {
-                    "sentiment" : data.Data.addressesNetGrowth.sentiment,
-                    "score" : data.Data.addressesNetGrowth.score,
-                    "score_threshold_bearish" : data.Data.addressesNetGrowth.score_threshold_bearish,
-                    "score_threshold_bullish" : data.Data.addressesNetGrowth.score_threshold_bullish
+                    "sentiment" : data.Data.largetxsVar.sentiment,
+                    "score" : data.Data.largetxsVar.score,
+                    "score_threshold_bearish" : data.Data.largetxsVar.score_threshold_bearish,
+                    "score_threshold_bullish" : data.Data.largetxsVar.score_threshold_bullish
                 }
             }
+            console.log()
             return data
         }else {
             console.log("Error consultando la API estatus code: " + response_from_api.status)            

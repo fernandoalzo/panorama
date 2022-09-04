@@ -95,7 +95,10 @@ async function main() {
             let btn_mas_info = document.querySelector("#btn_mas_info")
             btn_mas_info.addEventListener("click", async _ => {
                 let temporabilidad = document.querySelectorAll('input[name="temporalidad_options"]:checked')[0].value
-                html.create_detailed_charts(token_symbol)
+                // config about sentiment info
+                let endpoint_sentiment_info = API.endpoint_sentiment_info(config_app.data_source.cryptocompare.api_key, token_symbol)
+                let sentiment_info = await API.sentiment_info(endpoint_sentiment_info)
+                html.create_detailed_charts(token_symbol, sentiment_info)
                 // get the historical data
                 let endpoint_historical_data_for_detailed_chart = API.endpoint_historical_data(config_app.data_source.cryptocompare.api_key, token_symbol, temporabilidad)
                 let historical_data_for_detailed_chart = await API.historical_data(endpoint_historical_data_for_detailed_chart)
@@ -111,11 +114,7 @@ async function main() {
                 let historical_soacial_data = await API.historical_soacial_data(endpoint_historical_social_data)
                 // create charts about social
                 graficos.create_social_points_detailed_line_chart(historical_soacial_data.fechas, historical_soacial_data.puntos, token_symbol, 500, `chart_punto_sociales_${token_symbol}`)
-                // config about sentiment info
-                let endpoint_sentiment_info = API.endpoint_sentiment_info(config_app.data_source.cryptocompare.api_key, token_symbol)
-                console.log(endpoint_sentiment_info)
-                let sentiment_info = await API.sentiment_info(endpoint_sentiment_info)
-                console.log(sentiment_info)
+                
             })
             // cuando se preione el boton cerrar del modal con los charts detallados, borrar el contenedor de esos graficos
             let btn_cerrar_modal_info_cripto = document.querySelector("#btn_cerrar_modal_info_cripto")

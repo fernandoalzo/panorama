@@ -402,7 +402,7 @@ export async function crear_canvas_detailed_info(chart_id) {
     return chart_detailed_info
 }
 //funcion para crear los detaales graficos del activo
-export async function create_detailed_charts(token_symbol) {
+export async function create_detailed_charts(token_symbol, sentiment_info) {
     let seccion_charts_precio_volumen = document.querySelector("#seccion_charts_precio_volumen")
     // check if contenedor_charts_precio_volumen exists, if exists remove then.
     let check_contenedor_charts_precio_volumen = document.querySelector("#contenedor_charts_precio_volumen")
@@ -455,25 +455,25 @@ export async function create_detailed_charts(token_symbol) {
     let td_addressesNetGrowth = document.createElement("td")
     let label_addressesNetGrowth = document.createTextNode("addressesNetGrowth")
     let td_addressesNetGrowth_value = document.createElement("td")
-    let addressesNetGrowth = document.createTextNode("addressesNetGrowth")
+    let addressesNetGrowth = document.createTextNode(sentiment_info.addressesNetGrowth.score)
     // largetxsVar
     let tr_largetxsVar = document.createElement("tr")
     let td_largetxsVar = document.createElement("td")
     let label_largetxsVar = document.createTextNode("largetxsVar")
     let td_largetxsVar_ = document.createElement("td")
-    let largetxsVar = document.createTextNode("largetxsVar")
+    let largetxsVar = document.createTextNode(sentiment_info.largetxsVar.score)
     // concentrationVar
     let tr_concentrationVar = document.createElement("tr")
     let td_concentrationVar = document.createElement("td")
     let label_concentrationVar = document.createTextNode("concentrationVar")
     let td_sentiment_concentrationVar= document.createElement("td")
-    let concentrationVar = document.createTextNode("concentrationVar")
+    let concentrationVar = document.createTextNode(sentiment_info.concentrationVar.score)
     // inOutVar
     let tr_inOutVar = document.createElement("tr")
     let td_inOutVar = document.createElement("td")
     let label_inOutVar = document.createTextNode("inOutVar")
     let td_sentiment_inOutVar = document.createElement("td")
-    let inOutVar = document.createTextNode("inOutVar")
+    let inOutVar = document.createTextNode(sentiment_info.inOutVar.score)
     // td addressesNetGrowth
     td_addressesNetGrowth.append(label_addressesNetGrowth)
     td_addressesNetGrowth_value.append(addressesNetGrowth)
